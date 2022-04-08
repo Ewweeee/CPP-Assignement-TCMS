@@ -7,91 +7,22 @@
 
 using namespace std;
 int tutorID;
-TuitionCenter center;
-//User access structure - implemented for user login
-struct Access {
-	int userCode;
-	string userType;
-	string credentials;
-	string branch = center.branch;
-	//Admin & HR branch = HeadQuarter
-};
-
-//Tutor Structure - to store tutor's information (Linked List)
-struct Tutor {
-	int tutorID;
-	string firstName;
-	string lastName;
-	string dateJoined;
-	string dateTerminated;
-	double hourlyRate;
-	string phoneNumber;
-	string address;
-	TuitionCenter center;
-	int subjectCode;
-	string subjectName;
-	int rating;
-	struct Tutor* nextAddress;
-	struct Tutor* previousAddress;
-
-	//Tutor's Default Constructor
-	Tutor()
-	{
-		cout << "Tutor" << endl;
-	}
-
-	//Tutor's User-defined Constructor
-	Tutor(int tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
-		string address, struct TuitionCenter center, int subjectCode, string subjectName, int rating)
-	{
-		this->tutorID = tutorID;
-		this->firstName = firstName;
-		this->lastName = lastName;
-		this->dateJoined = dateJoined;
-		this->dateTerminated = dateTerminated;
-		this->hourlyRate = hourlyRate;
-		this->phoneNumber = phoneNumber;
-		this->center = center;
-		this->subjectCode = subjectCode;
-		this->subjectName = subjectName;
-		this->rating = rating;
-	}
-
-	// Tutor ID : Branch Char + Auto Generated
-	// B001 Abu bUKIT jALIL
-	// C001 Aba CH
-	// C002 Bud CH
-	// K003 CAT KL
-	// P004 ACA PU
-
-
-	//Tutor's Destructor
-	~Tutor()
-	{
-		cout << "Tutor " << tutorID << "is added successfully." << endl;
-	}
-
-	//Tutor's Methods
-	string getphoneNumber() {
-		return phoneNumber;
-	}
-
-	void setphoneNumber(string phoneNumber) {
-		this->phoneNumber = phoneNumber;
-	}
-
-	void displayTutor() {
-		cout << "New tutor is added successfully." << endl;
-		cout << "Tutor ID :  " << tutorID << endl;
-		cout << "Tutor Name : " << tutorID << endl;
-	}
-};
 
 //Tuition Center Structure - indicates various locations
 struct TuitionCenter {
 	int centerCode;
 	string centerName;
 	string branch;
+};
+
+//User access structure - implemented for user login
+struct Access {
+	int userCode;
+	string userType;
+	string credentials;
+	TuitionCenter center;
+	string branch = center.branch;
+	//Admin & HR branch = HeadQuarter
 };
 
 //Tutor Structure - to store tutor's information (Array)
@@ -157,7 +88,7 @@ void initialize_records() {
 }
 
 void display_ascending(int lastIndex) {
-	system("CLS");
+	/*system("CLS");*/
 	/*formating for the title for details of tutor*/
 	cout << "\t| TUTOR DETAILS |" << endl << endl;
 	cout << "|TUTOR ID|" << setw(3) << "FIRST NAME|" << setw(3) << "LAST NAME|" << setw(3) << "DATE JOINED|";

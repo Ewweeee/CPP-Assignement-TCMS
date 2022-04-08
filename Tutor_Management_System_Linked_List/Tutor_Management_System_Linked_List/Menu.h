@@ -55,6 +55,29 @@ void displayTutorMenu() {
 	cout << endl;
 }
 
+void displayLocationMenu() {
+
+	/*Tuition Center Location selection*/
+	cout << "Please Select ONE Choice From The Available Selection : " << string(20, ' ') << endl << endl;
+	cout << "1. Bukit Jalil" << endl;
+	cout << "2. Puchong" << endl;
+	cout << "3. Cheras" << endl;
+	cout << "4. Kajang" << endl;
+	cout << endl;
+}
+
+void displaySubjectMenu() {
+
+	/*Tuition Center Location selection*/
+	cout << "Please Select ONE Choice From The Available Selection : " << string(20, ' ') << endl << endl;
+	cout << "1. English" << endl;
+	cout << "2. Malay" << endl;
+	cout << "3. Chinese" << endl;
+	cout << "4. Science" << endl;
+	cout << "5. Maths" << endl;
+	cout << endl;
+}
+
 void displayExitMenu() {
 	string choice;
 	cout << "Are You Sure To Exit The Program ? (Y/N)" << endl;

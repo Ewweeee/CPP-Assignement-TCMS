@@ -4,15 +4,33 @@
 #include <iostream>
 using namespace std;
 
+//Tuition Center Structure - indicates various locations
+struct TuitionCenter {
+	int centerCode;
+	string centerName;
+	string branch;
+};
+
 //User access structure - implemented for user login
 struct Access {
 	int userCode;
 	string userType;
 	string credentials;
+	TuitionCenter center;
+	string branch = center.branch;
+	//Admin & HR branch = HeadQuarter
 };
 
 //Tutor Structure - to store tutor's information (Linked List)
 struct Tutor {
+	//Example
+	// Tutor ID : Branch Char + Auto Generated
+	// B001 Abu bUKIT jALIL
+	// C001 Aba CH
+	// C002 Bud CH
+	// K003 CAT KL
+	// P004 ACA PU
+
 	int tutorID;
 	string firstName;
 	string lastName;
@@ -22,6 +40,7 @@ struct Tutor {
 	string phoneNumber;
 	string address;
 	TuitionCenter center;
+	string branch = center.branch;
 	int subjectCode;
 	string subjectName;
 	int rating;
@@ -71,28 +90,4 @@ struct Tutor {
 		cout << "Tutor ID :  " << tutorID << endl;
 		cout << "Tutor Name : " << tutorID << endl;
 	}
-};
-
-//Tutor Structure - to store tutor's information (Array)
-struct Tutor {
-	int tutorID;
-	string firstName;
-	string lastName;
-	string dateJoined;
-	string	dateTerminated;
-	double hourlyRate;
-	string phoneNumber;
-	string address;
-	struct TuitionCenter center;
-	int subjectCode;
-	string subjectName;
-	int rating;
-};
-struct Tutor allTutors[100];
-
-//Tuition Center Structure - indicates various locations
-struct TuitionCenter {
-	int centerCode;
-	string centerName;
-	string location;
 };
