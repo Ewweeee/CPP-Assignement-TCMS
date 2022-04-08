@@ -15,6 +15,17 @@ void displayLoginMenu() {
 	cout << endl;
 }
 
+void displayUserType() {
+	cout << string(82, '=') << endl;
+	cout << "|" << string(20, ' ') << "Please Select ONE User Type From The Menu" << string(19, ' ') << "|" << endl;
+	cout << string(82, '=') << endl;
+	/*User Type selection*/
+	cout << "1. Admin" << endl;
+	cout << "2. HR" << endl;
+	cout << "3. Tutor" << endl;
+	cout << endl;
+}
+
 void displayAdminMenu() {
 	cout << string(82, '=') << endl;
 	cout << "|" << string(35, ' ') << "ADMIN MENU" << string(35, ' ') << "|" << endl;
@@ -74,7 +85,7 @@ void displaySubjectMenu() {
 	cout << "2. Malay" << endl;
 	cout << "3. Chinese" << endl;
 	cout << "4. Science" << endl;
-	cout << "5. Maths" << endl;
+	cout << "5. Mathematics" << endl;
 	cout << endl;
 }
 

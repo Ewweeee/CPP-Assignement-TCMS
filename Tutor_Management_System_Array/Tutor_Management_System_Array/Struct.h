@@ -17,12 +17,13 @@ struct TuitionCenter {
 
 //User access structure - implemented for user login
 struct Access {
-	int userCode;
+	//Access can be store as static variables, store in heap (+ pointer)
+	//Choice 1 / 2 : Come here
+	//Else go to tutor struct check ID and credentials
+	//Change this
+	string userCode;
 	string userType;
 	string credentials;
-	TuitionCenter center;
-	string branch = center.branch;
-	//Admin & HR branch = HeadQuarter
 };
 
 //Tutor Structure - to store tutor's information (Array)
@@ -35,6 +36,7 @@ struct Tutor {
 	double hourlyRate;
 	string phoneNumber;
 	string address;
+	string credential;
 	TuitionCenter center;
 	string branch = center.branch;
 	string subjectCode;
@@ -56,6 +58,7 @@ void initialize_records() {
 	allTutors[0].subjectName = "Chinese";
 	allTutors[0].phoneNumber = "601975623245";
 	allTutors[0].address = "Jln 24, Taman Putra, Bukit Jalil";
+	allTutors[0].credential = "ILOVEAPU";
 	allTutors[0].rating = 4;
 
 	allTutors[1].tutorID = 2;
@@ -70,6 +73,7 @@ void initialize_records() {
 	allTutors[1].subjectName = "English";
 	allTutors[1].phoneNumber = "601782635467";
 	allTutors[1].address = "Connaught Avenue, Taman Connaught, Cheras";
+	allTutors[0].credential = "ILOVEAPU";
 	allTutors[1].rating = 5;
 
 	allTutors[2].tutorID = 3;
@@ -84,21 +88,21 @@ void initialize_records() {
 	allTutors[2].subjectName = "Malay";
 	allTutors[2].phoneNumber = "601822654371";
 	allTutors[2].address = "BK5 Desiran Bandar Kinrara, Puchong";
+	allTutors[0].credential = "ILOVEAPU";
 	allTutors[2].rating = 3;
 }
 
 void display_ascending(int lastIndex) {
-	/*system("CLS");*/
-	/*formating for the title for details of tutor*/
 	cout << "\t| TUTOR DETAILS |" << endl << endl;
 	cout << "|TUTOR ID|" << setw(3) << "FIRST NAME|" << setw(3) << "LAST NAME|" << setw(3) << "DATE JOINED|";
 	cout << setw(3) << "DATE TERMINATED|" << setw(3) << "PAY|" << setw(3) << "CENTRE CODE|" << setw(3) << "CENTRE LOCATION|";
 	cout << setw(3) << "CENTRE NAME|" << setw(3) << "SUB CODE|" << setw(3) << "SUB NAME|" << setw(3) << "PHONE NUM|";
 	cout << setw(3) << "ADDRESS|" << setw(3) << "RATINGS | " << endl;
 	int i = 0;
-	/*while index is lesser or equals to last index display tutor details*/
+
+
 	while (i <= lastIndex) {
-		/*check if tutor ID in the index is not null*/
+		//Validatation 1 : Check whether array is empty or not
 		if (allTutors[i].tutorID != NULL) {
 			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
 			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
@@ -111,11 +115,11 @@ void display_ascending(int lastIndex) {
 		}
 		i++;
 	}
-	/*press enter to leave the current function*/
-	cout << "	PRESS ENTER TO LEAVE ......" << endl;
+	//Returning Back To Main Menu (PRESS ENTER)
+	cout << setw(10) << "......PRESS ENTER TO LEAVE ......" << endl;
 	cout << "	"; cin.get();
 	if (cin.get() == '\n') {
-		cout << "	EXITING BACK TO MAIN MENU	" << endl;
+		cout << "......Going Back To Menu ......" << endl;
 		Sleep(2000);
 		system("CLS");
 	}

@@ -13,19 +13,20 @@ struct TuitionCenter {
 
 //User access structure - implemented for user login
 struct Access {
-	int userCode;
+	//Access can be store as static variables, store in heap (+ pointer)
+	//Choice 1 / 2 : Come here
+	//Else go to tutor struct check ID and credentials
+	//Change this
+	string userCode;
 	string userType;
 	string credentials;
-	TuitionCenter center;
-	string branch = center.branch;
-	//Admin & HR branch = HeadQuarter
 };
 
 //Tutor Structure - to store tutor's information (Linked List)
 struct Tutor {
 	//Example
 	// Tutor ID : Branch Char + Auto Generated
-	// B001 Abu bUKIT jALIL
+	// B001 Abu Bukit Jalil
 	// C001 Aba CH
 	// C002 Bud CH
 	// K003 CAT KL
@@ -39,6 +40,7 @@ struct Tutor {
 	double hourlyRate;
 	string phoneNumber;
 	string address;
+	string credential;
 	TuitionCenter center;
 	string branch = center.branch;
 	int subjectCode;
@@ -55,7 +57,7 @@ struct Tutor {
 
 	//Tutor's User-defined Constructor
 	Tutor(int tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
-		string address, struct TuitionCenter center, int subjectCode, string subjectName, int rating)
+		string address, string credential, string branch, int subjectCode, string subjectName, int rating)
 	{
 		this->tutorID = tutorID;
 		this->firstName = firstName;
@@ -64,7 +66,9 @@ struct Tutor {
 		this->dateTerminated = dateTerminated;
 		this->hourlyRate = hourlyRate;
 		this->phoneNumber = phoneNumber;
-		this->center = center;
+		this->address = address;
+		this->credential = credential;
+		this->branch = branch;
 		this->subjectCode = subjectCode;
 		this->subjectName = subjectName;
 		this->rating = rating;
