@@ -39,9 +39,125 @@ struct Tutor {
 	string credential;
 	TuitionCenter center;
 	string branch = center.branch;
-	string subjectCode;
+	int subjectCode;
 	string subjectName;
 	int rating;
+
+	//Tutor's User-defined Constructor
+	Tutor(int tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
+		string address, string credential, string branch, int subjectCode, string subjectName, int rating)
+	{
+		tutorID = tutorID;
+		firstName = firstName;
+		lastName = lastName;
+		dateJoined = dateJoined;
+		dateTerminated = dateTerminated;
+		hourlyRate = hourlyRate;
+		phoneNumber = phoneNumber;
+		address = address;
+		credential = credential;
+		branch = branch;
+		subjectCode = subjectCode;
+		subjectName = subjectName;
+		rating = rating;
+	}
+
+	//Tutor's Methods
+	int getTutorID() {
+		return tutorID;
+	}
+
+	void setTutorID(int tutorID) {
+		tutorID = tutorID;
+	}
+
+	string getFirstName() {
+		return firstName;
+	}
+
+	void setFirstName(string firstName) {
+		firstName = firstName;
+	}
+
+	string getLastName() {
+		return lastName;
+	}
+
+	void setLastName(string firstName) {
+		lastName = lastName;
+	}
+
+	string getDateJoined() {
+		return dateJoined;
+	}
+
+	string getDateTerminated() {
+		return dateTerminated;
+	}
+
+	void setDateTerminated(string dateTerminated) {
+		dateTerminated = dateTerminated;
+	}
+
+	double getHourlyRate() {
+		return hourlyRate;
+	}
+
+	void setHourlyRate(double hourlyRate) {
+		hourlyRate = hourlyRate;
+	}
+
+	string getphoneNumber() {
+		return phoneNumber;
+	}
+
+	void setphoneNumber(string phoneNumber) {
+		phoneNumber = phoneNumber;
+	}
+
+	string getAddress() {
+		return address;
+	}
+
+	void setAddress() {
+		address = address;
+	}
+
+	string getCredential() {
+		return credential;
+	}
+
+	void setCredential(string credential) {
+		credential = credential;
+	}
+
+	string getBranch() {
+		return branch;
+	}
+
+	void setBranch(string branch) {
+		branch = branch;
+	}
+
+	int getSubjectCode() {
+		return subjectCode;
+	}
+
+	void setSubjectCode(int subjectCode) {
+		subjectCode = subjectCode;
+	}
+
+	string getSubjectName() {
+		return subjectName;
+	}
+
+	void setSubjectName(string subjectName) {
+		subjectName = subjectName;
+	}
+
+	int getRating() {
+		return rating;
+	}
 };
 struct Tutor allTutors[30]; // Have to change to 30 
 

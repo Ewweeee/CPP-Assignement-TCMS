@@ -81,6 +81,50 @@ struct Tutor {
 	}
 
 	//Tutor's Methods
+	int getTutorID() {
+		return tutorID;
+	}
+
+	void setTutorID(int tutorID) {
+		this->tutorID = tutorID;
+	}
+
+	string getFirstName() {
+		return firstName;
+	}
+
+	void setFirstName(string firstName) {
+		this->firstName = firstName;
+	}
+
+	string getLastName() {
+		return lastName;
+	}
+
+	void setLastName(string firstName) {
+		this->lastName = lastName;
+	}
+
+	string getDateJoined() {
+		return dateJoined;
+	}
+
+	string getDateTerminated() {
+		return dateTerminated;
+	}
+
+	void setDateTerminated(string dateTerminated) {
+		this->dateTerminated = dateTerminated;
+	}
+
+	double getHourlyRate() {
+		return hourlyRate;
+	}
+
+	void setHourlyRate(double hourlyRate) {
+		this->hourlyRate = hourlyRate;
+	}
+
 	string getphoneNumber() {
 		return phoneNumber;
 	}
@@ -88,6 +132,53 @@ struct Tutor {
 	void setphoneNumber(string phoneNumber) {
 		this->phoneNumber = phoneNumber;
 	}
+
+	string getAddress() {
+		return address;
+	}
+
+	void setAddress() {
+		this->address = address;
+	}
+
+	string getCredential() {
+		return credential;
+	}
+
+	void setCredential(string credential) {
+		this->credential = credential;
+	}
+
+	string getBranch() {
+		return branch;
+	}
+
+	void setBranch(string branch) {
+		this->branch = branch;
+	}
+
+	int getSubjectCode() {
+		return subjectCode;
+	}
+
+	void setSubjectCode(int subjectCode) {
+		this->subjectCode = subjectCode;
+	}
+
+	string getSubjectName() {
+		return subjectName;
+	}
+
+	void setSubjectName(string subjectName) {
+		this->subjectName = subjectName;
+	}
+
+	int getRating() {
+		return rating;
+	}
+
+
+
 
 	void displayTutor() {
 		cout << "New tutor is added successfully." << endl;
