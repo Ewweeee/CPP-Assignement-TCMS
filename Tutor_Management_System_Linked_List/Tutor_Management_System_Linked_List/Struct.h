@@ -59,19 +59,19 @@ struct Tutor {
 	Tutor(int tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
 		string address, string credential, string branch, int subjectCode, string subjectName, int rating)
 	{
-		this->tutorID = tutorID;
-		this->firstName = firstName;
-		this->lastName = lastName;
-		this->dateJoined = dateJoined;
-		this->dateTerminated = dateTerminated;
-		this->hourlyRate = hourlyRate;
-		this->phoneNumber = phoneNumber;
-		this->address = address;
-		this->credential = credential;
-		this->branch = branch;
-		this->subjectCode = subjectCode;
-		this->subjectName = subjectName;
-		this->rating = rating;
+		this->tutorID = tutorID;//get set
+		this->firstName = firstName;//get set
+		this->lastName = lastName; //get set
+		this->dateJoined = dateJoined; //get
+		this->dateTerminated = dateTerminated; //get set
+		this->hourlyRate = hourlyRate;//get set
+		this->phoneNumber = phoneNumber;//get set
+		this->address = address;//get set
+		this->credential = credential;//get set
+		this->branch = branch; //get set
+		this->subjectCode = subjectCode;//get set
+		this->subjectName = subjectName; //get set
+		this->rating = rating;//get
 	}
 
 	//Tutor's Destructor

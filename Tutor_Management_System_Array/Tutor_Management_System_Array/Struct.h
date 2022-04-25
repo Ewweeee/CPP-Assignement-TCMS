@@ -43,7 +43,7 @@ struct Tutor {
 	string subjectName;
 	int rating;
 };
-struct Tutor allTutors[100];
+struct Tutor allTutors[30]; // Have to change to 30 
 
 void initialize_records() {
 	allTutors[0].tutorID = 1;
@@ -73,7 +73,7 @@ void initialize_records() {
 	allTutors[1].subjectName = "English";
 	allTutors[1].phoneNumber = "601782635467";
 	allTutors[1].address = "Connaught Avenue, Taman Connaught, Cheras";
-	allTutors[0].credential = "ILOVEAPU";
+	allTutors[1].credential = "ILOVEAPU";
 	allTutors[1].rating = 5;
 
 	allTutors[2].tutorID = 3;
@@ -88,7 +88,7 @@ void initialize_records() {
 	allTutors[2].subjectName = "Malay";
 	allTutors[2].phoneNumber = "601822654371";
 	allTutors[2].address = "BK5 Desiran Bandar Kinrara, Puchong";
-	allTutors[0].credential = "ILOVEAPU";
+	allTutors[2].credential = "ILOVEAPU";
 	allTutors[2].rating = 3;
 }
 

@@ -24,6 +24,8 @@ void DeleteTutor();
 void GenerateReport();
 void sort_display_record();
 void search_record();
+
+void search_by_rating();
 void exit_sys();
 
 void CheckTutor() {
