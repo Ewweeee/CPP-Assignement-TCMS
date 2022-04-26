@@ -22,6 +22,7 @@ struct Access {
 	string credentials;
 };
 
+
 //Tutor Structure - to store tutor's information (Linked List)
 struct Tutor {
 	//Example
@@ -31,8 +32,7 @@ struct Tutor {
 	// C002 Bud CH
 	// K003 CAT KL
 	// P004 ACA PU
-
-	int tutorID;
+	string tutorID;
 	string firstName;
 	string lastName;
 	string dateJoined;
@@ -43,7 +43,7 @@ struct Tutor {
 	string credential;
 	TuitionCenter center;
 	string branch = center.branch;
-	int subjectCode;
+	string subjectCode;
 	string subjectName;
 	int rating;
 	struct Tutor* nextAddress;
@@ -56,8 +56,7 @@ struct Tutor {
 	}
 
 	//Tutor's User-defined Constructor
-	Tutor(int tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
-		string address, string credential, string branch, int subjectCode, string subjectName, int rating)
+	Tutor(string tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber, string address, string credential, string branch, string subjectCode, string subjectName, int rating)
 	{
 		this->tutorID = tutorID;//get set
 		this->firstName = firstName;//get set
@@ -81,12 +80,12 @@ struct Tutor {
 	}
 
 	//Tutor's Methods
-	int getTutorID() {
+	string getTutorID() {
 		return tutorID;
 	}
 
-	void setTutorID(int tutorID) {
-		this->tutorID = tutorID;
+	void setTutorID(string tutorID) {
+		tutorID = tutorID;
 	}
 
 	string getFirstName() {
@@ -94,7 +93,7 @@ struct Tutor {
 	}
 
 	void setFirstName(string firstName) {
-		this->firstName = firstName;
+		firstName = firstName;
 	}
 
 	string getLastName() {
@@ -102,7 +101,7 @@ struct Tutor {
 	}
 
 	void setLastName(string firstName) {
-		this->lastName = lastName;
+		lastName = lastName;
 	}
 
 	string getDateJoined() {
@@ -114,7 +113,7 @@ struct Tutor {
 	}
 
 	void setDateTerminated(string dateTerminated) {
-		this->dateTerminated = dateTerminated;
+		dateTerminated = dateTerminated;
 	}
 
 	double getHourlyRate() {
@@ -122,7 +121,7 @@ struct Tutor {
 	}
 
 	void setHourlyRate(double hourlyRate) {
-		this->hourlyRate = hourlyRate;
+		hourlyRate = hourlyRate;
 	}
 
 	string getphoneNumber() {
@@ -130,7 +129,7 @@ struct Tutor {
 	}
 
 	void setphoneNumber(string phoneNumber) {
-		this->phoneNumber = phoneNumber;
+		phoneNumber = phoneNumber;
 	}
 
 	string getAddress() {
@@ -138,7 +137,7 @@ struct Tutor {
 	}
 
 	void setAddress() {
-		this->address = address;
+		address = address;
 	}
 
 	string getCredential() {
@@ -146,7 +145,7 @@ struct Tutor {
 	}
 
 	void setCredential(string credential) {
-		this->credential = credential;
+		credential = credential;
 	}
 
 	string getBranch() {
@@ -154,15 +153,15 @@ struct Tutor {
 	}
 
 	void setBranch(string branch) {
-		this->branch = branch;
+		branch = branch;
 	}
 
-	int getSubjectCode() {
+	string getSubjectCode() {
 		return subjectCode;
 	}
 
-	void setSubjectCode(int subjectCode) {
-		this->subjectCode = subjectCode;
+	void setSubjectCode(string subjectCode) {
+		subjectCode = subjectCode;
 	}
 
 	string getSubjectName() {
@@ -170,16 +169,15 @@ struct Tutor {
 	}
 
 	void setSubjectName(string subjectName) {
-		this->subjectName = subjectName;
+		subjectName = subjectName;
 	}
 
 	int getRating() {
 		return rating;
 	}
 
-
 	void setRating(int rating) {
-		this->rating = rating;
+		rating = rating;
 	}
 
 	void addTutor() {

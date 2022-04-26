@@ -74,7 +74,7 @@ struct Tutor {
 		return tutorID;
 	}
 
-	void setTutorID(int tutorID) {
+	void setTutorID(string tutorID) {
 		tutorID = tutorID;
 	}
 
@@ -150,7 +150,7 @@ struct Tutor {
 		return subjectCode;
 	}
 
-	void setSubjectCode(int subjectCode) {
+	void setSubjectCode(string subjectCode) {
 		subjectCode = subjectCode;
 	}
 
