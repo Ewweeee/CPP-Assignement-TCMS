@@ -23,12 +23,13 @@ struct Access {
 	//Change this
 	string userCode;
 	string userType;
+	string branch;
 	string credentials;
 };
 
 //Tutor Structure - to store tutor's information (Array)
 struct Tutor {
-	int tutorID;
+	string tutorID;
 	string firstName;
 	string lastName;
 	string dateJoined;
@@ -39,13 +40,19 @@ struct Tutor {
 	string credential;
 	TuitionCenter center;
 	string branch = center.branch;
-	int subjectCode;
+	string subjectCode;
 	string subjectName;
 	int rating;
 
+	//Tutor's Default Constructor
+	Tutor()
+	{
+		//cout << "Tutor" << endl;
+	}
+
 	//Tutor's User-defined Constructor
-	Tutor(int tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
-		string address, string credential, string branch, int subjectCode, string subjectName, int rating)
+	Tutor(string tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
+		string address, string credential, string branch, string subjectCode, string subjectName, int rating)
 	{
 		tutorID = tutorID;
 		firstName = firstName;
@@ -63,7 +70,7 @@ struct Tutor {
 	}
 
 	//Tutor's Methods
-	int getTutorID() {
+	string getTutorID() {
 		return tutorID;
 	}
 
@@ -139,7 +146,7 @@ struct Tutor {
 		branch = branch;
 	}
 
-	int getSubjectCode() {
+	string getSubjectCode() {
 		return subjectCode;
 	}
 
@@ -158,11 +165,15 @@ struct Tutor {
 	int getRating() {
 		return rating;
 	}
-};
-struct Tutor allTutors[30]; // Have to change to 30 
 
-void initialize_records() {
-	allTutors[0].tutorID = 1;
+	void setRating(int rating) {
+		rating = rating;
+	}
+};
+struct Tutor allTutors[30];
+
+void initializeRecords() {
+	allTutors[0].tutorID = "B001";
 	allTutors[0].firstName = "Chan";
 	allTutors[0].lastName = "Hong Xian";
 	allTutors[0].dateJoined = "23 / 06 / 2013";
@@ -177,7 +188,7 @@ void initialize_records() {
 	allTutors[0].credential = "ILOVEAPU";
 	allTutors[0].rating = 4;
 
-	allTutors[1].tutorID = 2;
+	allTutors[1].tutorID = "C001";
 	allTutors[1].firstName = "Tan";
 	allTutors[1].lastName = "Xin Qian";
 	allTutors[1].dateJoined = "20 / 05 / 2012";
@@ -192,14 +203,14 @@ void initialize_records() {
 	allTutors[1].credential = "ILOVEAPU";
 	allTutors[1].rating = 5;
 
-	allTutors[2].tutorID = 3;
+	allTutors[2].tutorID = "P001";
 	allTutors[2].firstName = "Yew";
 	allTutors[2].lastName = "Ming Yao";
 	allTutors[2].dateJoined = "20 / 11 / 2015";
 	allTutors[2].hourlyRate = 45;
 	allTutors[2].center.centerCode = 1003;
-	allTutors[2].center.centerName = "eXcel Tuition Centre Puchong";
-	allTutors[2].center.branch = "Puchong";
+	allTutors[2].center.centerName = "eXcel Tuition Centre Petaling Jaya";
+	allTutors[2].center.branch = "Petaling Jaya";
 	allTutors[2].subjectCode = "MLY";
 	allTutors[2].subjectName = "Malay";
 	allTutors[2].phoneNumber = "601822654371";
@@ -208,7 +219,7 @@ void initialize_records() {
 	allTutors[2].rating = 3;
 }
 
-void display_ascending(int lastIndex) {
+void displayAllRecords(int lastIndex) {
 	cout << "\t| TUTOR DETAILS |" << endl << endl;
 	cout << "|TUTOR ID|" << setw(3) << "FIRST NAME|" << setw(3) << "LAST NAME|" << setw(3) << "DATE JOINED|";
 	cout << setw(3) << "DATE TERMINATED|" << setw(3) << "PAY|" << setw(3) << "CENTRE CODE|" << setw(3) << "CENTRE LOCATION|";
@@ -216,10 +227,9 @@ void display_ascending(int lastIndex) {
 	cout << setw(3) << "ADDRESS|" << setw(3) << "RATINGS | " << endl;
 	int i = 0;
 
-
 	while (i <= lastIndex) {
 		//Validatation 1 : Check whether array is empty or not
-		if (allTutors[i].tutorID != NULL) {
+		if (!allTutors[i].tutorID.empty()) {
 			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
 			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
 			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
@@ -241,3 +251,34 @@ void display_ascending(int lastIndex) {
 	}
 }
 
+void displayAllRecords(int lastIndex, string branch) {
+	cout << "\t| TUTOR DETAILS |" << endl << endl;
+	cout << "|TUTOR ID|" << setw(3) << "FIRST NAME|" << setw(3) << "LAST NAME|" << setw(3) << "DATE JOINED|";
+	cout << setw(3) << "DATE TERMINATED|" << setw(3) << "PAY|" << setw(3) << "CENTRE CODE|" << setw(3) << "CENTRE LOCATION|";
+	cout << setw(3) << "CENTRE NAME|" << setw(3) << "SUB CODE|" << setw(3) << "SUB NAME|" << setw(3) << "PHONE NUM|";
+	cout << setw(3) << "ADDRESS|" << setw(3) << "RATINGS | " << endl;
+	int i = 0;
+
+	while (i <= lastIndex && allTutors[i].getBranch() == branch) {
+		//Validatation: Check whether array is empty or not
+		if (!allTutors[i].tutorID.empty()) {
+			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
+			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
+			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
+			cout << setw(3) << allTutors[i].center.centerName;
+			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
+			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
+			cout << setw(3) << allTutors[i].rating;
+			cout << endl;
+		}
+		i++;
+	}
+	//Returning Back To Main Menu (PRESS ENTER)
+	cout << setw(10) << "......PRESS ENTER TO LEAVE ......" << endl;
+	cout << "	"; cin.get();
+	if (cin.get() == '\n') {
+		cout << "......Going Back To Menu ......" << endl;
+		Sleep(2000);
+		system("CLS");
+	}
+}

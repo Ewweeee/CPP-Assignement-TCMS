@@ -178,11 +178,13 @@ struct Tutor {
 	}
 
 
+	void setRating(int rating) {
+		this->rating = rating;
+	}
 
-
-	void displayTutor() {
+	void addTutor() {
 		cout << "New tutor is added successfully." << endl;
 		cout << "Tutor ID :  " << tutorID << endl;
 		cout << "Tutor Name : " << tutorID << endl;
 	}
-};
+}*head, *tail;
