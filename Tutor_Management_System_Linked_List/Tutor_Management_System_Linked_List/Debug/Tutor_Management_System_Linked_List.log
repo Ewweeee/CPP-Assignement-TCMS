@@ -1,2 +1,4 @@
 ﻿  TMS.cpp
-  Tutor_Management_System_Linked_List.vcxproj -> C:\Users\eweli\Documents\CPP-Assignement-TCMS\Tutor_Management_System_Linked_List\Debug\Tutor_Management_System_Linked_List.exe
+C:\Users\User\Documents\GitHub\CPP-Assignement-TCMS\Tutor_Management_System_Linked_List\Tutor_Management_System_Linked_List\TMS.cpp(226,6): warning C4101: 'rating': unreferenced local variable
+  LINK : C:\Users\User\Documents\GitHub\CPP-Assignement-TCMS\Tutor_Management_System_Linked_List\Debug\Tutor_Management_System_Linked_List.exe not found or not built by the last incremental link; performing full link
+  Tutor_Management_System_Linked_List.vcxproj -> C:\Users\User\Documents\GitHub\CPP-Assignement-TCMS\Tutor_Management_System_Linked_List\Debug\Tutor_Management_System_Linked_List.exe

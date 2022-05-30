@@ -4,6 +4,9 @@
 #include <iostream>
 using namespace std;
 
+//global variable
+int sizeofLinkedList = 0;
+
 //Tuition Center Structure - indicates various locations
 struct TuitionCenter {
 	int centerCode;

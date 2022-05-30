@@ -16,17 +16,99 @@ void checkLogin();
 //Check Whether There Is Slots Available
 void checkVacantSlot();
 
-//Add New Tutor Record
-void addTutor();
+//Add New Tutor Record (inserting node into end of list)
+void addTutor(Tutor* newnode)
+{
+	if (head == NULL)
+	{
+		head = tail = newnode;
+	}
+	else
+	{
+		newnode->previousAddress = tail;
+		tail->nextAddress = newnode;
+		tail = newnode;
+	}
+	::sizeofLinkedList++;
+}
 
 //Modify Tutor Record
 void modifyTutor();
 
-//Delete Tutor Record
-void deleteTutor();
+//Delete Tutor Record (delete based on keyword)
+void deleteTutor(string TutorID)
+{
+	//list is empty
+	if (head == NULL)
+	{
+		cout << "Empty list!" << endl;
+		return;
+	}
+	//head tutorID is the one to be deleted
+	else if (head->tutorID == TutorID)
+	{
+		Tutor* current = head;
+		head = head->nextAddress;
+		cout << "Records to be deleted:-";
+		cout << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+			<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
+			<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
+			<< current->rating << endl << endl;
+		cout << TutorID << " is deleted from the list!" << endl;
+		delete current;
+		::sizeofLinkedList--;
+		return;
+	}
+	//tutorID to be deleted is not at first place
+	else
+	{
+		Tutor* current = head->nextAddress;
+		Tutor* previous = head;
+
+		while (current != NULL)
+		{
+			if (current->tutorID == TutorID)
+			{
+				cout << "Records to be deleted:-";
+				cout << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+					<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
+					<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
+					<< current->rating << endl << endl;
+				previous->nextAddress = current->nextAddress;
+				cout << TutorID << "is deleted from the list!" << endl;
+				delete current;
+				::sizeofLinkedList--;
+				return;
+			}
+			previous = current;
+			current = current->nextAddress;
+		}
+		cout << "Tutor ID " << TutorID << " is not found in the list!" << endl;
+	}
+}
 
 //Sort Records By Tutor ID / Hourly Rate / Overall Performance
-void sortByTutorID();
+void searchByTutorID(string keyword)
+{
+	Tutor* current = head;
+	int count = 1;	//list number
+	int position = 1;
+
+	while (current != NULL)
+	{
+		if ((current->tutorID).find(keyword) != string::npos)	//string::npos---> substring
+		{
+			cout << count << ". " << position << " - " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+				<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
+				<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
+				<< current->rating << endl;
+			count++;
+		}
+		position++;
+		current = current->nextAddress;
+	}
+	cout << endl << "Searching is done here!" << endl;
+}
 
 void sortByHourlyRate();
 
@@ -83,15 +165,172 @@ void generateReport() {
 	}
 }
 
+//Display Tutor List
+void displayList()
+{
+	Tutor* current = head;
+
+	while (current != NULL)
+	{
+		cout << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+			<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
+			<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
+			<< current->rating << endl << endl;
+
+		current = current->nextAddress;
+	}
+	cout << endl << "List is ended here!" << endl << endl;
+}
+
+//Create new node for predefined tutor listings
+Tutor* CreateNewNode(string tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
+	string address, string credential, string branch, string subjectCode, string subjectName, int rating)
+{
+	Tutor* newnode = new Tutor;
+	newnode->tutorID = tutorID;
+	newnode->firstName = firstName;
+	newnode->lastName = lastName;
+	newnode->dateJoined = dateJoined;
+	newnode->dateTerminated = dateTerminated;
+	newnode->hourlyRate = hourlyRate;
+	newnode->phoneNumber = phoneNumber;
+	newnode->address = address;
+	newnode->credential = credential;
+	newnode->branch = branch;
+	newnode->subjectCode = subjectCode;
+	newnode->subjectName = subjectName;
+	newnode->rating = rating;
+	newnode->previousAddress = NULL;
+	newnode->nextAddress = NULL;
+	return newnode;
+}
+
 int main() {
+
+	head = NULL;
+
+	//variables to be input
+	string tutorID;
+	string firstName;
+	string lastName;
+	string dateJoined;
+	string dateTerminated;
+	double hourlyRate;
+	string phoneNumber;
+	string address;
+	string credential;
+	TuitionCenter center;
+	string branch = center.branch;
+	string subjectCode;
+	string subjectName;
+	int rating;
+
+	int choice = 1;
+
+	Tutor* newnode = CreateNewNode("C0001", "Ali", "Bakar", "30/5/2022", "-", 10.00, "019-2344567", "A202 Strawberry Apartment",
+		"iluvtoburn", "Cheras", "CH01", "Malay", 4);
+	addTutor(newnode);
+
+	newnode = CreateNewNode("C0002", "Ali", "Muhammad", "30/5/2022", "-", 10.00, "012-3477690", "A203 Strawberry Apartment",
+		"iluvtoeat", "Cheras", "CH04", "Science", 4);
+	addTutor(newnode);
+
+	newnode = CreateNewNode("K0001", "Wendy", "Foo", "30/5/2022", "-", 10.00, "012-0723445", "G122 Banana Condominium",
+		"iluvtodrink", "Kuala Lumpur", "KL03", "Chinese", 4);
+	addTutor(newnode);
+
+	newnode = CreateNewNode("P0001", "Kenny", "Tan", "30/5/2022", "-", 10.00, "016-1288965", "J901 Watermelon Apartment",
+		"iluvtoplay", "Puchong", "PU03", "Chinese", 4);
+	addTutor(newnode);
+
+
+	//Add function
+	while (choice == 1)
+	{
+		cout << "Tutor ID: ";
+		cin >> tutorID;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');   //remove content
+
+		cout << "Tutor First Name: ";
+		getline(cin, firstName);
+
+		cout << "Tutor Last Name: ";
+		getline(cin, lastName);
+
+		cout << "Joined Date: ";
+		getline(cin, dateJoined);
+
+		cout << "Hourly Rate: RM";
+		cin >> hourlyRate;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		cout << "Phone Number: ";
+		cin >> phoneNumber;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		cout << "House Address: ";
+		getline(cin, address);
+
+		cout << "Credentials: ";
+		cin >> credential;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		cout << "Branch Name: ";
+		getline(cin, branch);
+
+		cout << "Subject Code: ";
+		cin >> subjectCode;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		cout << "Subject Name: ";
+		getline(cin, subjectName);
+
+		newnode = CreateNewNode(tutorID, firstName, lastName, dateJoined, "-", hourlyRate, phoneNumber, address, credential, branch, subjectCode, subjectName, 0);
+		addTutor(newnode);
+
+		cout << endl << "Do you still want to add a new tutor?"
+			<< " 1- yes, others -No : ";
+		cin >> choice;
+		cout << endl;
+	}
+
+	//Delete function
+	cout << "Do you want to delete tutor? 1 = Yes, 0 = No: ";
+	cin >> choice;
+
+	while (choice == 1)
+	{
+		string keyword;
+
+		cout << "Which tutor do you want to delete? Please provide his/ her Tutor ID: ";
+		cin >> keyword;
+		cout << endl;
+
+		deleteTutor(keyword);
+
+		//after delete, display list again
+		displayList();
+		cout << endl << "The current amount of the size is " << ::sizeofLinkedList << endl;
+
+		cout << "Do you want to delete any item based on keyword? 1 = YES, 0 = NO: ";
+		cin >> choice;
+	}
+
 	displayStartMenu();
 	displayAdminMenu();
+
+	displayList();
+
 	displayHRMenu();
+
+	displayList();
+
 	displayTutorMenu();
 	displayLocationMenu();
 	displayUserType();
-	generateReport();
+	//generateReport();
+
 	return 0;
 
-	//hi this is Evonne uwu
+
 }
