@@ -211,7 +211,214 @@ void deleteTutor(string TutorID)
 	}
 }
 
-//Sort Records By Tutor ID / Hourly Rate / Overall Performance
+static void sortedInsertTutorID(Tutor** head_ref, Tutor* newNode)
+{
+	Tutor* current;
+
+	// if list is empty
+	if (*head_ref == NULL)
+		*head_ref = newNode;
+
+	// if the node is to be inserted at the beginning
+	// of the doubly linked list
+
+	else if (stoi((*head_ref)->tutorID.substr(1)) >= stoi(newNode->tutorID.substr(1)))
+	{
+		newNode->nextAddress = *head_ref;
+		newNode->nextAddress->previousAddress = newNode;
+		*head_ref = newNode;
+	}
+
+	else
+	{
+		current = *head_ref;
+
+		while (current->nextAddress != NULL &&
+			stoi(current->nextAddress->tutorID.substr(1)) < stoi(newNode->tutorID.substr(1)))	//comparing data (1st lesser than 2nd)
+			current = current->nextAddress;		//keep going forward
+
+		//Make the appropriate links /
+
+		newNode->nextAddress = current->nextAddress;	//while loop was finding the right current address to replace the new node
+
+		// if the new node is not inserted
+		// at the end of the list
+		if (current->nextAddress != NULL)
+			newNode->nextAddress->previousAddress = newNode;
+
+		current->nextAddress = newNode;
+		newNode->previousAddress = current;
+	}
+}
+
+void sortByTutorID(Tutor** head_ref)
+{	// to change:
+	//different inseertion sort (2 * 3 times)
+	// 
+	// Initialize 'sorted' - a sorted doubly linked list
+	Tutor* sorted = NULL;
+
+	// Traverse the given doubly linked list and
+	// insert every node to 'sorted'
+	Tutor* current = *head_ref;
+	while (current != NULL) {
+
+		// Store next for next iteration
+		Tutor* next = current->nextAddress;
+
+		// removing all the links so as to create 'current'
+		// as a new node for insertion
+		current->previousAddress = current->nextAddress = NULL;
+
+		// insert current in 'sorted' doubly linked list
+
+		sortedInsertTutorID(&sorted, current);
+
+		// Update current
+		current = next;
+	}
+	*head_ref = sorted;
+}
+
+static void sortedInsertHourlyRate(Tutor** head_ref, Tutor* newNode)
+{
+	Tutor* current;
+
+	// if list is empty
+	if (*head_ref == NULL)
+		*head_ref = newNode;
+
+	// if the node is to be inserted at the beginning
+	// of the doubly linked list
+
+	else if ((*head_ref)->hourlyRate >= newNode->hourlyRate)
+	{
+		newNode->nextAddress = *head_ref;
+		newNode->nextAddress->previousAddress = newNode;
+		*head_ref = newNode;
+	}
+	else
+	{
+		current = *head_ref;
+		while (current->nextAddress != NULL &&
+			current->nextAddress->hourlyRate < newNode->hourlyRate)	//comparing data (1st lesser than 2nd)
+			current = current->nextAddress;		//keep going forward
+
+		//Make the appropriate links
+
+		newNode->nextAddress = current->nextAddress;	//while loop was finding the right current address to replace the new node
+
+		// if the new node is not inserted
+		// at the end of the list
+		if (current->nextAddress != NULL)
+			newNode->nextAddress->previousAddress = newNode;
+
+		current->nextAddress = newNode;
+		newNode->previousAddress = current;
+	}
+
+}
+
+void sortByHourlyRate(Tutor** head_ref)
+{
+	// to change:
+	//different insertion sort (2 * 3 times)
+	// 
+	// Initialize 'sorted' - a sorted doubly linked list
+	Tutor* sorted = NULL;
+
+	// Traverse the given doubly linked list and
+	// insert every node to 'sorted'
+	Tutor* current = *head_ref;
+	while (current != NULL)
+	{
+		// Store next for next iteration
+		Tutor* next = current->nextAddress;
+
+		// removing all the links so as to create 'current'
+		// as a new node for insertion
+		current->previousAddress = current->nextAddress = NULL;
+
+		// insert current in 'sorted' doubly linked list
+
+		sortedInsertHourlyRate(&sorted, current);
+
+		// Update current
+		current = next;
+	}
+	*head_ref = sorted;
+}
+
+static void sortedInsertOverallPerformance(Tutor** head_ref, Tutor* newNode)
+{
+	Tutor* current;
+
+	// if list is empty
+	if (*head_ref == NULL)
+		*head_ref = newNode;
+
+	// if the node is to be inserted at the beginning
+	// of the doubly linked list
+
+	else if ((*head_ref)->rating >= newNode->rating)
+	{
+		newNode->nextAddress = *head_ref;
+		newNode->nextAddress->previousAddress = newNode;
+		*head_ref = newNode;
+	}
+	else
+	{
+		current = *head_ref;
+		while (current->nextAddress != NULL &&
+			current->nextAddress->rating < newNode->rating)	//comparing data (1st lesser than 2nd)
+			current = current->nextAddress;		//keep going forward
+
+		//Make the appropriate links
+
+		newNode->nextAddress = current->nextAddress;	//while loop was finding the right current address to replace the new node
+
+		// if the new node is not inserted
+		// at the end of the list
+		if (current->nextAddress != NULL)
+			newNode->nextAddress->previousAddress = newNode;
+
+		current->nextAddress = newNode;
+		newNode->previousAddress = current;
+	}
+
+}
+
+void sortByOverallPerformance(Tutor** head_ref)
+{
+	// to change:
+	//different insertion sort (2 * 3 times)
+	// 
+	// Initialize 'sorted' - a sorted doubly linked list
+	Tutor* sorted = NULL;
+
+	// Traverse the given doubly linked list and
+	// insert every node to 'sorted'
+	Tutor* current = *head_ref;
+	while (current != NULL)
+	{
+		// Store next for next iteration
+		Tutor* next = current->nextAddress;
+
+		// removing all the links so as to create 'current'
+		// as a new node for insertion
+		current->previousAddress = current->nextAddress = NULL;
+
+		// insert current in 'sorted' doubly linked list
+
+		sortedInsertOverallPerformance(&sorted, current);
+
+		// Update current
+		current = next;
+	}
+	*head_ref = sorted;
+}
+
+//Search Records By Tutor ID / Rating
 void searchByTutorID(string keyword)
 {
 	Tutor* current = head;
@@ -234,14 +441,28 @@ void searchByTutorID(string keyword)
 	cout << endl << "Searching is done here!" << endl;
 }
 
-void sortByHourlyRate();
+void searchByRating(string keyrating)
+{
+	Tutor* current = head;
+	int count = 1;	//list number
+	int position = 1;
 
-void sortByOverallPerformance();
+	while (current != NULL)
+	{
+		if (to_string(current->rating).find(keyrating) != string::npos)	//string::npos---> substring
+		{
+			cout << count << ". " << position << " - " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+				<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
+				<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
+				<< current->rating << endl;
+			count++;
+		}
+		position++;
+		current = current->nextAddress;
+	}
+	cout << endl << "Searching is done here!" << endl;
 
-//Search Records By Tutor ID / Rating
-void searchByTutorID();
-
-void searchByRating();
+}
 
 //Generate Summary Report / By Location Function
 void generateReport() {
@@ -422,6 +643,32 @@ int main() {
 	} while (choice == 1);
 	//-----------------------------------------------------
 
+
+	//------------------------------------------------------
+	//SearchRating function
+	cout << "Which tutor like to search by rating?";
+	cin >> rating;
+	searchByRating(to_string(rating));
+	cout << endl;
+	cout << "Search tutor again by rating? 1 = YES, 0 = NO:";
+	cin >> choice;
+	do
+	{
+		cout << "Which tutor like to search by rating?";
+		cin >> rating;
+		searchByRating(to_string(rating));
+		cout << endl;
+		cout << "Search tutor again by rating? 1 = YES, 0 = NO:";
+		cin >> choice;
+	}
+	while (choice == 1);
+
+
+	//-------------------------------------------------------------
+	//Sort by TutorID, HourlyRate function
+	sortByTutorID(&head);
+	sortByHourlyRate(&head);
+	sortByOverallPerformance(&head);
 
 
 	displayStartMenu();
