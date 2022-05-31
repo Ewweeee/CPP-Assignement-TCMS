@@ -5,7 +5,46 @@
 #include "Struct.h"
 using namespace std;
 
+//variables to be input
+string tutorID;
+string firstName;
+string lastName;
+string dateJoined;
+string dateTerminated;
+double hourlyRate;
+string phoneNumber;
+string address;
+string credential;
+TuitionCenter center;
+string branch = center.branch;
+string subjectCode;
+string subjectName;
+int rating;
+
 //Function Prototype
+
+//Create new node for predefined tutor listings
+Tutor* CreateNewNode(string tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
+	string address, string credential, string branch, string subjectCode, string subjectName, int rating)
+{
+	Tutor* newnode = new Tutor;
+	newnode->tutorID = tutorID;
+	newnode->firstName = firstName;
+	newnode->lastName = lastName;
+	newnode->dateJoined = dateJoined;
+	newnode->dateTerminated = dateTerminated;
+	newnode->hourlyRate = hourlyRate;
+	newnode->phoneNumber = phoneNumber;
+	newnode->address = address;
+	newnode->credential = credential;
+	newnode->branch = branch;
+	newnode->subjectCode = subjectCode;
+	newnode->subjectName = subjectName;
+	newnode->rating = rating;
+	newnode->previousAddress = NULL;
+	newnode->nextAddress = NULL;
+	return newnode;
+}
 
 //Validate Whether Tutor's Login Credentials
 void checkTutor();
@@ -32,8 +71,93 @@ void addTutor(Tutor* newnode)
 	::sizeofLinkedList++;
 }
 
-//Modify Tutor Record
-void modifyTutor();
+//Modify Tutor Record (edit record based on tutorID and the part to be modified)
+void modifyTutor(string EdittutorID, int option)
+{
+	Tutor* current = head;
+
+	while (current != NULL)
+	{
+		if (current->tutorID == EdittutorID)
+		{
+			switch (option)
+			{
+			case 1:
+				cout << "Enter New First Name: ";
+				cin >> current->firstName;
+
+				break;
+
+			case 2:
+				cout << "Enter New Last Name: ";
+				cin >> current->lastName;
+
+				break;
+
+			case 3:
+				cout << "Enter New Join Date: ";
+				cin >> current->dateJoined;
+
+				break;
+
+			case 4:
+				cout << "Enter New Terminate Date: ";
+				cin >> current->dateTerminated;
+
+				break;
+
+			case 5:
+				cout << "Enter New Hourly Rate: ";
+				cin >> current->hourlyRate;
+
+				break;
+
+			case 6:
+				cout << "Enter New Phone Number: ";
+				cin >> current->phoneNumber;
+
+				break;
+
+			case 7:
+				cout << "Enter New Address: ";
+				cin >> current->address;
+
+				break;
+
+			case 8:
+				cout << "Enter New Credential: ";
+				cin >> current->credential;
+
+				break;
+
+			case 9:
+				cout << "Enter New Branch: ";
+				cin >> current->branch;
+
+				break;
+
+			case 10:
+				cout << "Enter New SubjectCode: ";
+				cin >> current->subjectCode;
+
+				break;
+
+			case 11:
+				cout << "Enter New SubjectName: ";
+				cin >> current->subjectName;
+
+				break;
+
+			case 12:
+				cout << "Enter New Rating: ";
+				cin >> current->rating;
+
+				break;
+			}
+		}
+		current = current->nextAddress;
+	}
+}
 
 //Delete Tutor Record (delete based on keyword)
 void deleteTutor(string TutorID)
@@ -182,48 +306,9 @@ void displayList()
 	cout << endl << "List is ended here!" << endl << endl;
 }
 
-//Create new node for predefined tutor listings
-Tutor* CreateNewNode(string tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
-	string address, string credential, string branch, string subjectCode, string subjectName, int rating)
-{
-	Tutor* newnode = new Tutor;
-	newnode->tutorID = tutorID;
-	newnode->firstName = firstName;
-	newnode->lastName = lastName;
-	newnode->dateJoined = dateJoined;
-	newnode->dateTerminated = dateTerminated;
-	newnode->hourlyRate = hourlyRate;
-	newnode->phoneNumber = phoneNumber;
-	newnode->address = address;
-	newnode->credential = credential;
-	newnode->branch = branch;
-	newnode->subjectCode = subjectCode;
-	newnode->subjectName = subjectName;
-	newnode->rating = rating;
-	newnode->previousAddress = NULL;
-	newnode->nextAddress = NULL;
-	return newnode;
-}
-
 int main() {
 
 	head = NULL;
-
-	//variables to be input
-	string tutorID;
-	string firstName;
-	string lastName;
-	string dateJoined;
-	string dateTerminated;
-	double hourlyRate;
-	string phoneNumber;
-	string address;
-	string credential;
-	TuitionCenter center;
-	string branch = center.branch;
-	string subjectCode;
-	string subjectName;
-	int rating;
 
 	int choice = 1;
 
@@ -243,7 +328,7 @@ int main() {
 		"iluvtoplay", "Puchong", "PU03", "Chinese", 4);
 	addTutor(newnode);
 
-
+	//----------------------------------------------------
 	//Add function
 	while (choice == 1)
 	{
@@ -293,7 +378,10 @@ int main() {
 		cin >> choice;
 		cout << endl;
 	}
+	//-----------------------------------------------------
 
+
+	//-----------------------------------------------------
 	//Delete function
 	cout << "Do you want to delete tutor? 1 = Yes, 0 = No: ";
 	cin >> choice;
@@ -315,6 +403,26 @@ int main() {
 		cout << "Do you want to delete any item based on keyword? 1 = YES, 0 = NO: ";
 		cin >> choice;
 	}
+	//-----------------------------------------------------
+
+
+	//-----------------------------------------------------
+	//Modify function
+	cout << "Which tutor details to edit?";
+	cin >> tutorID;
+	searchByTutorID(tutorID);
+	cout << endl;
+	do
+	{
+		displayModifyTutorMenu();
+		cin >> choice;
+		modifyTutor(tutorID, choice);
+		cout << "Do you want to edit again? 1 = YES, 0 = NO: ";
+		cin >> choice;
+	} while (choice == 1);
+	//-----------------------------------------------------
+
+
 
 	displayStartMenu();
 	displayAdminMenu();
