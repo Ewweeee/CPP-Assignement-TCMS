@@ -1,2 +1,4 @@
 ﻿  TMS.cpp
+C:\Users\eweli\Documents\CPP-Assignement-TCMS\Tutor_Management_System_Array\Tutor_Management_System_Array\TMS.cpp(499,7): warning C4101: 'decision': unreferenced local variable
+  LINK : C:\Users\eweli\Documents\CPP-Assignement-TCMS\Tutor_Management_System_Array\Debug\Tutor_Management_System_Array.exe not found or not built by the last incremental link; performing full link
   Tutor_Management_System_Array.vcxproj -> C:\Users\eweli\Documents\CPP-Assignement-TCMS\Tutor_Management_System_Array\Debug\Tutor_Management_System_Array.exe

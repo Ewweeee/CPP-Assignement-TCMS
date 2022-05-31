@@ -62,7 +62,6 @@ void displayHRMenu() {
 	cout << "6. Exit Program " << endl;
 	cout << endl;
 	cout << "Please Enter Your Option : ";
-	cout << endl;
 }
 
 //Display This Menu When Users Type = Tutor
@@ -207,5 +206,3 @@ void displayExitMenu() {
 	}
 	cout << endl;
 }
-
-

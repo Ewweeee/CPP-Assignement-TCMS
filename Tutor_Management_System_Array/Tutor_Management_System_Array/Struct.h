@@ -6,13 +6,20 @@
 #include <windows.h>
 
 using namespace std;
-int tutorID;
 
 //Tuition Center Structure - indicates various locations
 struct TuitionCenter {
 	int centerCode;
 	string centerName;
 	string branch;
+
+	string getBranch() {
+		return branch;
+	}
+
+	void setBranch(string branch) {
+		branch = branch;
+	}
 };
 
 //User access structure - implemented for user login
@@ -25,7 +32,63 @@ struct Access {
 	string userType;
 	string branch;
 	string credentials;
+
+	//Tutor's Default Constructor
+	Access()
+	{
+		//cout << "Tutor" << endl;
+	}
+
+	//Tutor's User-defined Constructor
+	Access(string userCode, string userType, string branch, string credentials)
+	{
+		userCode = userCode;
+		userType = userType;
+		branch = branch;
+		credentials = credentials;
+	}
+	string getUserCode() {
+		return userCode;
+	}
+
+	void setUserCode(string userCode) {
+		userCode = userCode;
+	}
+
+	string getUserType() {
+		return userType;
+	}
+
+	void setUserType(string userType) {
+		userType = userType;
+	}
+
+	string getBranch() {
+		return branch;
+	}
+
+	void setBranch(string branch) {
+		branch = branch;
+	}
+
+	string getCredentials() {
+		return credentials;
+	}
+
+	void setCredentials(string credentials) {
+		credentials = credentials;
+	}
+
+	void PrintBookDetials() {
+		cout << "Book Name = " << userCode << endl;
+		cout << "Book Author = " << userType << endl;
+		cout << "Book Subject = " << branch << endl;
+		cout << "Book Page = " << credentials << endl;
+	}
 };
+
+//Array sturcture to store admin and HR credentials
+struct Access allAccess[4];
 
 //Tutor Structure - to store tutor's information (Array)
 struct Tutor {
@@ -170,7 +233,9 @@ struct Tutor {
 		rating = rating;
 	}
 };
-struct Tutor allTutors[30];
+
+//Array sturcture to store Tutor credentials
+struct Tutor allTutors[31];
 
 void initializeRecords() {
 	allTutors[0].tutorID = "B001";
@@ -217,6 +282,27 @@ void initializeRecords() {
 	allTutors[2].address = "BK5 Desiran Bandar Kinrara, Puchong";
 	allTutors[2].credential = "ILOVEAPU";
 	allTutors[2].rating = 3;
+
+	//Initialize admin and HR records
+	allAccess[0].userCode = "HR001";
+	allAccess[0].userType = "HR";
+	allAccess[0].branch = "HQ";
+	allAccess[0].credentials = "12345";
+
+	allAccess[1].userCode = "A001";
+	allAccess[1].userType = "Admin";
+	allAccess[1].branch = "Bukit Jalil";
+	allAccess[1].credentials = "23456";
+
+	allAccess[2].userCode = "A002";
+	allAccess[2].userType = "Admin";
+	allAccess[2].branch = "Cheras";
+	allAccess[2].credentials = "34567";
+
+	allAccess[3].userCode = "A003";
+	allAccess[3].userType = "Admin";
+	allAccess[3].branch = "Puchong";
+	allAccess[3].credentials = "45678";
 }
 
 void displayAllRecords(int lastIndex) {
@@ -247,7 +333,7 @@ void displayAllRecords(int lastIndex) {
 	if (cin.get() == '\n') {
 		cout << "......Going Back To Menu ......" << endl;
 		Sleep(2000);
-		system("CLS");
+		//system("CLS");
 	}
 }
 
@@ -259,7 +345,7 @@ void displayAllRecords(int lastIndex, string branch) {
 	cout << setw(3) << "ADDRESS|" << setw(3) << "RATINGS | " << endl;
 	int i = 0;
 
-	while (i <= lastIndex && allTutors[i].getBranch() == branch) {
+	while (i <= lastIndex && allTutors[i].center.branch == branch) {
 		//Validatation: Check whether array is empty or not
 		if (!allTutors[i].tutorID.empty()) {
 			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
