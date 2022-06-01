@@ -5,7 +5,8 @@
 using namespace std;
 
 //global variable
-int sizeofLinkedList = 0;
+int sizeofLinkedListforTutor = 0;
+int sizeofLinkedListforAccess = 0;
 
 //Tuition Center Structure - indicates various locations
 struct TuitionCenter {
@@ -22,9 +23,64 @@ struct Access {
 	//Change this
 	string userCode;
 	string userType;
+	string branch;
 	string credentials;
-};
+	struct Access* nextAddress1;
+	struct Access* previousAddress1;
 
+	//Tutor's Default Constructor
+	Access()
+	{
+		//cout << "Tutor" << endl;
+	}
+
+	//Tutor's User-defined Constructor
+	Access(string userCode, string userType, string branch, string credentials)
+	{
+		userCode = userCode;
+		userType = userType;
+		branch = branch;
+		credentials = credentials;
+	}
+	string getUserCode() {
+		return userCode;
+	}
+
+	void setUserCode(string userCode) {
+		userCode = userCode;
+	}
+
+	string getUserType() {
+		return userType;
+	}
+
+	void setUserType(string userType) {
+		userType = userType;
+	}
+
+	string getBranch() {
+		return branch;
+	}
+
+	void setBranch(string branch) {
+		branch = branch;
+	}
+
+	string getCredentials() {
+		return credentials;
+	}
+
+	void setCredentials(string credentials) {
+		credentials = credentials;
+	}
+
+	void PrintBookDetials() {
+		cout << "Book Name = " << userCode << endl;
+		cout << "Book Author = " << userType << endl;
+		cout << "Book Subject = " << branch << endl;
+		cout << "Book Page = " << credentials << endl;
+	}
+}*head1, * tail1;
 
 //Tutor Structure - to store tutor's information (Linked List)
 struct Tutor {
@@ -56,10 +112,12 @@ struct Tutor {
 	Tutor()
 	{
 		cout << "Tutor" << endl;
+
 	}
 
 	//Tutor's User-defined Constructor
-	Tutor(string tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber, string address, string credential, string branch, string subjectCode, string subjectName, int rating)
+	Tutor(string tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
+		string address, string credential, string branch, string subjectCode, string subjectName, int rating)
 	{
 		this->tutorID = tutorID;//get set
 		this->firstName = firstName;//get set
@@ -79,7 +137,7 @@ struct Tutor {
 	//Tutor's Destructor
 	~Tutor()
 	{
-		cout << "Tutor " << tutorID << "is added successfully." << endl;
+		cout << "Tutor " << tutorID << "is removed successfully." << endl;
 	}
 
 	//Tutor's Methods
@@ -87,8 +145,8 @@ struct Tutor {
 		return tutorID;
 	}
 
-	void setTutorID(string tutorID) {
-		tutorID = tutorID;
+	void setTutorID(int tutorID) {
+		this->tutorID = tutorID;
 	}
 
 	string getFirstName() {
@@ -96,7 +154,7 @@ struct Tutor {
 	}
 
 	void setFirstName(string firstName) {
-		firstName = firstName;
+		this->firstName = firstName;
 	}
 
 	string getLastName() {
@@ -104,7 +162,7 @@ struct Tutor {
 	}
 
 	void setLastName(string firstName) {
-		lastName = lastName;
+		this->lastName = lastName;
 	}
 
 	string getDateJoined() {
@@ -116,7 +174,7 @@ struct Tutor {
 	}
 
 	void setDateTerminated(string dateTerminated) {
-		dateTerminated = dateTerminated;
+		this->dateTerminated = dateTerminated;
 	}
 
 	double getHourlyRate() {
@@ -124,7 +182,7 @@ struct Tutor {
 	}
 
 	void setHourlyRate(double hourlyRate) {
-		hourlyRate = hourlyRate;
+		this->hourlyRate = hourlyRate;
 	}
 
 	string getphoneNumber() {
@@ -132,7 +190,7 @@ struct Tutor {
 	}
 
 	void setphoneNumber(string phoneNumber) {
-		phoneNumber = phoneNumber;
+		this->phoneNumber = phoneNumber;
 	}
 
 	string getAddress() {
@@ -140,7 +198,7 @@ struct Tutor {
 	}
 
 	void setAddress() {
-		address = address;
+		this->address = address;
 	}
 
 	string getCredential() {
@@ -148,7 +206,7 @@ struct Tutor {
 	}
 
 	void setCredential(string credential) {
-		credential = credential;
+		this->credential = credential;
 	}
 
 	string getBranch() {
@@ -156,15 +214,15 @@ struct Tutor {
 	}
 
 	void setBranch(string branch) {
-		branch = branch;
+		this->branch = branch;
 	}
 
 	string getSubjectCode() {
 		return subjectCode;
 	}
 
-	void setSubjectCode(string subjectCode) {
-		subjectCode = subjectCode;
+	void setSubjectCode(int subjectCode) {
+		this->subjectCode = subjectCode;
 	}
 
 	string getSubjectName() {
@@ -172,15 +230,16 @@ struct Tutor {
 	}
 
 	void setSubjectName(string subjectName) {
-		subjectName = subjectName;
+		this->subjectName = subjectName;
 	}
 
 	int getRating() {
 		return rating;
 	}
 
+
 	void setRating(int rating) {
-		rating = rating;
+		this->rating = rating;
 	}
 
 	void addTutor() {
@@ -188,4 +247,45 @@ struct Tutor {
 		cout << "Tutor ID :  " << tutorID << endl;
 		cout << "Tutor Name : " << tutorID << endl;
 	}
-}*head, *tail;
+
+
+}*head, * tail;
+
+void displayAllRecords(int lastIndex, string branch) {
+	cout << "\t| TUTOR DETAILS |" << endl << endl;
+	cout << "|TUTOR ID|" << setw(3) << "FIRST NAME|" << setw(3) << "LAST NAME|" << setw(3) << "DATE JOINED|";
+	cout << setw(3) << "DATE TERMINATED|" << setw(3) << "PAY|" << setw(3) << "CENTRE CODE|" << setw(3) << "CENTRE LOCATION|";
+	cout << setw(3) << "CENTRE NAME|" << setw(3) << "SUB CODE|" << setw(3) << "SUB NAME|" << setw(3) << "PHONE NUM|";
+	cout << setw(3) << "ADDRESS|" << setw(3) << "RATINGS | " << endl;
+	int i = 0;
+	Tutor* current = head;
+
+
+	while (current != NULL)
+	{
+
+		if (current->branch == branch)
+		{
+			cout << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+				<< current->phoneNumber << " - " << current->address << " - " << current->branch << " - " << current->subjectCode << " - "
+				<< current->subjectName << " - " << current->rating << endl << endl;
+			current = current->nextAddress;
+		}
+		else
+		{
+			current = current->nextAddress;
+		}
+
+	}
+
+	/*return;*/
+
+//Returning Back To Main Menu (PRESS ENTER)
+	cout << setw(10) << "......PRESS ENTER TO LEAVE ......" << endl;
+	cout << "	"; cin.get();
+	if (cin.get() == '\n') {
+		cout << "......Going Back To Menu ......" << endl;
+		///*		Sleep(2000);
+		//		system("CLS"*/);
+	}
+}

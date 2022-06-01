@@ -155,18 +155,16 @@ void displayModifyTutorMenu() {
 	cout << "|" << string(20, ' ') << "Please Select ONE Option From The Menu" << string(22, ' ') << "|" << endl;
 	cout << string(82, '=') << endl;
 	/*User Type selection*/
-	cout << "1. Tutor First Name" << endl;
-	cout << "2. Tutor Last Name" << endl;
-	cout << "3. Date Joined" << endl;
-	cout << "4. Date Terminated" << endl;
-	cout << "5. Hourly Rate" << endl;
-	cout << "6. Phone Number" << endl;
-	cout << "7. Address" << endl;
-	cout << "8. Credentials" << endl;
-	cout << "9. Tuition Centre" << endl;
-	cout << "10. Subject Code" << endl;
-	cout << "11. Subject Name" << endl;
-	cout << "12. Rating" << endl;
+	cout << "1. Tutor Name" << endl;
+	cout << "2. Date Joined" << endl;
+	cout << "3. Date Terminated" << endl;
+	cout << "4. Hourly Rate" << endl;
+	cout << "5. Phone Number" << endl;
+	cout << "6. Address" << endl;
+	cout << "7. Credentials" << endl;
+	cout << "8. Branch Name" << endl;
+	cout << "9. Subject" << endl;
+	cout << "10. Rating" << endl;
 	cout << endl;
 	cout << "Please Enter Your Option : ";
 	cout << endl;
@@ -210,3 +208,6 @@ void displayExitMenu() {
 	}
 	cout << endl;
 }
+
+
+
