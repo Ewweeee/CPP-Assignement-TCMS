@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "Menu.h"
 #include "Struct.h"
 #include "conio.h"
@@ -20,6 +21,7 @@ int calculateArraySize() {
 };
 
 // Function that accepts the password
+//To change user input to "*" character
 string takePasswdFromUser(char sp = '*')
 {
 	int IN_BACK = 8;
@@ -229,12 +231,14 @@ void addTutor() {
 //Validate HR and Admin's Login Credentials
 void checkAccess(string userCode, string credentials)
 {
-	boolean found = 0;
+	bool found = 0;
 	int i = 0;
 	string userType;
 
-	//Convert The First Letter Of The User Code To UpperCase
+	//Convert The First and Second Letter Of The User Code To UpperCase
+	//To ensure that the letters are in uppercase
 	userCode[0] = toupper(userCode[0]);
+	userCode[1] = toupper(userCode[1]);
 
 	//Compare HR and Admin User Code & Credentials With The System's Access Records
 	while (!allAccess[i].userCode.empty()) {
@@ -343,7 +347,6 @@ void checkBranch(string branch, string userCode)
 		cout << "Invalid Choice! Please Re-Enter Your Choice";
 		cout << endl;
 	}
-
 }
 //Validate User Login Based On User Type
 void checkLogin()
@@ -405,12 +408,177 @@ void checkLogin()
 //Check Whether There Is Slots Available
 void checkVacantSlot();
 
-//Sort Records By Tutor ID / Hourly Rate / Overall Performance
-void sortByTutorID();
+//Sort Records By Tutor ID / Hourly Rate / Overall Performance with Bubble Sort
+//By ascending order
 
-void sortByHourlyRate();
+void bubbleSortTutorID(Tutor allTutor[], int style)
+{
+	//Bubble sort
+	int loop_j;
+	Tutor key;
+	//Style defines the way of sorting: 1 for ascending; 2 for descending
+	if (style == 1)
+	{
+		//Ascending
+		for (int index = 1; index < arraySize; index++)
+		{
+			key = allTutor[index];
+			loop_j = index;
 
-void sortByOverallPerformance();
+			while (loop_j > 0 && stoi(allTutor[loop_j - 1].getTutorID().substr(1)) > stoi(key.getTutorID().substr(1))) {
+				allTutor[loop_j] = allTutor[loop_j - 1];
+				loop_j--;
+			}
+			allTutor[loop_j] = key;
+		}
+	}
+	else
+	{
+		//Descending
+		for (int index = 1; index < arraySize; index++)
+		{
+			key = allTutor[index];
+			loop_j = index;
+
+			while (loop_j > 0 && stoi(allTutor[loop_j - 1].getTutorID().substr(1)) < stoi(key.getTutorID().substr(1))) {
+				allTutor[loop_j] = allTutor[loop_j - 1];
+				loop_j--;
+			}
+			allTutor[loop_j] = key;
+		}
+	}
+
+	cout << "After bubble sort, the array result as here: " << endl;
+	int i = 0;
+	while (i <= arraySize) {
+		//Validatation 1 : Check whether array is empty or not
+		if (!allTutors[i].tutorID.empty()) {
+			cout << allTutors[i].tutorID << setw(3);
+			cout << allTutors[i].hourlyRate << setw(3);
+			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
+			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
+			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
+			cout << setw(3) << allTutors[i].center.centerName;
+			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
+			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
+			cout << setw(3) << allTutors[i].rating;
+			cout << endl;
+		}
+		i++;
+	}
+}
+
+void bubbleSortHourlyRate(Tutor allTutor[], int style)
+{
+	//Bubble sort
+	int loop_j;
+	Tutor key;
+	//Style defines the way of sorting: 1 for ascending; 2 for descending
+	if (style == 1)
+	{
+		//Ascending
+		for (int index = 1; index < arraySize; index++)
+		{
+			key = allTutor[index];
+			loop_j = index;
+
+			while (loop_j > 0 && allTutor[loop_j - 1].getHourlyRate() > key.getHourlyRate()) {
+				allTutor[loop_j] = allTutor[loop_j - 1];
+				loop_j--;
+			}
+			allTutor[loop_j] = key;
+		}
+	}
+	else
+	{
+		//Descending
+		for (int index = 1; index < arraySize; index++)
+		{
+			key = allTutor[index];
+			loop_j = index;
+
+			while (loop_j > 0 && allTutor[loop_j - 1].getHourlyRate() < key.getHourlyRate()) {
+				allTutor[loop_j] = allTutor[loop_j - 1];
+				loop_j--;
+			}
+			allTutor[loop_j] = key;
+		}
+	}
+
+	cout << "After bubble sort, the array result as here: " << endl;
+	int i = 0;
+	while (i <= arraySize) {
+		//Validatation 1 : Check whether array is empty or not
+		if (!allTutors[i].tutorID.empty()) {
+			cout << allTutors[i].hourlyRate << setw(3);
+			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
+			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
+			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
+			cout << setw(3) << allTutors[i].center.centerName;
+			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
+			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
+			cout << setw(3) << allTutors[i].rating;
+			cout << endl;
+		}
+		i++;
+	}
+}
+
+void bubbleSortOverallPerformance(Tutor allTutor[], int style)
+{
+	int loop_j;
+	Tutor key;
+
+	//Style defines the way of sorting: 1 for ascending; 2 for descending
+	if (style == 1)
+	{
+		//Ascending
+		for (int index = 1; index < arraySize; index++)
+		{
+			key = allTutor[index];
+			loop_j = index;
+
+			while (loop_j > 0 && allTutor[loop_j - 1].getRating() > key.getRating()) {
+				allTutor[loop_j] = allTutor[loop_j - 1];
+				loop_j--;
+			}
+			allTutor[loop_j] = key;
+		}
+	}
+	else
+	{
+		//Descending
+		for (int index = 1; index < arraySize; index++)
+		{
+			key = allTutor[index];
+			loop_j = index;
+
+			while (loop_j > 0 && allTutor[loop_j - 1].getRating() < key.getRating()) {
+				allTutor[loop_j] = allTutor[loop_j - 1];
+				loop_j--;
+			}
+			allTutor[loop_j] = key;
+		}
+	}
+
+	cout << "After bubble sort, the array result as here: " << endl;
+	int i = 0;
+	while (i <= arraySize) {
+		//Validatation 1 : Check whether array is empty or not
+		if (!allTutors[i].tutorID.empty()) {
+			cout << setw(3) << allTutors[i].rating;
+			cout << allTutors[i].hourlyRate << setw(3);
+			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
+			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
+			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
+			cout << setw(3) << allTutors[i].center.centerName;
+			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
+			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
+			cout << endl;
+		}
+		i++;
+	}
+}
 
 //Search Records By Tutor ID / Rating
 //Used for Modify & Delete Record
@@ -494,7 +662,7 @@ void modifyTutor()
 	string dateTerminated;
 	double hourlyRate;
 	string credential;
-
+	bool input = true;
 	int rating;
 	char decision;
 	cout << "Please Enter Tutor ID To Be Modified : ";
@@ -507,140 +675,156 @@ void modifyTutor()
 	}
 	else
 	{
-		displayModifyTutorMenu();
-		cin >> choice;
-		switch (choice)
+		do
 		{
-		case 1:
-			cout << "Please Enter New Name: " << endl;
-			cout << "First Name: ";
-			getline(cin, firstName);
-			cout << "Last Name: ";
-			cin >> lastName;
-			allTutors[result].firstName = firstName;
-			allTutors[result].lastName = lastName;
-			cout << "Tutor Name Had Successfully Changed" << endl;
-			return;
-
-		case 2:
-			cout << "Please enter Hourly Pay Rate (40-80): ";
-			cin >> hourlyRate;
-			/*check whether given hourly pay rate input is valid 40 to 80*/
-			while (hourlyRate < 40 || hourlyRate > 80) {
-				cout << "Please Try Again With Valid Input: ";
-			}
-			allTutors[result].hourlyRate = hourlyRate;
-			cout << "Hourly Pay Rate Had Successfully Changed" << endl;
-			return;
-
-			break;
-		case 3:
-			cout << "Please Insert New Phone Number: ";
-			cin >> phoneNumber;
-			allTutors[result].phoneNumber = phoneNumber;
-			cout << "Phone Number Had Successfully Changed" << endl;
-			return;
-			break;
-		case 4:
-			cout << "Please Enter New Address: ";
-			getline(cin, address);
-			allTutors[result].address = address;
-			cout << "Address Had Successfully Changed" << endl;
-			return;
-			break;
-
-		case 5:
-			cout << "Please Enter New Credentials: ";
-			cin >> credential;
-			allTutors[result].credential = credential;
-			cout << "Credential Had Successfully Changed" << endl;
-			return;
-
-			break;
-
-		case 6:
-			cout << "	Please select Tuition Center        : " << endl;
-			cout << "	1. Cheras " << endl;
-			cout << "	2. Bukit Jalil" << endl;
-			cout << "	3. Petaling Jaya" << endl;
-
-			cout << "Please insert choice (1-3) : ";
-			cin >> choice;
-
-			/*check whether given choice input is valid 1 to 5*/
-			switch (choice) {
-			case 1:
-				allTutors[result].center.centerCode = 1001;
-				allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Cheras";
-				allTutors[result].center.branch = "Cheras";
-				break;
-			case 2:
-				allTutors[result].center.centerCode = 1002;
-				allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Bukresultt Jalresultl";
-				allTutors[result].center.branch = "Bukresultt Jalresultl";
-				break;
-			case 3:
-				allTutors[result].center.centerCode = 1003;
-				allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Petalresultng Jaya";
-				allTutors[result].center.branch = "Petalresultng Jaya";
-				break;
-			default:
-				cout << "Invalid Input, Please Insert Valid Choice (1-3)!" << endl << "\t";
-			}
-			break;
-
-		case 7:
-			cout << "	Please select Subject Taught : " << endl;
-			cout << "	1. Chinese " << endl;
-			cout << "	2. Malay" << endl;
-			cout << "	3. English" << endl;
-			cout << "	4. Mathematics" << endl;
-			cout << "	5. Science" << endl;
-			cout << "Please insert choice(1 - 5) : ";
+			displayModifyTutorMenu();
 
 			cin >> choice;
-			/*check whether given choice input is valid 1 to 5*/
-			switch (choice) {
+
+			switch (choice)
+			{
 			case 1:
-				allTutors[result].subjectCode = "MLY";
-				allTutors[result].subjectName = "Malay";
-				break;
+
+				cout << "Please Enter New Name: " << endl;
+				cout << "First Name: ";
+				getline(cin, firstName);
+
+				cout << "Last Name: ";
+				cin >> lastName;
+				allTutors[result].firstName = firstName;
+				allTutors[result].lastName = lastName;
+				cout << "Tutor Name Had Successfully Changed" << endl;
+				return;
+
 			case 2:
-				allTutors[result].subjectCode = "CHN";
-				allTutors[result].subjectName = "Chresultnese";
+				cout << "Please enter Hourly Pay Rate (40-80): ";
+				cin >> hourlyRate;
+				/*check whether given hourly pay rate input is valid 40 to 80*/
+				while (hourlyRate < 40 || hourlyRate > 80) {
+					cout << "Please Try Again With Valid Input: ";
+				}
+				allTutors[result].hourlyRate = hourlyRate;
+				cout << "Hourly Pay Rate Had Successfully Changed" << endl;
+				return;
+
 				break;
 			case 3:
-				allTutors[result].subjectCode = "ENF";
-				allTutors[result].subjectName = "Englresultsh";
+				cout << "Please Insert New Phone Number: ";
+				cin >> phoneNumber;
+				allTutors[result].phoneNumber = phoneNumber;
+				cout << "Phone Number Had Successfully Changed" << endl;
+				return;
 				break;
 			case 4:
-				allTutors[result].subjectCode = "MTH";
-				allTutors[result].subjectName = "Mathematresultcs";
+				cout << "Please Enter New Address: ";
+				getline(cin, address);
+				allTutors[result].address = address;
+				cout << "Address Had Successfully Changed" << endl;
+				return;
 				break;
+
 			case 5:
-				allTutors[result].subjectCode = "SCN";
-				allTutors[result].subjectName = "Scresultence";
+				cout << "Please Enter New Credentials: ";
+				cin >> credential;
+				allTutors[result].credential = credential;
+				cout << "Credential Had Successfully Changed" << endl;
+				return;
+
+				break;
+
+			case 6:
+				cout << "	Please select Tuition Center        : " << endl;
+				cout << "	1. Cheras " << endl;
+				cout << "	2. Bukit Jalil" << endl;
+				cout << "	3. Petaling Jaya" << endl;
+
+				cout << "Please insert choice (1-3) : ";
+				cin >> choice;
+
+				/*check whether given choice input is valid 1 to 3*/
+
+				switch (choice) {
+				case 1:
+					allTutors[result].center.centerCode = 1001;
+					allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Cheras";
+					allTutors[result].center.branch = "Cheras";
+					break;
+				case 2:
+					allTutors[result].center.centerCode = 1002;
+					allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Bukresultt Jalresultl";
+					allTutors[result].center.branch = "Bukresultt Jalresultl";
+					break;
+				case 3:
+					allTutors[result].center.centerCode = 1003;
+					allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Petalresultng Jaya";
+					allTutors[result].center.branch = "Petalresultng Jaya";
+					break;
+				default:
+					cout << "Invalid Input, Please Insert Valid Choice (1-3)!" << endl << "\t";
+					break;
+				}
+
+			case 7:
+				cout << "Please select Subject Taught : " << endl;
+				cout << "1. Chinese " << endl;
+				cout << "2. Malay" << endl;
+				cout << "3. English" << endl;
+				cout << "4. Mathematics" << endl;
+				cout << "5. Science" << endl;
+				cout << "Please insert choice(1 - 5) : ";
+				do {
+					cin >> choice;
+					/*check whether given choice input is valid 1 to 5*/
+
+					switch (choice) {
+					case 1:
+						allTutors[result].subjectCode = "MLY";
+						allTutors[result].subjectName = "Malay";
+						break;
+					case 2:
+						allTutors[result].subjectCode = "CHN";
+						allTutors[result].subjectName = "Chresultnese";
+						break;
+					case 3:
+						allTutors[result].subjectCode = "ENF";
+						allTutors[result].subjectName = "Englresultsh";
+						break;
+					case 4:
+						allTutors[result].subjectCode = "MTH";
+						allTutors[result].subjectName = "Mathematresultcs";
+						break;
+					case 5:
+						allTutors[result].subjectCode = "SCN";
+						allTutors[result].subjectName = "Scresultence";
+						break;
+					default:
+						cout << "Invalid Input, Please Insert Valid Choice (1-5)!" << endl << "\t";
+						input = false;
+						break;
+					}
+				} while (!input);
+				break;
+			case 8:
+				cout << "	Please enter Tutor Rating     (1-5) : ";
+				cin >> rating;
+				/*check whether given choice input is valid 1 to 5*/
+				while (rating < 1 || rating >5) {
+					cout << "Invalid Input, Please Insert Valid Choice (1-5)!: ";
+				}
+				allTutors[result].rating = rating;
+				cout << "Rating Had Successfully Changed" << endl;
+
 				break;
 			default:
-				cout << "Invalid Input, Please Insert Valid Choice (1-5)!" << endl << "\t";
+				cout << "Invalid Choice !!! Please Try Again" << endl;
 				break;
 			}
-			break;
-		case 8:
-			cout << "	Please enter Tutor Rating     (1-5) : ";
-			cin >> rating;
-			/*check whether given choice input is valid 1 to 5*/
-			while (rating < 1 || rating >5) {
-				cout << "Invalid Input, Please Insert Valid Choice (1-5)!: ";
-			}
-			allTutors[result].rating = rating;
-			cout << "Rating Had Successfully Changed" << endl;
-			return;
-			break;
-			//addTutor();
-		}
-	}
-};
+		} while (!input);
+
+		cout << "Do you want to edit again? 1 = YES, 0 = NO: ";
+		cin >> choice;
+	} while (choice == 1);
+}
 
 //Delete Tutor Record
 void deleteTutor()
@@ -771,7 +955,17 @@ int main() {
 	//displayHRMenu();
 	////addTutor();
 	////generateReport();
-	checkLogin();
+
+	//checkLogin();
+	//int choice;
+	//cout << "Welcome to sorting" << endl;
+	//cout << "How would you like to sort your records ?" << endl;
+	//cout << "Press 1 for acsending and 2 for descending" << endl;
+	//cin >> choice;
+	////bubbleSortHourlyRate(allTutors, choice);
+	//bubbleSortTutorID(allTutors, choice);
+
+	modifyTutor();
 	////displayAdminMenu();
 	////displayHRMenu();
 	////displayTutorMenu();
