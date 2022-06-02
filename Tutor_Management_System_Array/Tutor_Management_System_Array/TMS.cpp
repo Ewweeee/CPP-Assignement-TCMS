@@ -733,12 +733,12 @@ void searchByRatingLinear(int totalArraySize, string rating)
 }
 
 //Search TutorID - Linear Search (Return multiple records)
-void searchByTutorIDLinear(int arraySize, string ID)
+void searchByTutorIDLinear(string ID)
 {
 	int i = 0;
 	boolean flag = false;
 
-	if (arraySize > 0 && allTutors[i].tutorID.find(ID) != string::npos)
+	if (allTutors[i].tutorID.find(ID) != string::npos)
 	{
 		while (allTutors[i].tutorID.find(ID) != string::npos)
 		{
@@ -1001,7 +1001,7 @@ void viewTutor()
 			cout << "Which tutor like to search by ID?" << endl;
 			cout << "Tutor ID: ";
 			cin >> searchTutor;
-			searchByTutorIDLinear(arraySize, searchTutor);
+			searchByTutorIDLinear(searchTutor);
 
 			cout << endl;
 			cout << "Search tutor again by ID? 1 = YES, Others = NO:" << endl;
@@ -1054,7 +1054,7 @@ void viewTutor()
 				cout << "Which tutor like to search by ID?" << endl;
 				cout << "Tutor ID: ";
 				cin >> searchTutor;
-				searchByTutorIDLinear(arraySize, searchTutor);
+				searchByTutorIDLinear(searchTutor);
 
 				cout << endl;
 				cout << "Search tutor again by ID? 1 = YES, Others = NO:" << endl;
@@ -1143,6 +1143,7 @@ void checkAccess(string userCode, string credentials)
 	bool input = true;
 	bool userCredentials = true;
 	int i = 0, opt = 0;
+	int exit = 0;
 	string userType;
 	string branch;
 	string TID;
@@ -1194,23 +1195,16 @@ void checkAccess(string userCode, string credentials)
 
 					int index = searchByTutorID(arraySize, TID);
 					cout << endl;
-					if (index == -1) {
-
-						cout << "Invalid Tutor ID. Record cannot be not found!";
-						cout << endl;
-					}
-					else {
-						do
-						{
-							displayModifyTutorMenu();
-							cin >> choice;
-							modifyTutor(index, TID, choice);
-							cout << "Do you want to edit again? 1 = YES, 0 = NO: ";
-							cin >> choice;
-						} while (choice == 1);
-						cout << " Do you want to edit another tutor? 1 = YES, 0 = NO: ";
+					do
+					{
+						displayModifyTutorMenu();
 						cin >> choice;
-					}
+						modifyTutor(index, TID, choice);
+						cout << "Do you want to edit again? 1 = YES, 0 = NO: ";
+						cin >> choice;
+					} while (choice == 1);
+					cout << " Do you want to edit another tutor? 1 = YES, 0 = NO: ";
+					cin >> choice;
 				} while (choice == 1);
 				break;
 			case 4:
@@ -1220,7 +1214,10 @@ void checkAccess(string userCode, string credentials)
 				generateReport();
 				break;
 			case 6:
-				displayExitMenu();
+				exit = displayExitMenu();
+				if (exit == -1) {
+					return;
+				}
 				break;
 			default:
 				cout << "Invalid selection, Please Try Again" << endl;

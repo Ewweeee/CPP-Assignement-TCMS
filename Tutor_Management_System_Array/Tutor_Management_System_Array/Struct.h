@@ -153,7 +153,7 @@ struct Tutor {
 		return lastName;
 	}
 
-	void setLastName(string firstName) {
+	void setLastName(string lastName) {
 		this->lastName = lastName;
 	}
 
