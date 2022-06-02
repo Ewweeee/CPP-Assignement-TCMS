@@ -96,7 +96,7 @@ struct Tutor {
 	string firstName;
 	string lastName;
 	string dateJoined;
-	string dateTerminated = "NA";
+	string dateTerminated = "-";
 	double hourlyRate;
 	string phoneNumber;
 	string address;
@@ -274,7 +274,7 @@ void initializeRecords() {
 	allTutors[2].firstName = "Tan";
 	allTutors[2].lastName = "Xin Qian";
 	allTutors[2].dateJoined = "20/05/2012";
-	allTutors[2].dateTerminated = "NA";
+	allTutors[2].dateTerminated = "-";
 	allTutors[2].hourlyRate = 40;
 	allTutors[2].center.centerCode = 1001;
 	allTutors[2].center.centerName = "eXcel Tuition Centre Cheras";
