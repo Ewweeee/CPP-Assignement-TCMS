@@ -1182,6 +1182,7 @@ void viewTutor()
 	string rating;
 	string searchTutor = "";
 
+	cout << endl;
 	cout << " Search by?" << endl;
 	cout << "1 - TutorID, 2 - Ratings" << endl;
 	cout << "Choice: ";
@@ -1419,9 +1420,11 @@ void checkAccess(string userCode, string credentials)
 {
 	bool found = 0;
 	bool input = true;
+	bool sort = true;
 	bool userCredentials = true;
 	int i = 0, opt = 0;
 	int exit = 0;
+	int style;
 	string userType;
 	string branch;
 	string TID;
@@ -1462,6 +1465,36 @@ void checkAccess(string userCode, string credentials)
 				bubbleSortTutorID(allTutors);
 				break;
 			case 2:
+				do {
+					displaySortMenu();
+					cin >> choice;
+					switch (choice)
+					{
+					case 1:
+						cout << "Tutor Details sorted by Hourly Rate: " << endl;
+						cout << "Press 1 for Ascending 2 for Descending" << endl;
+						cin >> style;
+						bubbleSortHourlyRate(allTutors, style);
+						cout << endl;
+						break;
+					case 2:
+						cout << "Tutor Details sorted by Overall Performance: " << endl;
+						cout << "Press 1 for Ascending 2 for Descending" << endl;
+						cin >> style;
+						bubbleSortOverallPerformance(allTutors, style);
+						cout << endl;
+						break;
+					case 3:
+						cout << "Tutor Details sorted by Tutor ID: " << endl;
+						bubbleSortTutorID(allTutors);
+						cout << endl;
+						break;
+					default:
+						cout << "Invalid selection" << endl;
+						sort = false;
+						break;
+					}
+				} while (!sort);
 				viewTutor();
 				break;
 			case 3:
