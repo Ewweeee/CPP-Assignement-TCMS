@@ -249,10 +249,7 @@ struct Tutor {
 
 void displayAllRecords(int lastIndex, string branch) {
 	cout << "\t| TUTOR DETAILS |" << endl << endl;
-	cout << "|TUTOR ID|" << setw(3) << "FIRST NAME|" << setw(3) << "LAST NAME|" << setw(3) << "DATE JOINED|";
-	cout << setw(3) << "DATE TERMINATED|" << setw(3) << "PAY|" << setw(3) << "CENTRE CODE|" << setw(3) << "CENTRE LOCATION|";
-	cout << setw(3) << "CENTRE NAME|" << setw(3) << "SUB CODE|" << setw(3) << "SUB NAME|" << setw(3) << "PHONE NUM|";
-	cout << setw(3) << "ADDRESS|" << setw(3) << "RATINGS | " << endl;
+
 	int i = 0;
 	Tutor* current = head;
 

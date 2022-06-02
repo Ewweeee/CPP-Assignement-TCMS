@@ -562,6 +562,39 @@ void bubbleSortTutorID(Tutor allTutor[])
 	}
 }
 
+void bubbleSortTutorID(Tutor allTutor[], string branch)
+{
+	//Bubble sort
+	int loop_j;
+	Tutor key;
+	//Ascending
+	for (int index = 1; index < arraySize; index++)
+	{
+		key = allTutor[index];
+		loop_j = index;
+
+		while (loop_j > 0 && stoi(allTutor[loop_j - 1].getTutorID().substr(1)) < stoi(key.getTutorID().substr(1))) {
+			allTutor[loop_j] = allTutor[loop_j - 1];
+			loop_j--;
+		}
+		allTutor[loop_j] = key;
+	}
+
+	cout << "After bubble sort, the array result as here: " << endl;
+	int i = 0;
+	while (i <= arraySize) {
+		//Validatation 1 : Check whether array is empty or not
+		if (!allTutors[i].tutorID.empty() && allTutors[i].center.branch == branch) {
+			cout << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " << allTutors[i].lastName << " - " <<
+				allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " << allTutors[i].hourlyRate << " - " <<
+				allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " << allTutors[i].center.centerName << " - " <<
+				allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " << allTutors[i].rating;
+			cout << endl << endl;
+		}
+		i++;
+	}
+}
+
 void bubbleSortHourlyRate(Tutor allTutor[], int style)
 {
 	//Bubble sort
@@ -592,6 +625,58 @@ void bubbleSortHourlyRate(Tutor allTutor[], int style)
 			loop_j = index;
 
 			while (loop_j > 0 && allTutor[loop_j - 1].getHourlyRate() < key.getHourlyRate()) {
+				allTutor[loop_j] = allTutor[loop_j - 1];
+				loop_j--;
+			}
+			allTutor[loop_j] = key;
+		}
+	}
+
+	cout << "After bubble sort, the array result as here: " << endl;
+	int i = 0;
+	while (i <= arraySize) {
+		//Validatation 1 : Check whether array is empty or not
+		if (!allTutors[i].tutorID.empty()) {
+			cout << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " << allTutors[i].lastName << " - " <<
+				allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " << allTutors[i].hourlyRate << " - " <<
+				allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " << allTutors[i].center.centerName << " - " <<
+				allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " << allTutors[i].rating;
+			cout << endl << endl;
+		}
+		i++;
+	}
+}
+
+void bubbleSortOverallPerformance(Tutor allTutor[], int style)
+{
+	int loop_j;
+	Tutor key;
+
+	//Style defines the way of sorting: 1 for ascending; 2 for descending
+	if (style == 1)
+	{
+		//Ascending
+		for (int index = 1; index < arraySize; index++)
+		{
+			key = allTutor[index];
+			loop_j = index;
+
+			while (loop_j > 0 && allTutor[loop_j - 1].getRating() > key.getRating()) {
+				allTutor[loop_j] = allTutor[loop_j - 1];
+				loop_j--;
+			}
+			allTutor[loop_j] = key;
+		}
+	}
+	else
+	{
+		//Descending
+		for (int index = 1; index < arraySize; index++)
+		{
+			key = allTutor[index];
+			loop_j = index;
+
+			while (loop_j > 0 && allTutor[loop_j - 1].getRating() < key.getRating()) {
 				allTutor[loop_j] = allTutor[loop_j - 1];
 				loop_j--;
 			}
@@ -714,7 +799,7 @@ int searchByRatingBinary(int initial, int totalArraySize, string rating) {
 };
 
 //Search Rating - Linear Search (Return multiple records)
-void searchByRatingLinear(int totalArraySize, string rating)
+void searchByRatingLinear(string rating)
 {
 	int i = 0;
 	boolean flag = false;
@@ -740,15 +825,11 @@ void searchByRatingLinear(int totalArraySize, string rating)
 	}
 }
 
-//Search TutorID - Linear Search (Return multiple records)
-void searchByTutorIDLinear(string ID)
+//Search Rating - Linear Search (Return multiple records)
+void searchByRatingLinear(string rating, string branch)
 {
-	int i = 0;
-	boolean flag = false;
-
-	if (allTutors[i].tutorID.find(ID) != string::npos)
-	{
-		while (allTutors[i].tutorID.find(ID) != string::npos)
+	for (int i = 0; i <= arraySize; i++) {
+		if ((to_string(allTutors[i].rating)).find(rating) != string::npos && allTutors[i].center.branch == branch)
 		{
 			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
 				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
@@ -756,15 +837,43 @@ void searchByTutorIDLinear(string ID)
 				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
 				allTutors[i].rating;
 			cout << endl;
-			i++;
 		}
+	}
+	cout << "Searching is done here! NOTE: There are no relevant tutor records shown if they could not be found." << endl;
+}
 
-		flag = true;
-		cout << "Searching is done here!" << endl;
+//Search TutorID - Linear Search (Return multiple records)
+void searchByTutorIDLinear(string ID)
+{
+	for (int i = 0; i <= arraySize; i++) {
+		if (allTutors[i].tutorID.find(ID) != string::npos)
+		{
+			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
+				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
+				allTutors[i].hourlyRate << " - " << allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " <<
+				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
+				allTutors[i].rating;
+			cout << endl;
+		}
 	}
-	else {
-		cout << "Search is not found!!" << endl;
+	cout << "Searching is done here! NOTE: There are no relevant tutor records shown if they could not be found." << endl;
+};
+
+void searchByTutorIDLinear(string ID, string branch)
+{
+
+	for (int i = 0; i <= arraySize; i++) {
+		if (allTutors[i].tutorID.find(ID) != string::npos && allTutors[i].center.branch == branch)
+		{
+			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
+				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
+				allTutors[i].hourlyRate << " - " << allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " <<
+				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
+				allTutors[i].rating;
+			cout << endl;
+		}
 	}
+	cout << "Searching is done here! NOTE: There are no relevant tutor records shown if they could not be found." << endl;
 };
 
 //Modify Tutor Record
@@ -864,18 +973,18 @@ void modifyTutor(int i, string ID, int choice)
 			switch (choice) {
 			case 1:
 				allTutors[i].center.centerCode = 1001;
-				allTutors[i].center.centerName = "eXcel Turesulttresulton Centre Cheras";
+				allTutors[i].center.centerName = "eXcel Tuition Centre Cheras";
 				allTutors[i].center.branch = "Cheras";
 				break;
 			case 2:
 				allTutors[i].center.centerCode = 1002;
-				allTutors[i].center.centerName = "eXcel Turesulttresulton Centre Bukresultt Jalresultl";
-				allTutors[i].center.branch = "Bukresultt Jalresultl";
+				allTutors[i].center.centerName = "eXcel Tuition Centre Bukit Jalil";
+				allTutors[i].center.branch = "Bukit Jalil";
 				break;
 			case 3:
 				allTutors[i].center.centerCode = 1003;
-				allTutors[i].center.centerName = "eXcel Turesulttresulton Centre Petalresultng Jaya";
-				allTutors[i].center.branch = "Petalresultng Jaya";
+				allTutors[i].center.centerName = "eXcel Tuition Centre Petaling Jaya";
+				allTutors[i].center.branch = "Petaling Jaya";
 				break;
 			default:
 				cout << "Invalid Input, Please Insert Valid Choice (1-3)!" << endl << "\t";
@@ -901,19 +1010,19 @@ void modifyTutor(int i, string ID, int choice)
 					break;
 				case 2:
 					allTutors[i].subjectCode = "CHN";
-					allTutors[i].subjectName = "Chresultnese";
+					allTutors[i].subjectName = "Chinese";
 					break;
 				case 3:
-					allTutors[i].subjectCode = "ENF";
-					allTutors[i].subjectName = "Englresultsh";
+					allTutors[i].subjectCode = "ENG";
+					allTutors[i].subjectName = "English";
 					break;
 				case 4:
 					allTutors[i].subjectCode = "MTH";
-					allTutors[i].subjectName = "Mathematresultcs";
+					allTutors[i].subjectName = "Mathematics";
 					break;
 				case 5:
-					allTutors[i].subjectCode = "SCN";
-					allTutors[i].subjectName = "Scresultence";
+					allTutors[i].subjectCode = "SCI";
+					allTutors[i].subjectName = "Science";
 					break;
 				default:
 					cout << "Invalid Input, Please Insert Valid Choice (1-5)!" << endl << "\t";
@@ -1103,7 +1212,7 @@ void viewTutor()
 				cout << "Rating: ";
 				cin >> rating;
 
-				searchByRatingLinear(arraySize, rating);
+				searchByRatingLinear(rating);
 
 				cout << endl;
 				cout << "Search tutor again by rating? 1 = YES, Others = NO:" << endl;
@@ -1120,7 +1229,7 @@ void viewTutor()
 			cout << "Rating: ";
 			cin >> rating;
 
-			searchByRatingLinear(arraySize, rating);
+			searchByRatingLinear(rating);
 
 			cout << endl;
 			cout << "Search tutor again by rating? 1 = YES, Others = NO:" << endl;
@@ -1138,6 +1247,92 @@ void viewTutor()
 				cout << "Tutor ID: ";
 				cin >> searchTutor;
 				searchByTutorIDLinear(searchTutor);
+
+				cout << endl;
+				cout << "Search tutor again by ID? 1 = YES, Others = NO:" << endl;
+				cout << "Choice: ";
+				cin >> choice;
+			} while (choice == 1);
+		}
+	}
+};
+
+void viewTutor(string branch)
+{
+	int choice;
+	int result;
+	string rating;
+	string searchTutor = "";
+
+	cout << " Search by?" << endl;
+	cout << "1 - TutorID, 2 - Ratings" << endl;
+	cout << "Choice: ";
+	cin >> choice;
+	if (choice == 1)
+	{
+		for (int i = 0; i <= arraySize; i++) {
+			if (allTutors[i].center.branch == branch) {
+				do
+				{
+					cout << "Which tutor like to search by ID?" << endl;
+					cout << "Tutor ID: ";
+					cin >> searchTutor;
+					searchByTutorIDLinear(searchTutor, branch);
+
+					cout << endl;
+					cout << "Search tutor again by ID? 1 = YES, Others = NO:" << endl;
+					cout << "Choice: ";
+					cin >> choice;
+				} while (choice == 1);
+
+				cout << "Want to search by ratings instead? 1 = YES, Others = NO:" << endl;
+				cout << "Choice: ";
+				cin >> choice;
+				if (choice == 1)
+				{
+					do
+					{
+						cout << "Which tutor would you like to search by rating?" << endl;
+						cout << "Rating: ";
+						cin >> rating;
+
+						searchByRatingLinear(rating, branch);
+
+						cout << endl;
+						cout << "Search tutor again by rating? 1 = YES, Others = NO:" << endl;
+						cout << "Choice: ";
+						cin >> choice;
+					} while (choice == 1);
+				}
+			}
+		}
+	}
+	else if (choice == 2)
+	{
+		do
+		{
+			cout << "Which tutor would you like to search by rating?" << endl;
+			cout << "Rating: ";
+			cin >> rating;
+
+			searchByRatingLinear(rating, branch);
+
+			cout << endl;
+			cout << "Search tutor again by rating? 1 = YES, Others = NO:" << endl;
+			cout << "Choice: ";
+			cin >> choice;
+		} while (choice == 1);
+
+		cout << "Want to search by TutorID instead? 1 = YES, Others = NO:" << endl;
+		cout << "Choice: ";
+		if (choice == 1)
+		{
+			do
+			{
+				cout << "Which tutor like to search by ID?" << endl;
+				cout << "Tutor ID: ";
+				cin >> searchTutor;
+				searchByTutorIDLinear(searchTutor, branch);
 
 				cout << endl;
 				cout << "Search tutor again by ID? 1 = YES, Others = NO:" << endl;
@@ -1238,7 +1433,7 @@ void checkAccess(string userCode, string credentials)
 
 	//Compare HR and Admin User Code & Credentials With The System's Access Records
 	while (!allAccess[i].userCode.empty()) {
-		if (userCode == allAccess[i].getUserCode() && credentials == allAccess[i].getCredentials())
+		if (userCode == allAccess[i].userCode && credentials == allAccess[i].credentials)
 		{
 			found = 1;
 			userType = allAccess[i].getUserType();
@@ -1357,8 +1552,8 @@ void checkAccess(string userCode, string credentials)
 				input = false;
 				break;
 			case 2:
-				bubbleSortTutorID(allTutors);
-				viewTutor();
+				bubbleSortTutorID(allTutors, branch);
+				viewTutor(branch);
 				cout << endl;
 				input = false;
 				break;
