@@ -228,34 +228,85 @@ void enterDetails(int i, string ID) {
 	cout << string(82, '=') << endl;
 	cout << "	Generated Tutor ID                  : " << ID << endl; // print generated tutor ID
 
+
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	// First Name
 	cout << "	Please enter The First Name of Tutor: ";
 	getline(cin, allTutors[i].firstName);
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+	// Last Name
 	cout << "	Please enter The Last Name of Tutor : ";
-	cin >> allTutors[i].lastName;
+	getline(cin, allTutors[i].lastName);
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	cout << "	Please enter Tutor Date Joined  Format (DD/MM/YYYY) : ";
+	// Date Joined 
+	cout << "	Please enter Tutor Date Joined [Format (DD/MM/YYYY)] : ";
 	cin >> allTutors[i].dateJoined;
+	while (cin.fail() || allTutors[i].dateJoined.size() != 10)
+	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << endl << "Please provide a valid date! " << endl;
+		cout << "	Please enter Tutor Date Joined [Format (DD/MM/YYYY)] : ";
+		cin >> allTutors[i].dateJoined;
+	}
+	cout << endl;
 
+	// Hourly Pay Rate
+	cout << "	Please enter Hourly Pay Rate (40-80): ";
+	cin >> allTutors[i].hourlyRate;
 	while (cin.fail() || allTutors[i].hourlyRate < 40 || allTutors[i].hourlyRate > 80) {
+
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << endl << "	Please give a valid hourly rate! " << endl;
 		cout << "	Please enter Hourly Pay Rate (40-80): ";
 		cin >> allTutors[i].hourlyRate;
 	}
-	do {
+	cout << endl;
+
+	// Tuition Center
+	cout << "	Please select Tuition Center        : " << endl;
+	cout << "	1. Cheras " << endl;
+	cout << "	2. Bukit Jalil" << endl;
+	cout << "	3. Petaling Jaya" << endl;
+	cout << "	Please select Tuition Center        : ";
+	cin >> choice;
+
+	/*check whether given choice input is valid 1 to 5*/
+	switch (choice) {
+	case 1:
+		allTutors[i].center.centerCode = 1001;
+		allTutors[i].center.centerName = "eXcel Tuition Centre Cheras";
+		allTutors[i].center.branch = "Cheras";
+		break;
+	case 2:
+		allTutors[i].center.centerCode = 1002;
+		allTutors[i].center.centerName = "eXcel Tuition Centre Bukit Jalil";
+		allTutors[i].center.branch = "Bukit Jalil";
+		break;
+	case 3:
+		allTutors[i].center.centerCode = 1003;
+		allTutors[i].center.centerName = "eXcel Tuition Centre Petaling Jaya";
+		allTutors[i].center.branch = "Petaling Jaya";
+		break;
+	default:
+		cout << "	Invalid Input, Please Insert Valid Choice (1-3)!" << endl << "\t";
+		break;
+	}
+
+	while (cin.fail() || choice < 1 || choice > 3)
+	{
+		cout << endl << "	Please enter a valid selection! " << endl << endl;
 		cout << "	Please select Tuition Center        : " << endl;
 		cout << "	1. Cheras " << endl;
 		cout << "	2. Bukit Jalil" << endl;
 		cout << "	3. Petaling Jaya" << endl;
-
-		cout << "	Please insert choice (1-3) : ";
+		cout << "	Please select Tuition Center        : ";
 		cin >> choice;
-		if (choice < 1 || choice > 3)
-		{
-			input = false;
-		}
 
-		/*check whether given choice input is valid 1 to 5*/
 		switch (choice) {
 		case 1:
 			allTutors[i].center.centerCode = 1001;
@@ -277,22 +328,61 @@ void enterDetails(int i, string ID) {
 			input = false;
 			break;
 		}
-	} while (!input);
-	do {
-		cout << "	Please select Subject Taught : " << endl;
+	};
+
+	cout << endl;
+
+	// Subject Taught
+
+	cout << "	Please select Subject Taught        : " << endl;
+	cout << "	1. Chinese " << endl;
+	cout << "	2. Malay" << endl;
+	cout << "	3. English" << endl;
+	cout << "	4. Mathematics" << endl;
+	cout << "	5. Science" << endl;
+	cout << "	Please insert choice(1 - 5)         : ";
+	cin >> choice;
+
+	switch (choice) {
+	case 1:
+		allTutors[i].subjectCode = "MLY";
+		allTutors[i].subjectName = "Malay";
+		break;
+	case 2:
+		allTutors[i].subjectCode = "CHN";
+		allTutors[i].subjectName = "Chinese";
+		break;
+	case 3:
+		allTutors[i].subjectCode = "ENF";
+		allTutors[i].subjectName = "English";
+		break;
+	case 4:
+		allTutors[i].subjectCode = "MTH";
+		allTutors[i].subjectName = "Mathematics";
+		break;
+	case 5:
+		allTutors[i].subjectCode = "SCN";
+		allTutors[i].subjectName = "Science";
+		break;
+	default:
+		cout << "	Invalid Input, Please Insert Valid Choice (1-5)!" << endl << "\t";
+		input = false;
+		break;
+	}
+
+
+	while (cin.fail() || choice < 1 || choice > 5) {
+
+		cout << endl << "	Please enter a valid selection! " << endl << endl;
+		cout << "	Please select Subject Taught        : " << endl;
 		cout << "	1. Chinese " << endl;
 		cout << "	2. Malay" << endl;
 		cout << "	3. English" << endl;
 		cout << "	4. Mathematics" << endl;
 		cout << "	5. Science" << endl;
-		cout << "	Please insert choice(1 - 5) : ";
+		cout << "	Please insert choice(1 - 5)         : ";
 
 		cin >> choice;
-		if (choice < 1 || choice > 5)
-		{
-			input = false;
-		}
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 		switch (choice) {
 		case 1:
@@ -320,24 +410,35 @@ void enterDetails(int i, string ID) {
 			input = false;
 			break;
 		}
-	} while (!input);
-	while (cin.fail() || allTutors[i].phoneNumber.size()) {
-		cout << "	Please enter Phone Number           : ";
+	}
+
+	cout << endl;
+
+	// Phone Number
+	cout << "	Please Enter Phone Number           : ";
+	cin >> allTutors[i].phoneNumber;
+	while (cin.fail() || allTutors[i].phoneNumber.size() >= 13) {
+
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << endl << "Please give a valid phone number! " << endl;
+		cout << "	Please Enter Phone Number           : ";
 		cin >> allTutors[i].phoneNumber;
 	}
+
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cout << endl;
+
+	// Tutor Address
 	cout << "	Please enter Tutor Address          : ";
 	getline(cin, allTutors[i].address);
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	/*check whether given choice input is valid 1 to 5*/
-	while (cin.fail() || allTutors[i].rating < 1 || allTutors[i].rating >5) {
-		cout << "	Please enter Tutor Rating     (1-5) : ";
-		cin >> allTutors[i].rating;
-	}
-	arraySize++;
 
+	cout << "Working on it!!" << endl;
 	Sleep(2000);
-	cout << endl << "\t*****     Entered Details Successful     *****";
+
+	arraySize++;
 	system("CLS");
 }
 
@@ -443,16 +544,11 @@ void bubbleSortTutorID(Tutor allTutor[])
 	while (i <= arraySize) {
 		//Validatation 1 : Check whether array is empty or not
 		if (!allTutors[i].tutorID.empty()) {
-			cout << allTutors[i].tutorID << setw(3);
-			cout << allTutors[i].hourlyRate << setw(3);
-			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
-			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
-			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
-			cout << setw(3) << allTutors[i].center.centerName;
-			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
-			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
-			cout << setw(3) << allTutors[i].rating;
-			cout << endl;
+			cout << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " << allTutors[i].lastName << " - " <<
+				allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " << allTutors[i].hourlyRate << " - " <<
+				allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " << allTutors[i].center.centerName << " - " <<
+				allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " << allTutors[i].rating;
+			cout << endl << endl;
 		}
 		i++;
 	}
@@ -500,15 +596,11 @@ void bubbleSortHourlyRate(Tutor allTutor[], int style)
 	while (i <= arraySize) {
 		//Validatation 1 : Check whether array is empty or not
 		if (!allTutors[i].tutorID.empty()) {
-			cout << allTutors[i].hourlyRate << setw(3);
-			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
-			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
-			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
-			cout << setw(3) << allTutors[i].center.centerName;
-			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
-			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
-			cout << setw(3) << allTutors[i].rating;
-			cout << endl;
+			cout << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " << allTutors[i].lastName << " - " <<
+				allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " << allTutors[i].hourlyRate << " - " <<
+				allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " << allTutors[i].center.centerName << " - " <<
+				allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " << allTutors[i].rating;
+			cout << endl << endl;
 		}
 		i++;
 	}
@@ -556,15 +648,11 @@ void bubbleSortOverallPerformance(Tutor allTutor[], int style)
 	while (i <= arraySize) {
 		//Validatation 1 : Check whether array is empty or not
 		if (!allTutors[i].tutorID.empty()) {
-			cout << setw(3) << allTutors[i].rating;
-			cout << allTutors[i].hourlyRate << setw(3);
-			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
-			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
-			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
-			cout << setw(3) << allTutors[i].center.centerName;
-			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
-			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
-			cout << endl;
+			cout << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " << allTutors[i].lastName << " - " <<
+				allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " << allTutors[i].hourlyRate << " - " <<
+				allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " << allTutors[i].center.centerName << " - " <<
+				allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " << allTutors[i].rating;
+			cout << endl << endl;
 		}
 		i++;
 	}
@@ -617,19 +705,73 @@ int searchByRatingBinary(int initial, int totalArraySize, string rating) {
 	return -1;
 };
 
-//Modify Tutor Record
-void modifyTutor()
+//Search Rating - Linear Search (Return multiple records)
+void searchByRatingLinear(int totalArraySize, string rating)
 {
-	int i = 0; int choice = 0;
+	int i = 0;
+	boolean flag = false;
+
+	if (arraySize > 0 && (to_string(allTutors[i].rating)).find(rating) != string::npos)
+	{
+		while ((to_string(allTutors[i].rating)).find(rating) != string::npos)
+		{
+			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
+				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
+				allTutors[i].hourlyRate << " - " << allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " <<
+				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
+				allTutors[i].rating;
+			cout << endl;
+			i++;
+		}
+
+		flag = true;
+		cout << "Searching is done here!" << endl;
+	}
+	else {
+		cout << "Search is not found!!" << endl;
+	}
+}
+
+//Search TutorID - Linear Search (Return multiple records)
+void searchByTutorIDLinear(int arraySize, string ID)
+{
+	int i = 0;
+	boolean flag = false;
+
+	if (arraySize > 0 && allTutors[i].tutorID.find(ID) != string::npos)
+	{
+		while (allTutors[i].tutorID.find(ID) != string::npos)
+		{
+			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
+				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
+				allTutors[i].hourlyRate << " - " << allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " <<
+				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
+				allTutors[i].rating;
+			cout << endl;
+			i++;
+		}
+
+		flag = true;
+		cout << "Searching is done here!" << endl;
+	}
+	else {
+		cout << "Search is not found!!" << endl;
+	}
+};
+
+
+//Modify Tutor Record
+void modifyTutor(int i, string ID, int choice)
+{
+	//	int i = 0; 
+	//	int choice = 0;
 	int totalSize = arraySize;
-	string TID;
+	//	string TID;
 	string address;
 	string phoneNumber;
 	string lastName;
 	string firstName;
 	string tutorID;
-	//string firstName;
-	//string lastName;
 	string dateJoined;
 	string dateTerminated;
 	double hourlyRate;
@@ -637,165 +779,162 @@ void modifyTutor()
 	bool input = true;
 	int rating;
 	char decision;
-	cout << "Please Enter Tutor ID To Be Modified : ";
-	cin >> TID;
 
-	int result = searchByTutorIDBinary(0, totalSize, TID);
-	if (result == -1)
+
+	if (allTutors[i].tutorID == ID)
 	{
-		cout << "Invalid Tutor ID. Record cannot be not found!";
-	}
-	else
-	{
-		do
+		switch (choice)
 		{
-			displayModifyTutorMenu();
 
+		case 1:
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Please Enter New Name: " << endl;
+			cout << "First Name: ";
+			getline(cin, firstName);
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+
+			cout << "Last Name: ";
+			getline(cin, lastName);
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+
+			allTutors[i].setFirstName(firstName);
+
+			allTutors[i].setLastName(lastName);
+			//allTutors[result].lastName = lastName;
+			bubbleSortTutorID(allTutors);
+			break;
+
+		case 2:
+			cout << "Please enter Hourly Pay Rate (40-80): ";
+			cin >> hourlyRate;
+			//stod(hourlyRate);
+			/*check whether given hourly pay rate input is valid 40 to 80*/
+			while (hourlyRate < 40 || hourlyRate > 80) {
+				cout << "Please Try Again With Valid Input: ";
+			}
+
+			//Check how to change string to double
+			allTutors[i].setHourlyRate(hourlyRate);
+			cout << "Hourly Pay Rate Had Successfully Changed" << endl;
+			//				return;
+
+			break;
+
+		case 3:
+			cout << "Please Insert New Phone Number: ";
+			cin >> phoneNumber;
+			allTutors[i].phoneNumber = phoneNumber;
+			cout << "Phone Number Had Successfully Changed" << endl;
+			//				return;
+			break;
+
+		case 4:
+			cout << "Please Enter New Address: ";
+			getline(cin, address);
+			allTutors[i].address = address;
+			cout << "Address Had Successfully Changed" << endl;
+			//				return;
+			break;
+
+		case 5:
+			cout << "Please Enter New Credentials: ";
+			cin >> credential;
+			allTutors[i].credential = credential;
+			cout << "Credential Had Successfully Changed" << endl;
+			//				return;
+
+			break;
+
+		case 6:
+			cout << "Please select Tuition Center        : " << endl;
+			cout << "1. Cheras " << endl;
+			cout << "2. Bukit Jalil" << endl;
+			cout << "3. Petaling Jaya" << endl;
+
+			cout << "Please insert choice (1-3) : ";
 			cin >> choice;
 
-			switch (choice)
-			{
+			/*check whether given choice input is valid 1 to 3*/
+
+			switch (choice) {
 			case 1:
-
-				cout << "Please Enter New Name: " << endl;
-				cout << "First Name: ";
-				getline(cin, firstName);
-
-				cout << "Last Name: ";
-				cin >> lastName;
-				allTutors[result].firstName = firstName;
-				allTutors[result].lastName = lastName;
-				cout << "Tutor Name Had Successfully Changed" << endl;
-				return;
-
+				allTutors[i].center.centerCode = 1001;
+				allTutors[i].center.centerName = "eXcel Turesulttresulton Centre Cheras";
+				allTutors[i].center.branch = "Cheras";
+				break;
 			case 2:
-				cout << "Please enter Hourly Pay Rate (40-80): ";
-				cin >> hourlyRate;
-				/*check whether given hourly pay rate input is valid 40 to 80*/
-				while (hourlyRate < 40 || hourlyRate > 80) {
-					cout << "Please Try Again With Valid Input: ";
-				}
-				allTutors[result].hourlyRate = hourlyRate;
-				cout << "Hourly Pay Rate Had Successfully Changed" << endl;
-				return;
-
+				allTutors[i].center.centerCode = 1002;
+				allTutors[i].center.centerName = "eXcel Turesulttresulton Centre Bukresultt Jalresultl";
+				allTutors[i].center.branch = "Bukresultt Jalresultl";
 				break;
 			case 3:
-				cout << "Please Insert New Phone Number: ";
-				cin >> phoneNumber;
-				allTutors[result].phoneNumber = phoneNumber;
-				cout << "Phone Number Had Successfully Changed" << endl;
-				return;
+				allTutors[i].center.centerCode = 1003;
+				allTutors[i].center.centerName = "eXcel Turesulttresulton Centre Petalresultng Jaya";
+				allTutors[i].center.branch = "Petalresultng Jaya";
 				break;
-			case 4:
-				cout << "Please Enter New Address: ";
-				getline(cin, address);
-				allTutors[result].address = address;
-				cout << "Address Had Successfully Changed" << endl;
-				return;
+			default:
+				cout << "Invalid Input, Please Insert Valid Choice (1-3)!" << endl << "\t";
 				break;
+			}
 
-			case 5:
-				cout << "Please Enter New Credentials: ";
-				cin >> credential;
-				allTutors[result].credential = credential;
-				cout << "Credential Had Successfully Changed" << endl;
-				return;
-
-				break;
-
-			case 6:
-				cout << "Please select Tuition Center        : " << endl;
-				cout << "1. Cheras " << endl;
-				cout << "2. Bukit Jalil" << endl;
-				cout << "3. Petaling Jaya" << endl;
-
-				cout << "Please insert choice (1-3) : ";
+		case 7:
+			cout << "Please select Subject Taught : " << endl;
+			cout << "1. Chinese " << endl;
+			cout << "2. Malay" << endl;
+			cout << "3. English" << endl;
+			cout << "4. Mathematics" << endl;
+			cout << "5. Science" << endl;
+			cout << "Please insert choice(1 - 5) : ";
+			do {
 				cin >> choice;
-
-				/*check whether given choice input is valid 1 to 3*/
+				/*check whether given choice input is valid 1 to 5*/
 
 				switch (choice) {
 				case 1:
-					allTutors[result].center.centerCode = 1001;
-					allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Cheras";
-					allTutors[result].center.branch = "Cheras";
+					allTutors[i].subjectCode = "MLY";
+					allTutors[i].subjectName = "Malay";
 					break;
 				case 2:
-					allTutors[result].center.centerCode = 1002;
-					allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Bukresultt Jalresultl";
-					allTutors[result].center.branch = "Bukresultt Jalresultl";
+					allTutors[i].subjectCode = "CHN";
+					allTutors[i].subjectName = "Chresultnese";
 					break;
 				case 3:
-					allTutors[result].center.centerCode = 1003;
-					allTutors[result].center.centerName = "eXcel Turesulttresulton Centre Petalresultng Jaya";
-					allTutors[result].center.branch = "Petalresultng Jaya";
+					allTutors[i].subjectCode = "ENF";
+					allTutors[i].subjectName = "Englresultsh";
+					break;
+				case 4:
+					allTutors[i].subjectCode = "MTH";
+					allTutors[i].subjectName = "Mathematresultcs";
+					break;
+				case 5:
+					allTutors[i].subjectCode = "SCN";
+					allTutors[i].subjectName = "Scresultence";
 					break;
 				default:
-					cout << "Invalid Input, Please Insert Valid Choice (1-3)!" << endl << "\t";
+					cout << "Invalid Input, Please Insert Valid Choice (1-5)!" << endl << "\t";
+					input = false;
 					break;
 				}
-
-			case 7:
-				cout << "Please select Subject Taught : " << endl;
-				cout << "1. Chinese " << endl;
-				cout << "2. Malay" << endl;
-				cout << "3. English" << endl;
-				cout << "4. Mathematics" << endl;
-				cout << "5. Science" << endl;
-				cout << "Please insert choice(1 - 5) : ";
-				do {
-					cin >> choice;
-					/*check whether given choice input is valid 1 to 5*/
-
-					switch (choice) {
-					case 1:
-						allTutors[result].subjectCode = "MLY";
-						allTutors[result].subjectName = "Malay";
-						break;
-					case 2:
-						allTutors[result].subjectCode = "CHN";
-						allTutors[result].subjectName = "Chresultnese";
-						break;
-					case 3:
-						allTutors[result].subjectCode = "ENF";
-						allTutors[result].subjectName = "Englresultsh";
-						break;
-					case 4:
-						allTutors[result].subjectCode = "MTH";
-						allTutors[result].subjectName = "Mathematresultcs";
-						break;
-					case 5:
-						allTutors[result].subjectCode = "SCN";
-						allTutors[result].subjectName = "Scresultence";
-						break;
-					default:
-						cout << "Invalid Input, Please Insert Valid Choice (1-5)!" << endl << "\t";
-						input = false;
-						break;
-					}
-				} while (!input);
-				break;
-			case 8:
-				cout << "	Please enter Tutor Rating     (1-5) : ";
-				cin >> rating;
-				/*check whether given choice input is valid 1 to 5*/
-				while (rating < 1 || rating >5) {
-					cout << "Invalid Input, Please Insert Valid Choice (1-5)!: ";
-				}
-				allTutors[result].rating = rating;
-				cout << "Rating Had Successfully Changed" << endl;
-
-				break;
-			default:
-				cout << "Invalid Choice !!! Please Try Again" << endl;
-				break;
+			} while (!input);
+			break;
+		case 8:
+			cout << "	Please enter Tutor Rating     (1-5) : ";
+			cin >> rating;
+			/*check whether given choice input is valid 1 to 5*/
+			while (rating < 1 || rating >5) {
+				cout << "Invalid Input, Please Insert Valid Choice (1-5)!: ";
 			}
-		} while (!input);
+			allTutors[i].rating = rating;
+			cout << "Rating Had Successfully Changed" << endl;
 
-		cout << "Do you want to edit again? 1 = YES, 0 = NO: ";
-		cin >> choice;
-	} while (choice == 1);
+			break;
+		default:
+			cout << "Invalid Choice !!! Please Try Again" << endl;
+			break;
+		}
+	}
 }
 
 //Delete Tutor Record
@@ -850,6 +989,7 @@ void viewTutor()
 	int result;
 	string rating;
 	string searchTutor = "";
+
 	cout << " Search by?" << endl;
 	cout << "1 - TutorID, 2 - Ratings" << endl;
 	cout << "Choice: ";
@@ -861,13 +1001,7 @@ void viewTutor()
 			cout << "Which tutor like to search by ID?" << endl;
 			cout << "Tutor ID: ";
 			cin >> searchTutor;
-			result = searchByTutorIDBinary(0, arraySize, searchTutor);
-			if (result != -1)
-			{
-				cout << result << " - " << allTutors[result].tutorID << " - " << allTutors[result].firstName << " - " << allTutors[result].lastName << " - " << allTutors[result].dateJoined << " - " << allTutors[result].dateTerminated << " - " << allTutors[result].hourlyRate << " - " << allTutors[result].phoneNumber << " - " << allTutors[result].address << " - "
-					<< allTutors[result].credential << " - " << allTutors[result].branch << " - " << allTutors[result].subjectCode << " - " << allTutors[result].subjectName << " - "
-					<< allTutors[result].rating << endl;
-			}
+			searchByTutorIDLinear(arraySize, searchTutor);
 
 			cout << endl;
 			cout << "Search tutor again by ID? 1 = YES, Others = NO:" << endl;
@@ -882,16 +1016,12 @@ void viewTutor()
 		{
 			do
 			{
-				cout << "Which tutor would you like to search by rating?";
+				cout << "Which tutor would you like to search by rating?" << endl;
 				cout << "Rating: ";
 				cin >> rating;
-				result = searchByRatingBinary(0, arraySize, rating);
-				if (result != -1)
-				{
-					cout << result << allTutors[result].tutorID << " - " << allTutors[result].firstName << " - " << allTutors[result].lastName << " - " << allTutors[result].dateJoined << " - " << allTutors[result].dateTerminated << " - " << allTutors[result].hourlyRate << " - " << allTutors[result].phoneNumber << " - " << allTutors[result].address << " - "
-						<< allTutors[result].credential << " - " << allTutors[result].branch << " - " << allTutors[result].subjectCode << " - " << allTutors[result].subjectName << " - "
-						<< allTutors[result].rating << endl;
-				}
+
+				searchByRatingLinear(arraySize, rating);
+
 				cout << endl;
 				cout << "Search tutor again by rating? 1 = YES, Others = NO:" << endl;
 				cout << "Choice: ";
@@ -903,16 +1033,12 @@ void viewTutor()
 	{
 		do
 		{
-			cout << "Which tutor would you like to search by rating?";
+			cout << "Which tutor would you like to search by rating?" << endl;
 			cout << "Rating: ";
 			cin >> rating;
-			result = searchByRatingBinary(0, arraySize, rating);
-			if (result != -1)
-			{
-				cout << result << "" << allTutors[result].tutorID << " - " << allTutors[result].firstName << " - " << allTutors[result].lastName << " - " << allTutors[result].dateJoined << " - " << allTutors[result].dateTerminated << " - " << allTutors[result].hourlyRate << " - " << allTutors[result].phoneNumber << " - " << allTutors[result].address << " - "
-					<< allTutors[result].credential << " - " << allTutors[result].branch << " - " << allTutors[result].subjectCode << " - " << allTutors[result].subjectName << " - "
-					<< allTutors[result].rating << endl;
-			}
+
+			searchByRatingLinear(arraySize, rating);
+
 			cout << endl;
 			cout << "Search tutor again by rating? 1 = YES, Others = NO:" << endl;
 			cout << "Choice: ";
@@ -927,15 +1053,8 @@ void viewTutor()
 			{
 				cout << "Which tutor like to search by ID?" << endl;
 				cout << "Tutor ID: ";
-				cin >> rating;
 				cin >> searchTutor;
-				result = searchByTutorIDBinary(0, arraySize, searchTutor);
-				if (result != -1)
-				{
-					cout << result << allTutors[result].tutorID << " - " << allTutors[result].firstName << " - " << allTutors[result].lastName << " - " << allTutors[result].dateJoined << " - " << allTutors[result].dateTerminated << " - " << allTutors[result].hourlyRate << " - " << allTutors[result].phoneNumber << " - " << allTutors[result].address << " - "
-						<< allTutors[result].credential << " - " << allTutors[result].branch << " - " << allTutors[result].subjectCode << " - " << allTutors[result].subjectName << " - "
-						<< allTutors[result].rating << endl;
-				}
+				searchByTutorIDLinear(arraySize, searchTutor);
 
 				cout << endl;
 				cout << "Search tutor again by ID? 1 = YES, Others = NO:" << endl;
@@ -1026,6 +1145,7 @@ void checkAccess(string userCode, string credentials)
 	int i = 0, opt = 0;
 	string userType;
 	string branch;
+	string TID;
 
 	//Convert The First and Second Letter Of The User Code To UpperCase
 	//To ensure that the letters are in uppercase
@@ -1066,7 +1186,32 @@ void checkAccess(string userCode, string credentials)
 				viewTutor();
 				break;
 			case 3:
-				modifyTutor();
+				do
+				{
+					bubbleSortTutorID(allTutors);
+					cout << "Please Enter Tutor ID To Be Modified : ";
+					cin >> TID;
+
+					int index = searchByTutorID(arraySize, TID);
+					cout << endl;
+					if (index == -1) {
+
+						cout << "Invalid Tutor ID. Record cannot be not found!";
+						cout << endl;
+					}
+					else {
+						do
+						{
+							displayModifyTutorMenu();
+							cin >> choice;
+							modifyTutor(index, TID, choice);
+							cout << "Do you want to edit again? 1 = YES, 0 = NO: ";
+							cin >> choice;
+						} while (choice == 1);
+						cout << " Do you want to edit another tutor? 1 = YES, 0 = NO: ";
+						cin >> choice;
+					}
+				} while (choice == 1);
 				break;
 			case 4:
 				deleteTutor();
@@ -1086,10 +1231,12 @@ void checkAccess(string userCode, string credentials)
 	}
 	else if (found == 1 && userType == "Admin")
 	{
-		int choice;
-		cout << "Login Successful !! ";
+		int choice =0;
 
 		system("CLS");
+		cout << endl << "Login Successful !!" << endl;
+		cout << "Welcome " + userCode << endl << endl;
+
 		do {
 			displayAdminMenu();
 			cin >> choice;
@@ -1099,25 +1246,15 @@ void checkAccess(string userCode, string credentials)
 				addTutor(branch);
 				bubbleSortTutorID(allTutors);
 				cout << endl;
-				cout << "Directing back to menu ........";
-				system("CLS");
 				input = false;
 				break;
 			case 2:
+				bubbleSortTutorID(allTutors);
 				viewTutor();
 				cout << endl;
-				cout << "Directing back to menu ........";
-				system("CLS");
 				input = false;
 				break;
 			case 3:
-				generateReport();
-				cout << endl;
-				cout << "Directing back to menu ........";
-				system("CLS");
-				input = false;
-				break;
-			case 4:
 				displayExitMenu();
 				break;
 			default:

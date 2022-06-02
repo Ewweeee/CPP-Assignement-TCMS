@@ -96,7 +96,7 @@ struct Tutor {
 	string firstName;
 	string lastName;
 	string dateJoined;
-	string dateTerminated;
+	string dateTerminated = "NA";
 	double hourlyRate;
 	string phoneNumber;
 	string address;
@@ -105,7 +105,7 @@ struct Tutor {
 	string branch = center.branch;
 	string subjectCode;
 	string subjectName;
-	int rating;
+	int rating = 0;
 
 	//Tutor's Default Constructor
 	Tutor()
@@ -146,7 +146,7 @@ struct Tutor {
 	}
 
 	void setFirstName(string firstName) {
-		firstName = firstName;
+		this->firstName = firstName;
 	}
 
 	string getLastName() {
@@ -154,7 +154,7 @@ struct Tutor {
 	}
 
 	void setLastName(string firstName) {
-		lastName = lastName;
+		this->lastName = lastName;
 	}
 
 	string getDateJoined() {
@@ -166,7 +166,7 @@ struct Tutor {
 	}
 
 	void setDateTerminated(string dateTerminated) {
-		dateTerminated = dateTerminated;
+		this->dateTerminated = dateTerminated;
 	}
 
 	double getHourlyRate() {
@@ -174,7 +174,7 @@ struct Tutor {
 	}
 
 	void setHourlyRate(double hourlyRate) {
-		hourlyRate = hourlyRate;
+		this->hourlyRate = hourlyRate;
 	}
 
 	string getphoneNumber() {
@@ -182,7 +182,7 @@ struct Tutor {
 	}
 
 	void setphoneNumber(string phoneNumber) {
-		phoneNumber = phoneNumber;
+		this->phoneNumber = phoneNumber;
 	}
 
 	string getAddress() {
@@ -190,7 +190,7 @@ struct Tutor {
 	}
 
 	void setAddress() {
-		address = address;
+		this->address = address;
 	}
 
 	string getCredential() {
@@ -198,7 +198,7 @@ struct Tutor {
 	}
 
 	void setCredential(string credential) {
-		credential = credential;
+		this->credential = credential;
 	}
 
 	string getBranch() {
@@ -206,7 +206,7 @@ struct Tutor {
 	}
 
 	void setBranch(string branch) {
-		branch = branch;
+		this->branch = branch;
 	}
 
 	string getSubjectCode() {
@@ -214,7 +214,7 @@ struct Tutor {
 	}
 
 	void setSubjectCode(string subjectCode) {
-		subjectCode = subjectCode;
+		this->subjectCode = subjectCode;
 	}
 
 	string getSubjectName() {
@@ -222,7 +222,7 @@ struct Tutor {
 	}
 
 	void setSubjectName(string subjectName) {
-		subjectName = subjectName;
+		this->subjectName = subjectName;
 	}
 
 	int getRating() {
@@ -230,7 +230,7 @@ struct Tutor {
 	}
 
 	void setRating(int rating) {
-		rating = rating;
+		this->rating = rating;
 	}
 };
 
@@ -241,7 +241,7 @@ void initializeRecords() {
 	allTutors[0].tutorID = "B0001";
 	allTutors[0].firstName = "Chan";
 	allTutors[0].lastName = "Hong Xian";
-	allTutors[0].dateJoined = "23 / 06 / 2013";
+	allTutors[0].dateJoined = "23/06/2013";
 	allTutors[0].hourlyRate = 40;
 	allTutors[0].center.centerCode = 1002;
 	allTutors[0].center.centerName = "eXcel Tuition Centre Bukit Jalil";
@@ -256,7 +256,7 @@ void initializeRecords() {
 	allTutors[1].tutorID = "P0001";
 	allTutors[1].firstName = "Yew";
 	allTutors[1].lastName = "Ming Yao";
-	allTutors[1].dateJoined = "20 / 11 / 2015";
+	allTutors[1].dateJoined = "20/11/2015";
 	allTutors[1].hourlyRate = 20;
 	allTutors[1].center.centerCode = 1003;
 	allTutors[1].center.centerName = "eXcel Tuition Centre Petaling Jaya";
@@ -271,7 +271,7 @@ void initializeRecords() {
 	allTutors[2].tutorID = "C0001";
 	allTutors[2].firstName = "Tan";
 	allTutors[2].lastName = "Xin Qian";
-	allTutors[2].dateJoined = "20 / 05 / 2012";
+	allTutors[2].dateJoined = "20/05/2012";
 	allTutors[2].hourlyRate = 40;
 	allTutors[2].center.centerCode = 1001;
 	allTutors[2].center.centerName = "eXcel Tuition Centre Cheras";

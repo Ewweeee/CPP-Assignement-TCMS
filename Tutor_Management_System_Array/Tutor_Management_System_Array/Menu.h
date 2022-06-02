@@ -39,8 +39,7 @@ void displayAdminMenu() {
 	cout << string(20, ' ') << "Please Select ONE Choice From The Menu" << string(22, ' ') << endl << endl;
 	cout << "1. Add New Tutor Record" << endl;
 	cout << "2. View Tutor Record " << endl;
-	cout << "3. View Report " << endl;
-	cout << "4. Exit Program " << endl;
+	cout << "3. Exit Program " << endl;
 	cout << endl;
 	cout << "Please Enter Your Option : ";
 }
