@@ -331,7 +331,29 @@ void searchByTutorID(string keyword)
 		position++;
 		current = current->nextAddress;
 	}
-	cout << endl << "Searching is done here!" << endl;
+	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
+}
+
+void searchByTutorID(string keyword, string branch)
+{
+	Tutor* current = head;
+	int count = 1;	//list number
+	int position = 1;
+
+	while (current != NULL)
+	{
+		if ((current->tutorID).find(keyword) != string::npos && current->branch == branch)	//string::npos---> substring
+		{
+			cout << count << ". " << position << " - " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+				<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
+				<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
+				<< current->rating << endl;
+			count++;
+		}
+		position++;
+		current = current->nextAddress;
+	}
+	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
 }
 
 void searchByRating(string keyrating)
@@ -353,7 +375,30 @@ void searchByRating(string keyrating)
 		position++;
 		current = current->nextAddress;
 	}
-	cout << endl << "Searching is done here!" << endl;
+	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
+
+}
+
+void searchByRating(string keyrating, string branch)
+{
+	Tutor* current = head;
+	int count = 1;	//list number
+	int position = 1;
+
+	while (current != NULL)
+	{
+		if (to_string(current->rating).find(keyrating) != string::npos && current->branch == branch)	//string::npos---> substring
+		{
+			cout << count << ". " << position << " - " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+				<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
+				<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
+				<< current->rating << endl;
+			count++;
+		}
+		position++;
+		current = current->nextAddress;
+	}
+	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
 
 }
 
@@ -568,7 +613,7 @@ void modifyTutor(string EdittutorID, int option)
 				{
 					cin.clear();	//remove input operation
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
-					cout << endl << "Please give a valid name! " << endl;
+					cout << endl << "Please give a valid date! " << endl;
 					cout << "Enter New Join Date: ";
 					cin >> current->dateJoined;
 				}
@@ -607,7 +652,7 @@ void modifyTutor(string EdittutorID, int option)
 				cout << "Enter New Phone Number: ";
 				cin >> current->phoneNumber;
 
-				while (cin.fail() || current->phoneNumber.size() >= 13)
+				while (cin.fail() || current->phoneNumber.size() >= 13 || current->phoneNumber.size() <= 9)
 				{
 					cin.clear();	//remove input operation
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
@@ -667,7 +712,7 @@ void modifyTutor(string EdittutorID, int option)
 				{
 					cin.clear();	//remove input operation
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
-					cout << endl << "Please give a valid branch! " << endl;
+					cout << endl << "Please give a valid subject! " << endl;
 					cout << "Enter New SubjectCode: ";
 					cin >> current->subjectCode;
 
@@ -825,42 +870,6 @@ int checkVacantSlot(string branchname)
 	}
 }
 
-//Validate Tutor's Login Credentials
-string checkTutor(string userCode, string credentials)
-{
-	Tutor* current = head;
-	bool found = 0;
-	int i = 0;
-	string branch = "";
-
-	//Convert The First Letter Of The User Code To UpperCase
-	userCode[0] = toupper(userCode[0]);
-
-	//Compare Tutor's Tutor ID & Credentials With The System's Tutor Records
-	while (current != NULL) {
-		if (userCode == current->tutorID && credentials == current->credential)
-		{
-			branch = current->branch;
-			found = 1;
-			break;
-		}
-		current = current->nextAddress;
-	}
-
-	//Check Whether Tutor Credentials Are Valid
-	if (found == 0)
-	{
-		cout << "Invalid Tutor ID & Credentials !!! Please Double Check Your Credentials !!!";
-		cout << endl;
-		return branch;
-	}
-	else
-	{
-		cout << "Login Successful !!";
-		cout << endl;
-		return branch;
-	}
-};
 
 void checkBranch(string branch, string userCode)
 {
@@ -1010,11 +1019,11 @@ void checkBranch(string branch, string userCode)
 					if ((current->tutorID).find(searchTutor) != string::npos && current->branch == branch)
 					{
 						tutorID = current->tutorID;
-						name = current->firstName + current->lastName;
+						name = current->firstName + " " + current->lastName;
 						dateJoined = current->dateJoined;
 						phoneNumber = current->phoneNumber;
 						address = current->address;
-						subject = current->subjectCode + current->subjectName;
+						subject = current->subjectCode + " " + current->subjectName;
 
 						cout << "Results found!" << endl;
 						cout << tutorID << "-" << name << "-" << dateJoined << "-" << phoneNumber << "-" << address << "-"
@@ -1023,7 +1032,7 @@ void checkBranch(string branch, string userCode)
 
 					current = current->nextAddress;
 				}
-				cout << "Search another tutor? 1 = YES, Others = NO";
+				cout << "Search another tutor? 1 = YES, Others = NO ";
 				cin >> choice;
 			} while (choice == 1);
 			break;
@@ -1034,14 +1043,16 @@ void checkBranch(string branch, string userCode)
 		default:
 			cout << "Invalid Choice! Please Re-Enter Your Choice";
 			cout << endl;
+
 		}
 
-		cout << "Anything else to work on this section? 1- YES, Others- NO";
+		cout << "Anything else to work on this section? 1- YES, Others- NO ";
 		cin >> choice;
 		//current = NULL;
 	} while (choice == 1);
 
 }
+
 
 //Validate HR and Admin's Login Credentials
 void checkAccess(string userCode, string credentials)
@@ -1050,9 +1061,9 @@ void checkAccess(string userCode, string credentials)
 	bool found = 0;
 	int i = 0;
 	int choice = 0;
-	string userType;
-	string branch;
-	int slots = 0;;
+	string userType = "";
+	string branch = "";
+	int slots = 0;
 	string searchTutor = "";
 	string branchSlot = "";
 
@@ -1075,8 +1086,6 @@ void checkAccess(string userCode, string credentials)
 	}
 
 	//Check Whether HR and Admin Credentials Are Valid
-	//do {
-
 	if (found == 1 && userType == "HR")
 	{
 
@@ -1085,6 +1094,7 @@ void checkAccess(string userCode, string credentials)
 		/*Sleep(1000);
 		system("CLS");*/
 		do {
+			cout << endl;
 			displayHRMenu();
 			cin >> choice;
 			switch (choice)
@@ -1130,27 +1140,78 @@ void checkAccess(string userCode, string credentials)
 
 					cout << "Tutor Last Name: ";
 					getline(cin, lastName);
+					while (cin.fail())
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid name! " << endl;
+						cout << "Tutor First Name: ";
+						getline(cin, firstName);
+
+						cout << "Tutor Last Name: ";
+						getline(cin, lastName);
+					}
 
 					cout << "Joined Date: ";
 					getline(cin, dateJoined);
+					while (cin.fail() || dateJoined.size() != 10)
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid date! " << endl;
+						cout << "Joined Date: ";
+						getline(cin, dateJoined);
+					}
 
-					cout << "Hourly Rate: RM";
+					cout << "Hourly Rate: ";
 					cin >> hourlyRate;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					while (cin.fail() || hourlyRate > 15)
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid hourly rate! " << endl;
+						cout << "Hourly Rate: ";
+						cin >> hourlyRate;
+					}
 
 					cout << "Phone Number: ";
 					cin >> phoneNumber;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					while (cin.fail() || phoneNumber.size() >= 13 || phoneNumber.size() <= 9)
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid phone number! " << endl;
+						cout << "Phone Number: ";
+						cin >> phoneNumber;
+					}
 
 					cout << "House Address: ";
 					getline(cin, address);
+					while (cin.fail())
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid house address! " << endl;
+						cout << "House Address: ";
+						getline(cin, address);
+					}
 
 					cout << "Credentials: ";
 					cin >> credential;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					while (cin.fail())
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid credential! " << endl;
+						cout << "Credential: ";
+						cin >> credential;
+					}
 
-					cout << "Branch Name: ";
-					getline(cin, branch);
+					cout << "Branch Name: " << branchSlot;
+
 
 					cout << "Subject Code: ";
 					cin >> subjectCode;
@@ -1159,7 +1220,19 @@ void checkAccess(string userCode, string credentials)
 					cout << "Subject Name: ";
 					getline(cin, subjectName);
 
-					Tutor* newnode = CreateNewNode(tutorID, firstName, lastName, dateJoined, "-", hourlyRate, phoneNumber, address, credential, branch, subjectCode, subjectName, 0);
+					while (cin.fail())
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid subject! " << endl;
+						cout << "Subject Code: ";
+						cin >> subjectCode;
+
+						cout << "Subject Name: ";
+						getline(cin, subjectName);
+					}
+
+					Tutor* newnode = CreateNewNode(tutorID, firstName, lastName, dateJoined, "-", hourlyRate, phoneNumber, address, credential, branchSlot, subjectCode, subjectName, 0);
 					addTutor(newnode);
 
 					cout << endl << "Do you still want to add a new tutor?"
@@ -1193,7 +1266,7 @@ void checkAccess(string userCode, string credentials)
 					{
 						do
 						{
-							cout << "Which tutor would you like to search by rating?";
+							cout << "Rating range?";
 							cin >> rating;
 							searchByRating(to_string(rating));
 							cout << endl;
@@ -1206,7 +1279,7 @@ void checkAccess(string userCode, string credentials)
 				{
 					do
 					{
-						cout << "Which tutor like to search by rating? ";
+						cout << "Rating range? ";
 						cin >> rating;
 						searchByRating(to_string(rating));
 						cout << endl;
@@ -1289,41 +1362,28 @@ void checkAccess(string userCode, string credentials)
 
 		} while (choice == 1);
 		return;
-
-
-
 	}
 	else if (found == 1 && userType == "Admin")
 	{
 		cout << "Login Successful !! ";
-		/*Sleep(1000);
-		system("CLS");*/
+		Access* current = head1;
+
+		while (current != NULL) {
+			if (current->userCode == userCode)
+			{
+				branchSlot = current->branch;
+			}
+			current = current->nextAddress1;
+		}
 
 		do {
+			cout << endl;
 			displayAdminMenu();
 			cin >> choice;
 			switch (choice)
 			{
 			case 1:
-				cout << "Please Choose The Branch That You Would Like To Add" << endl;
-				cout << "1. Bukit Jalil \t 2. Petaling Jaya \t 3. Cheras" << endl;
-				cout << "Branch: ";
-				cin >> choice;
-				switch (choice)
-				{
-				case 1:
-					branchSlot = "Bukit Jalil";
-					break;
-				case 2:
-					branchSlot = "Petaling Jaya";
-					break;
-				case 3:
-					branchSlot = "Cheras";
-					break;
-				default:
-					cout << "Invalid Choice !!! Please Try Again!";
-					break;
-				}
+
 				slots = checkVacantSlot(branchSlot);
 				cout << endl << endl;
 
@@ -1334,6 +1394,7 @@ void checkAccess(string userCode, string credentials)
 
 				do
 				{
+
 					cout << "Tutor ID: ";
 					cin >> tutorID;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');   //remove content
@@ -1343,27 +1404,78 @@ void checkAccess(string userCode, string credentials)
 
 					cout << "Tutor Last Name: ";
 					getline(cin, lastName);
+					while (cin.fail())
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid name! " << endl;
+						cout << "Tutor First Name: ";
+						getline(cin, firstName);
+
+						cout << "Tutor Last Name: ";
+						getline(cin, lastName);
+					}
 
 					cout << "Joined Date: ";
 					getline(cin, dateJoined);
+					while (cin.fail() || dateJoined.size() != 10)
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid date! " << endl;
+						cout << "Joined Date: ";
+						getline(cin, dateJoined);
+					}
 
-					cout << "Hourly Rate: RM";
+					cout << "Hourly Rate: ";
 					cin >> hourlyRate;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					while (cin.fail() || hourlyRate > 15)
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid hourly rate! " << endl;
+						cout << "Hourly Rate: ";
+						cin >> hourlyRate;
+					}
+
 
 					cout << "Phone Number: ";
 					cin >> phoneNumber;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					while (cin.fail() || phoneNumber.size() >= 13 || phoneNumber.size() <= 9)
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid phone number! " << endl;
+						cout << "Phone number: ";
+						getline(cin, phoneNumber);
+					}
 
 					cout << "House Address: ";
 					getline(cin, address);
+					while (cin.fail())
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid house address! " << endl;
+						cout << "House Address: ";
+						getline(cin, address);
+					}
 
 					cout << "Credentials: ";
 					cin >> credential;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					while (cin.fail())
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid credential! " << endl;
+						cout << "Credentials: ";
+						cin >> credential;
+					}
 
-					cout << "Branch Name: ";
-					getline(cin, branch);
+					cout << "Branch Name: " << branchSlot;
 
 					cout << "Subject Code: ";
 					cin >> subjectCode;
@@ -1372,7 +1484,19 @@ void checkAccess(string userCode, string credentials)
 					cout << "Subject Name: ";
 					getline(cin, subjectName);
 
-					Tutor* newnode = CreateNewNode(tutorID, firstName, lastName, dateJoined, "-", hourlyRate, phoneNumber, address, credential, branch, subjectCode, subjectName, 0);
+					while (cin.fail())
+					{
+						cin.clear();	//remove input operation
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+						cout << endl << "Please give a valid subject! " << endl;
+						cout << "Subject Code: ";
+						cin >> subjectCode;
+
+						cout << "Subject Name: ";
+						getline(cin, subjectName);
+					}
+
+					Tutor* newnode = CreateNewNode(tutorID, firstName, lastName, dateJoined, "-", hourlyRate, phoneNumber, address, credential, branchSlot, subjectCode, subjectName, 0);
 					addTutor(newnode);
 
 					cout << endl << "Do you still want to add a new tutor?"
@@ -1386,18 +1510,21 @@ void checkAccess(string userCode, string credentials)
 			case 2:
 				displayAllRecords(sizeofLinkedListforTutor, branch);
 				cout << endl;
-				cout << " Search by? 1- TutorID, 2- Ratings";
+				cout << " Search by? 1- TutorID, 2- Ratings ";
 				cin >> choice;
 				if (choice == 1)
 				{
 					do
 					{
-						cout << "Which tutor like to search by ID?";
+						cout << "Which tutor like to search by ID? ";
 						cin >> searchTutor;
-						searchByTutorID(searchTutor);
+
+						searchByTutorID(searchTutor, branch);
 						cout << endl;
 						cout << "Search tutor again by ID? 1 = YES, Others = NO: ";
 						cin >> choice;
+
+
 					} while (choice == 1);
 
 					cout << "Want to search by ratings instead? 1 = YES, Others = NO: ";
@@ -1406,9 +1533,9 @@ void checkAccess(string userCode, string credentials)
 					{
 						do
 						{
-							cout << "Which tutor like to search by rating?";
+							cout << "Rating range?";
 							cin >> rating;
-							searchByRating(to_string(rating));
+							searchByRating(to_string(rating), branch);
 							cout << endl;
 							cout << "Search tutor again by rating? 1 = YES, Others = NO: ";
 							cin >> choice;
@@ -1419,9 +1546,9 @@ void checkAccess(string userCode, string credentials)
 				{
 					do
 					{
-						cout << "Which tutor like to search by rating? ";
+						cout << "Rating range? ";
 						cin >> rating;
-						searchByRating(to_string(rating));
+						searchByRating(to_string(rating), branch);
 						cout << endl;
 						cout << "Search tutor again by rating? 1 = YES, Others = NO: " << endl;
 						cin >> choice;
@@ -1435,7 +1562,7 @@ void checkAccess(string userCode, string credentials)
 						{
 							cout << "Which tutor like to search by ID? ";
 							cin >> searchTutor;
-							searchByTutorID(searchTutor);
+							searchByTutorID(searchTutor, branch);
 							cout << endl;
 							cout << "Search tutor again by ID? 1 = YES, Others = NO: " << endl;
 							cin >> choice;
@@ -1445,12 +1572,9 @@ void checkAccess(string userCode, string credentials)
 				break;
 
 			case 3:
-				generateReport();
-				break;
-
-			case 4:
 				displayExitMenu();
 				break;
+
 
 			default:
 				cout << "Invalid selection, Please Try Again" << endl;
@@ -1461,16 +1585,108 @@ void checkAccess(string userCode, string credentials)
 			cin >> choice;
 		} while (choice == 1);
 		return;
+
 	}
 	else
 	{
 		cout << "Invalid User Code & Credentials !!! Please Double Check Your Credentials !!!";
 		cout << endl;
+
+		cout << string(82, '=') << endl;
+		cout << "|" << string(20, ' ') << "Please Select ONE User Type From The Menu" << string(19, ' ') << "|" << endl;
+		cout << string(82, '=') << endl;
+		/*User Type selection*/
+		cout << "1. Admin" << endl;
+		cout << "2. HR" << endl;
+		cout << endl;
+		cout << "Please Enter Your Option : ";
+
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			userType = "Admin";
+			cout << endl;
+			cout << "Please Enter Your User Code : ";
+			cin >> userCode;
+			cout << endl;
+			cout << "Please Enter Your Credentials : ";
+			credentials = takePasswdFromUser();
+
+			checkAccess(userCode, credentials);
+			break;
+		case 2:
+			userType = "HR";
+			cout << endl;
+			cout << "Please Enter Your User Code : ";
+			cin >> userCode;
+			cout << endl;
+			cout << "Please Enter Your Credentials : ";
+			credentials = takePasswdFromUser();
+			cout << endl;
+			checkAccess(userCode, credentials);
+			break;
+
+		default:
+			cout << "User Account Invalid ! Please Double Check Your Credentials !!!";
+			cout << endl;
+		}
+
+
 	}
 
 	cout << "Perform operations again? 1 = YES, 0 = NO: " << endl;
 	cin >> choice;
-	//	} while (choice == 1);
+	//} while (choice == 1);
+
+};
+
+//Validate Tutor's Login Credentials
+string checkTutor(string userCode, string credentials)
+{
+	Tutor* current = head;
+	bool found = 0;
+	int i = 0, choice = 0;
+	string branch = "", userType = "";
+
+	//Convert The First Letter Of The User Code To UpperCase
+	userCode[0] = toupper(userCode[0]);
+
+	//Compare Tutor's Tutor ID & Credentials With The System's Tutor Records
+	while (current != NULL) {
+		if (userCode == current->tutorID && credentials == current->credential)
+		{
+			branch = current->branch;
+			found = 1;
+			break;
+		}
+		current = current->nextAddress;
+	}
+
+	//Check Whether Tutor Credentials Are Valid
+	if (found == 0)
+	{
+
+		//branch = current->branch;
+		cout << "Invalid Tutor ID & Credentials !!! Please Double Check Your Credentials !!!";
+		cout << endl << endl;
+
+		userType = "Tutor";
+		cout << endl;
+		cout << "Please Enter Your Tutor ID : ";
+		cin >> userCode;
+		cout << endl;
+		cout << "Please Enter Your Credentials : ";
+		credentials = takePasswdFromUser();
+		cout << endl;
+		checkBranch(checkTutor(userCode, credentials), userCode);
+	}
+	else
+	{
+		cout << "Login Successful !!";
+		cout << endl;
+		return branch;
+	}
 };
 
 //Validate User Login Based On User Type
@@ -1525,6 +1741,7 @@ void checkLogin()
 	}
 };
 
+
 int main() {
 	/*string credentials;
 	cout << "Please Enter Your Credentials : ";
@@ -1533,8 +1750,9 @@ int main() {
 	head = NULL;
 
 	int choice = 1;
+	bool input = true;
 
-	Tutor* newnode = CreateNewNode("B0001", "Wendy", "Foo", "30/05/2022", "-", 19.00, "012-0723445", "G122 Banana Condominium",
+	Tutor* newnode = CreateNewNode("B0001", "Wendy", "Foo", "30/05/2019", "30/05/2020", 19.00, "012-0723445", "G122 Banana Condominium",
 		"iluvtodrink", "Bukit Jalil", "BJ03", "Chinese", 0);
 	addTutor(newnode);
 
@@ -1567,142 +1785,27 @@ int main() {
 	newnode1 = CreateNewNode("A003", "Admin", "Puchong", "45678");
 	addAccess(newnode1);
 
+	do {
+		displayStartMenu();
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			system("CLS");
+			checkLogin();
+			break;
+		case 2:
+			displayExitMenu();
+			break;
 
-	//checkLogin();
-	//checkAccess("HR001", "12345");
-	//cout << endl;
-	//sortByTutorID(&head);
-	//displayList();
-	// 
-	checkBranch("Cheras", "C0001");
-	// 
-	//while (choice == 1)
-	//{
-	//	cout << "Tutor ID: ";
-	//	cin >> tutorID;
-	//	cin.ignore(numeric_limits<streamsize>::max(), '\n');   //remove content
+		default:
+			cout << "Invalid Choice !!! Please Try Again";
+			input = false;
+			system("CLS");
+			break;
+		}
+	} while (!input);
 
-	//	cout << "Tutor First Name: ";
-	//	getline(cin, firstName);
-
-	//	cout << "Tutor Last Name: ";
-	//	getline(cin, lastName);
-
-	//	cout << "Joined Date: ";
-	//	getline(cin, dateJoined);
-
-	//	cout << "Hourly Rate: RM";
-	//	cin >> hourlyRate;
-	//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-	//	cout << "Phone Number: ";
-	//	cin >> phoneNumber;
-	//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-	//	cout << "House Address: ";
-	//	getline(cin, address);
-
-	//	cout << "Credentials: ";
-	//	cin >> credential;
-	//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-	//	cout << "Branch Name: ";
-	//	getline(cin, branch);
-
-	//	cout << "Subject Code: ";
-	//	cin >> subjectCode;
-	//	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-	//	cout << "Subject Name: ";
-	//	getline(cin, subjectName);
-
-	//	newnode = CreateNewNode(tutorID, firstName, lastName, dateJoined, "-", hourlyRate, phoneNumber, address, credential, branch, subjectCode, subjectName, 0);
-	//	addTutor(newnode);
-
-	//	cout << endl << "Do you still want to add a new tutor?"
-	//		<< " 1- yes, others -No : ";
-	//	cin >> choice;
-	//	cout << endl;
-	//}
-
-
-
-	////Delete function
-	//cout << "Do you want to delete tutor? 1 = Yes, 0 = No: ";
-	//cin >> choice;
-	//while (choice == 1)
-	//{
-	//	string keyword;
-
-	//	cout << "Which tutor do you want to delete? Please provide his/ her Tutor ID: ";
-	//	cin >> keyword;
-	//	cout << endl;
-
-	//	deleteTutor(keyword);
-
-	//	//after delete, display list again
-	//	displayList();
-	//	cout << endl << "The current amount of the size is " << ::sizeofLinkedList << endl;
-
-	//	cout << "Do you want to delete any item based on keyword? 1 = YES, 0 = NO: ";
-	//	cin >> choice;
-	//}
-
-
-
-	//Modify function
-	//cout << "Which tutor details to edit?";
-	//cin >> tutorID;
-	//searchByTutorID(tutorID);
-	//cout << endl;
-	//do
-	//{
-	//	displayModifyTutorMenu();
-	//	cin >> choice;
-	//	modifyTutor(tutorID, choice);
-	//	cout << "Do you want to edit again? 1 = YES, 0 = NO: ";
-	//	cin >> choice;
-	//}
-	//while (choice == 1);
-
-
-	//SearchRating
-	//cout << "Which tutor like to search by rating?";
-	//cin >> rating;
-	//searchByRating(to_string(rating));
-	//cout << endl;
-	//cout << "Search tutor again by rating? 1 = YES, 0 = NO:";
-	//cin >> choice;
-	//do
-	//{
-	//	cout << "Which tutor like to search by rating?";
-	//	cin >> rating;
-	//	searchByRating(to_string(rating));
-	//	cout << endl;
-	//	cout << "Search tutor again by rating? 1 = YES, 0 = NO:";
-	//	cin >> choice;
-	//}
-	//while (choice == 1);
-
-	//Sort by TutorID, HourlyRate function
-	//sortByTutorID(&head);
-	//sortByHourlyRate(&head);
-	//sortByOverallPerformance(&head);
-
-	//displayStartMenu();
-	//displayAdminMenu();
-
-	//displayList();
-
-	//displayHRMenu();
-
-	//displayList();
-
-	//displayTutorMenu();
-	//displayLocationMenu();
-	//displayUserType();
-
-	//generateReport();
 
 	return 0;
 
