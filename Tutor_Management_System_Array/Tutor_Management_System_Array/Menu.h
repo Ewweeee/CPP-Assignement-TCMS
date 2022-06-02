@@ -181,25 +181,17 @@ void displayModifyPersonalInfoMenu() {
 }
 
 //Display This Menu When Users Wanted To Exit The System
-void displayExitMenu() {
-	string choice;
-	cout << "Are You Sure To Exit The Program ? (Y/N)" << endl;
-	cin >> choice;
-	if (choice == "Y" || choice == "Yes")
+int displayExitMenu() {
+	int exit;
+	cout << "Are You Sure To Exit The Program ? " << endl;
+	cout << "Press 1 to exit Others to remain" << endl;
+	cin >> exit;
+	if (exit == 1)
 	{
-		cout << "Thank You !!";
-	}
-	else if (choice == "N" || choice == "No")
-	{
-		cout << "Remain";
-		cout << endl;
-		displayExitMenu();
+		return 2;
 	}
 	else
 	{
-		cout << "Invalid Selection !!! Please Try Again !!";
-		cout << endl;
-		displayExitMenu();
+		return 0;
 	}
-	cout << endl;
 }

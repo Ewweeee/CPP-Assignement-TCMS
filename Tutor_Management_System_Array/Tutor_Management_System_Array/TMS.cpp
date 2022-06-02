@@ -65,6 +65,7 @@ string takePasswdFromUser(char sp = '*')
 	}
 }
 
+//Tutor ID generator
 string tutorIDGenerator(Tutor allTutor[], int arraySize, string branch)
 {
 	string tutorID = "";
@@ -154,14 +155,19 @@ string checkTutor(string userCode, string credentials)
 	//Check Whether Tutor Credentials Are Valid
 	if (found == 0)
 	{
-		cout << "Invalid Tutor ID & Credentials !!! Please Double Check Your Credentials !!!";
-		cout << endl;
-		cout << "Please Enter Your User Code : ";
-		cin >> userCode;
-		cout << endl;
-		cout << "Please Enter Your Credentials : ";
-		credentials = takePasswdFromUser();
-		checkTutor(userCode, credentials);
+		do {
+			cout << "Invalid Tutor ID & Credentials !!! Please Double Check Your Credentials !!!";
+			cout << endl;
+			cout << "Please Enter Your User Code : ";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cin >> userCode;
+			cout << endl;
+			cout << "Please Enter Your Credentials : ";
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			credentials = takePasswdFromUser();
+			checkTutor(userCode, credentials);
+			return branch;
+		} while (found == 0);
 	}
 	else
 	{
@@ -335,7 +341,7 @@ void enterDetails(int i, string ID) {
 	system("CLS");
 }
 
-//Add New Tutor Record
+//Add New Tutor Record (HR)
 void addTutor(string branch) {
 	string ID = "";
 
@@ -363,6 +369,7 @@ void addTutor(string branch) {
 	}
 };
 
+//Add New Tutor Record (Admin)
 void addTutor() {
 	string ID = "";
 	int choice = 0;
@@ -1131,59 +1138,210 @@ void checkAccess(string userCode, string credentials)
 		checkAccess(userCode, credentials);
 	}
 };
+
 void checkBranch(string branch, string userCode)
 {
 	int choice;
-	displayAllRecords(arraySize, branch);
-	displayTutorMenu();
-	cin >> choice;
 	string tutorID = "";
 	string name = "";
 	string dateJoined = "";
 	string phoneNumber = "";
 	string address = "";
 	string subject = "";
-	int rating = 0;
-
-	switch (choice)
-	{
-	case 1:
-		cout << "1. View Personal Profile" << endl;
-
-		for (int i = 0; i < arraySize; i++)
+	string credential = "";
+	string branch1 = "";
+	string searchTutor = "";
+	int rating = 0, opt = 0, i = 0, rpt = 0, exit = 0;
+	do {
+		displayTutorMenu();
+		cin >> choice;
+		switch (choice)
 		{
-			if (allTutors[i].tutorID == userCode)
+		case 1:
+			//View Tutor's Personal Profile
+			for (int i = 0; i < arraySize; i++)
 			{
-				tutorID = userCode;
-				name = allTutors[i].firstName + allTutors[i].lastName;
-				dateJoined = allTutors[i].dateJoined;
-				phoneNumber = allTutors[i].phoneNumber;
-				address = allTutors[i].address;
-				subject = allTutors[i].subjectCode + allTutors[i].subjectName;
+				if (allTutors[i].tutorID == userCode)
+				{
+					tutorID = userCode;
+					name = allTutors[i].firstName + " " + allTutors[i].lastName;
+					dateJoined = allTutors[i].dateJoined;
+					phoneNumber = allTutors[i].phoneNumber;
+					address = allTutors[i].address;
+					credential = allTutors[i].credential;
+					subject = allTutors[i].subjectCode + allTutors[i].subjectName;
+					branch = allTutors[i].center.branch;
+				}
 			}
+			cout << string(82, '=') << endl;
+			cout << "|" << string(30, ' ') << "Personal Profile" << string(30, ' ') << "|" << endl;
+			cout << string(82, '=') << endl;
+			cout << string(1, ' ') << "Tutor ID: " << tutorID << endl;
+			cout << string(1, ' ') << "Name: " << name << endl;
+			cout << string(1, ' ') << "Date Joined: " << dateJoined << endl;
+			cout << string(1, ' ') << "Phone Number: " << phoneNumber << endl;
+			cout << string(1, ' ') << "Address: " << address << endl;
+			cout << string(1, ' ') << "Credential: " << credential << endl;
+			cout << string(1, ' ') << "Subject: " << subject << endl;
+
+			cout << string(82, '=') << endl;
+			break;
+		case 2:
+			//Modify Personal Info
+			while (!allTutors[i].tutorID.empty()) {
+				if (userCode == allTutors[i].tutorID)
+				{
+					do {
+						displayModifyPersonalInfoMenu();
+						int option;
+						cin >> option;
+						switch (option)
+						{
+						case 1:
+							cout << "Enter New First Name: ";
+							cin >> allTutors[i].firstName;
+							cout << endl;
+							cout << "Enter New Last Name: ";
+							cin >> allTutors[i].lastName;
+							cout << endl;
+							while (cin.fail())
+							{
+								cin.clear();	//remove input operation
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+								cout << endl << "Please give a valid name! " << endl;
+								cout << "Enter New First Name: ";
+								cin >> allTutors[i].firstName;
+								cout << endl;
+								cout << "Enter New Last Name: ";
+								cin >> allTutors[i].lastName;
+								cout << endl;
+							}
+							cout << "Do You Want To Edit Other Fields ?";
+							cout << "Choice : ";
+							cin >> rpt;
+
+							break;
+
+						case 2:
+							cout << "Enter New Phone Number: ";
+							cin >> allTutors[i].phoneNumber;
+
+							while (cin.fail() || allTutors[i].phoneNumber.size() <= 10)
+							{
+								cin.clear();	//remove input operation
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+								cout << endl << "Please give a valid phone number! " << endl;
+								cout << "Enter New Phone Number: ";
+								cin >> allTutors[i].phoneNumber;
+							}
+							cout << "Do You Want To Edit Other Fields ?";
+							cout << "Choice : ";
+							cin >> rpt;
+
+							break;
+						case 3:
+							cout << "Enter New Address: ";
+							cin >> allTutors[i].address;
+							while (cin.fail())
+							{
+								cin.clear();	//remove input operation
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+								cout << endl << "Please give a valid house address! " << endl;
+								cout << "Enter New Address: ";
+								cin >> allTutors[i].address;
+							}
+							cout << "Do You Want To Edit Other Fields ?";
+							cout << "Choice : ";
+							cin >> rpt;
+
+							break;
+						case 4:
+							cout << "Enter New Credential: ";
+							cin >> allTutors[i].credential;
+							while (cin.fail())
+							{
+								cin.clear();	//remove input operation
+								cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+								cout << endl << "Please give a valid credential! " << endl;
+								cout << "Enter New Credential: ";
+								cin >> allTutors[i].credential;
+							}
+							cout << "Do You Want To Edit Other Fields ?" << endl;
+							cout << "Press 1 to edit other feilds, Others to navigate back to Main Menu" << endl;
+							cout << "Choice : ";
+							cin >> rpt;
+							break;
+						}
+					} while (rpt == 1);
+				}
+				i++;
+			}
+			cout << endl;
+			cout << "Directing User Back To Menu..........";
+			cout << endl;
+			system("CLS");
+			checkBranch(branch1, userCode);
+			break;
+		case 3:
+
+			// View Other Tutor Profile
+
+			while (!allTutors[i].tutorID.empty())
+			{
+				do
+				{
+					cout << "Who you would like to search? ";
+					cout << endl;
+					cout << "Choice :";
+					cin >> searchTutor;
+					if ((allTutors[i].tutorID).find(searchTutor) != string::npos && allTutors[i].center.branch == branch)
+					{
+						tutorID = allTutors[i].tutorID;
+						name = allTutors[i].firstName + allTutors[i].lastName;
+						dateJoined = allTutors[i].dateJoined;
+						phoneNumber = allTutors[i].phoneNumber;
+						address = allTutors[i].address;
+						subject = allTutors[i].subjectCode + allTutors[i].subjectName;
+
+						cout << "Results found!" << endl;
+						cout << tutorID << "-" << name << "-" << dateJoined << "-" << phoneNumber << "-" << address << "-"
+							<< subject << endl;
+						cout << "Search another tutor? 1 = YES, Others = NO";
+						cout << endl;
+						cout << "Choice :";
+						cin >> choice;
+					}
+				} while (choice == 1);
+				i++;
+			}
+			break;
+		case 4:
+
+			if (displayExitMenu() == 0)
+			{
+				return;
+			}
+			else
+			{
+				cout << "Directing User Back To Menu..........";
+				cout << endl;
+				checkBranch(branch1, userCode);
+			}
+			break;
+
+		default:
+			cout << "Invalid Choice! Please Re-Enter Your Choice";
+			cout << endl;
+			break;
 		}
-		cout << string(82, '=') << endl;
-		cout << "|" << string(20, ' ') << "Personal Profile" << string(19, ' ') << "|" << endl;
-		cout << string(82, '=') << endl;
-		cout << string(52, ' ') << "Tutor ID: " << tutorID << endl;
-		cout << string(52, ' ') << "Name: " << name;
-		cout << string(82, '=') << endl;
-		break;
-	case 2:
-		cout << "2. Modify Personal Profile" << endl;
-
-		break;
-	case 3:
-		cout << "3. View Other Tutor Profile" << endl;
-		break;
-	case 4:
-		displayExitMenu();
-		break;
-
-	default:
-		cout << "Invalid Choice! Please Re-Enter Your Choice";
+		cout << "Anything else to work on this section? 1- YES, Others- NO";
 		cout << endl;
-	}
+		cout << "Choice : ";
+		cin >> opt;
+	} while (opt == 1);
+	cout << "Directing User Back To Menu..........";
+	cout << endl;
+	checkBranch(branch1, userCode);
 }
 
 //Validate User Login Based On User Type
@@ -1248,13 +1406,11 @@ void checkLogin()
 	} while (!input);
 };
 
-int main() {
+//Rerun Program
+void runprg() {
 	int choice;
-	bool input = true;
-	//Initialize Predefined Records
-	initializeRecords();
-	//Calculate Array Size
-	calculateArraySize();
+	int exit = 0;
+	bool input = false;
 	do {
 		displayStartMenu();
 		cin >> choice;
@@ -1265,13 +1421,64 @@ int main() {
 			checkLogin();
 			break;
 		case 2:
-			displayExitMenu();
+			exit = displayExitMenu();
+			if (exit = 0)
+			{
+				runprg();
+			}
+			else {
+				return;
+			};
 			break;
 
 		default:
 			cout << "Invalid Choice !!! Please Try Again";
 			input = false;
 			system("CLS");
+			break;
+		}
+	} while (!input);
+}
+
+int main() {
+	int choice;
+	bool input = true;
+	int exit1 = 0;
+	//Initialize Predefined Records
+	initializeRecords();
+	//Calculate Array Size
+	calculateArraySize();
+
+	do {
+		displayStartMenu();
+
+		cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			system("CLS");
+			checkLogin();
+			break;
+		case 2:
+
+			exit1 = displayExitMenu();
+			if (exit1 == 2)
+			{
+				runprg();
+			}
+			else
+			{
+				exit(0);
+			}
+			break;
+
+		default:
+
+			cout << "Invalid Choice !!! Please Try Again";
+			cout << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			input = false;
 			break;
 		}
 	} while (!input);
@@ -1299,6 +1506,8 @@ int main() {
 	////while (!allTutors[i].tutorID.empty()) {
 	////	arraySize++;
 	////	i++;
+	//
+	//
 	////}
 	////displayAllRecords(arraySize - 1);
 	////cout << "Done" << endl;

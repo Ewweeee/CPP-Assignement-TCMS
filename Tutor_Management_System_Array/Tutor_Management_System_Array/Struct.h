@@ -306,24 +306,16 @@ void initializeRecords() {
 }
 
 void displayAllRecords(int lastIndex) {
-	cout << "\t| TUTOR DETAILS |" << endl << endl;
-	cout << "|TUTOR ID|" << setw(3) << "FIRST NAME|" << setw(3) << "LAST NAME|" << setw(3) << "DATE JOINED|";
-	cout << setw(3) << "DATE TERMINATED|" << setw(3) << "PAY|" << setw(3) << "CENTRE CODE|" << setw(3) << "CENTRE LOCATION|";
-	cout << setw(3) << "CENTRE NAME|" << setw(3) << "SUB CODE|" << setw(3) << "SUB NAME|" << setw(3) << "PHONE NUM|";
-	cout << setw(3) << "ADDRESS|" << setw(3) << "RATINGS | " << endl;
 	int i = 0;
 
 	while (i <= lastIndex) {
 		//Validatation 1 : Check whether array is empty or not
 		if (!allTutors[i].tutorID.empty()) {
-			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
-			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
-			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
-			cout << setw(3) << allTutors[i].center.centerName;
-			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
-			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
-			cout << setw(3) << allTutors[i].rating;
-			cout << endl;
+			cout << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " << allTutors[i].lastName << " - " <<
+				allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " << allTutors[i].hourlyRate << " - " <<
+				allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " << allTutors[i].center.centerName << " - " <<
+				allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " << allTutors[i].rating;
+			cout << endl << endl;
 		}
 		i++;
 	}
@@ -338,23 +330,19 @@ void displayAllRecords(int lastIndex) {
 }
 
 void displayAllRecords(int lastIndex, string branch) {
-	cout << "\t| TUTOR DETAILS |" << endl << endl;
-	cout << "|TUTOR ID|" << setw(3) << "FIRST NAME|" << setw(3) << "LAST NAME|" << setw(3) << "DATE JOINED|";
-	cout << setw(3) << "DATE TERMINATED|" << setw(3) << "PAY|" << setw(3) << "CENTRE CODE|" << setw(3) << "CENTRE LOCATION|";
-	cout << setw(3) << "CENTRE NAME|" << setw(3) << "SUB CODE|" << setw(3) << "SUB NAME|" << setw(3) << "PHONE NUM|";
-	cout << setw(3) << "ADDRESS|" << setw(3) << "RATINGS | " << endl;
+	//Display Records With Branch
 	int i = 0;
 
-	while (i <= lastIndex && allTutors[i].center.branch == branch) {
+	while (i <= lastIndex) {
 		//Validatation: Check whether array is empty or not
 		if (!allTutors[i].tutorID.empty()) {
-			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
-			cout << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
-			cout << setw(3) << allTutors[i].center.centerName;
-			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
-			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
-			cout << setw(3) << allTutors[i].rating;
-			cout << endl;
+			if (allTutors[i].center.branch == branch) {
+				cout << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " << allTutors[i].lastName << " - " <<
+					allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " << allTutors[i].hourlyRate << " - " <<
+					allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " << allTutors[i].center.centerName << " - " <<
+					allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " << allTutors[i].rating;
+				cout << endl << endl;
+			}
 		}
 		i++;
 	}
