@@ -27,7 +27,6 @@ string subjectCode;
 string subjectName;
 int rating;
 
-
 //Create new node for predefined tutor listings
 Tutor* CreateNewNode(string tutorID, string firstName, string lastName, string dateJoined, string	dateTerminated, double hourlyRate, string phoneNumber,
 	string address, string credential, string branch, string subjectCode, string subjectName, int rating)
@@ -104,6 +103,78 @@ string takePasswdFromUser(char sp = '*')
 	}
 }
 
+string tutorIDGenerator(int listSize, string branch)
+{
+	string tutorID = "";
+	string newTID;
+	string prefix;
+	Tutor* current = head;
+	Tutor* maxTID = head;
+
+	while (current != NULL)
+	{
+		maxTID = maxTID->nextAddress;
+		int number = 0;
+		for (int i = 0; i < ::sizeofLinkedListforTutor; i++)
+		{
+			if (current->branch == branch && maxTID->branch == branch) {
+				if (current->getTutorID() > maxTID->getTutorID()) {
+					maxTID = current;
+				}
+			}
+		}
+
+		tutorID = maxTID->getTutorID();
+		number = stoi(tutorID.substr(1, 4)) + 1;
+
+		newTID = to_string(number);
+
+		if (branch == "Cheras")
+		{
+			if (number > 0 && number < 9)
+			{
+				prefix = "C000";
+				newTID = prefix + newTID;
+			}
+			else
+			{
+				prefix = "C00";
+				newTID = prefix + newTID;
+			}
+		}
+		else if (branch == "Petaling Jaya")
+		{
+			if (number > 0 && number < 9)
+			{
+				prefix = "P000";
+				newTID = prefix + newTID;
+			}
+			else
+			{
+				prefix = "P00";
+				newTID = prefix + newTID;
+			}
+		}
+		else if (branch == "Bukit Jalil")
+		{
+			if (number > 0 && number < 9)
+			{
+				prefix = "B000";
+				newTID = prefix + newTID;
+			}
+			else
+			{
+				prefix = "B00";
+				newTID = prefix + newTID;
+			}
+		}
+
+		return newTID;
+		current = current->nextAddress;
+		//maxTID = maxTID->nextAddress;
+	}
+}
+
 static void sortedInsertTutorID(Tutor** head_ref, Tutor* newNode)
 {
 	Tutor* current;
@@ -147,7 +218,7 @@ static void sortedInsertTutorID(Tutor** head_ref, Tutor* newNode)
 void sortByTutorID(Tutor** head_ref)
 {	// to change:
 	//different inseertion sort (2 * 3 times)
-	// 
+	//
 	// Initialize 'sorted' - a sorted doubly linked list
 	Tutor* sorted = NULL;
 
@@ -155,7 +226,6 @@ void sortByTutorID(Tutor** head_ref)
 	// insert every node to 'sorted'
 	Tutor* current = *head_ref;
 	while (current != NULL) {
-
 		// Store next for next iteration
 		Tutor* next = current->nextAddress;
 
@@ -209,14 +279,13 @@ static void sortedInsertHourlyRate(Tutor** head_ref, Tutor* newNode)
 		current->nextAddress = newNode;
 		newNode->previousAddress = current;
 	}
-
 }
 
 void sortByHourlyRate(Tutor** head_ref)
 {
 	// to change:
 	//different insertion sort (2 * 3 times)
-	// 
+	//
 	// Initialize 'sorted' - a sorted doubly linked list
 	Tutor* sorted = NULL;
 
@@ -278,14 +347,13 @@ static void sortedInsertOverallPerformance(Tutor** head_ref, Tutor* newNode)
 		current->nextAddress = newNode;
 		newNode->previousAddress = current;
 	}
-
 }
 
 void sortByOverallPerformance(Tutor** head_ref)
 {
 	// to change:
 	//different insertion sort (2 * 3 times)
-	// 
+	//
 	// Initialize 'sorted' - a sorted doubly linked list
 	Tutor* sorted = NULL;
 
@@ -376,7 +444,6 @@ void searchByRating(string keyrating)
 		current = current->nextAddress;
 	}
 	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
-
 }
 
 void searchByRating(string keyrating, string branch)
@@ -399,7 +466,6 @@ void searchByRating(string keyrating, string branch)
 		current = current->nextAddress;
 	}
 	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
-
 }
 
 //Display Tutor List
@@ -748,7 +814,6 @@ string todayDate()
 	//cout << " Current Date: " << today;
 
 	return today;
-
 }
 
 //Delete Tutor Record (delete based on keyword)
@@ -824,8 +889,6 @@ void deleteTutor(string TutorID)
 		}
 		current1 = current1->nextAddress;
 	}
-
-
 }
 
 //Check Whether There Is Slots Available
@@ -869,7 +932,6 @@ int checkVacantSlot(string branchname)
 		cout << "Error!";
 	}
 }
-
 
 void checkBranch(string branch, string userCode)
 {
@@ -922,11 +984,9 @@ void checkBranch(string branch, string userCode)
 
 			cout << string(82, '=') << endl;
 
-
 			break;
 		case 2:
 			cout << "2. Modify Personal Profile" << endl;
-
 
 			displayModifyPersonalInfoMenu();
 			int option;
@@ -998,13 +1058,11 @@ void checkBranch(string branch, string userCode)
 						}
 						break;
 					}
-
 				}
 				current = current->nextAddress;
 			}
 			cout << "Directing User Back To Menu..........";
 			checkBranch(branch1, userCode);
-
 
 			break;
 		case 3:
@@ -1043,22 +1101,19 @@ void checkBranch(string branch, string userCode)
 		default:
 			cout << "Invalid Choice! Please Re-Enter Your Choice";
 			cout << endl;
-
 		}
 
 		cout << "Anything else to work on this section? 1- YES, Others- NO ";
 		cin >> choice;
 		//current = NULL;
 	} while (choice == 1);
-
 }
-
 
 //Validate HR and Admin's Login Credentials
 void checkAccess(string userCode, string credentials)
 {
 	Access* current = head1;
-	bool found = 0;
+	bool found = 0, opt = true;
 	int i = 0;
 	int choice = 0;
 	string userType = "";
@@ -1066,12 +1121,12 @@ void checkAccess(string userCode, string credentials)
 	int slots = 0;
 	string searchTutor = "";
 	string branchSlot = "";
+	string ID = "";
 
 	//Convert The First Letter Of The User Code To UpperCase
 	//To ensure that the user code's prefix are in capital letters
 	userCode[0] = toupper(userCode[0]);
 	userCode[1] = toupper(userCode[1]);
-
 
 	//Compare HR and Admin User Code & Credentials With The System's Access Records
 	while (current != NULL) {
@@ -1088,7 +1143,6 @@ void checkAccess(string userCode, string credentials)
 	//Check Whether HR and Admin Credentials Are Valid
 	if (found == 1 && userType == "HR")
 	{
-
 		cout << "Login Successful !!";
 		cout << "Welcome " + userCode;
 		/*Sleep(1000);
@@ -1128,11 +1182,11 @@ void checkAccess(string userCode, string credentials)
 					cout << "Cannot add new tutor anymore! The slots for " << branchSlot << "  are full now!";
 				cout << "Current slots in " << branchSlot << ": " << slots << endl;
 
-
 				do
 				{
 					cout << "Tutor ID: ";
 					cin >> tutorID;
+					cout << endl;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');   //remove content
 
 					cout << "Tutor First Name: ";
@@ -1166,7 +1220,7 @@ void checkAccess(string userCode, string credentials)
 					cout << "Hourly Rate: ";
 					cin >> hourlyRate;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
-					while (cin.fail() || hourlyRate > 15)
+					while (cin.fail() || hourlyRate < 40 || hourlyRate > 80)
 					{
 						cin.clear();	//remove input operation
 						cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
@@ -1212,7 +1266,6 @@ void checkAccess(string userCode, string credentials)
 
 					cout << "Branch Name: " << branchSlot;
 
-
 					cout << "Subject Code: ";
 					cin >> subjectCode;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -1235,6 +1288,9 @@ void checkAccess(string userCode, string credentials)
 					Tutor* newnode = CreateNewNode(tutorID, firstName, lastName, dateJoined, "-", hourlyRate, phoneNumber, address, credential, branchSlot, subjectCode, subjectName, 0);
 					addTutor(newnode);
 
+					cout << "The following list is sorted as below:";
+					sortByTutorID(&head);
+
 					cout << endl << "Do you still want to add a new tutor?"
 						<< " 1- YES, Others- NO : ";
 					cin >> choice;
@@ -1244,7 +1300,38 @@ void checkAccess(string userCode, string credentials)
 				break;
 
 			case 2:
-				displayList();
+				//SORT HERE
+				do {
+					displaySortMenu();
+					cin >> choice;
+					switch (choice)
+					{
+					case 1:
+						cout << "Tutor Details sorted by Houtly Rate";
+						sortByHourlyRate(&head);
+						displayList();
+						cout << endl;
+						break;
+					case 2:
+						cout << "Tutor Details sorted by Overall Performance";
+						sortByOverallPerformance(&head);
+						displayList();
+						cout << endl;
+						break;
+					case 3:
+						cout << "Tutor Details sorted by Tutor ID";
+						sortByTutorID(&head);
+						displayList();
+						cout << endl;
+						break;
+					default:
+						cout << "Invalid selection" << endl;
+						opt = false;
+						break;
+					}
+				} while (!opt);
+		
+					
 				cout << endl;
 				cout << " Search by? 1- TutorID, 2- Ratings" << endl;
 				cin >> choice;
@@ -1359,7 +1446,6 @@ void checkAccess(string userCode, string credentials)
 
 			cout << "View menu again? 1- YES, Others- NO:";
 			cin >> choice;
-
 		} while (choice == 1);
 		return;
 	}
@@ -1391,12 +1477,11 @@ void checkAccess(string userCode, string credentials)
 					cout << "Cannot add new tutor anymore! The slots for " << branchSlot << "  are full now!";
 				cout << "Current slots in " << branchSlot << ": " << slots << endl;
 
-
 				do
 				{
-
 					cout << "Tutor ID: ";
 					cin >> tutorID;
+					cout << endl;
 					cin.ignore(numeric_limits<streamsize>::max(), '\n');   //remove content
 
 					cout << "Tutor First Name: ";
@@ -1438,7 +1523,6 @@ void checkAccess(string userCode, string credentials)
 						cout << "Hourly Rate: ";
 						cin >> hourlyRate;
 					}
-
 
 					cout << "Phone Number: ";
 					cin >> phoneNumber;
@@ -1523,8 +1607,6 @@ void checkAccess(string userCode, string credentials)
 						cout << endl;
 						cout << "Search tutor again by ID? 1 = YES, Others = NO: ";
 						cin >> choice;
-
-
 					} while (choice == 1);
 
 					cout << "Want to search by ratings instead? 1 = YES, Others = NO: ";
@@ -1575,7 +1657,6 @@ void checkAccess(string userCode, string credentials)
 				displayExitMenu();
 				break;
 
-
 			default:
 				cout << "Invalid selection, Please Try Again" << endl;
 				break;
@@ -1585,7 +1666,6 @@ void checkAccess(string userCode, string credentials)
 			cin >> choice;
 		} while (choice == 1);
 		return;
-
 	}
 	else
 	{
@@ -1631,14 +1711,11 @@ void checkAccess(string userCode, string credentials)
 			cout << "User Account Invalid ! Please Double Check Your Credentials !!!";
 			cout << endl;
 		}
-
-
 	}
 
 	cout << "Perform operations again? 1 = YES, 0 = NO: " << endl;
 	cin >> choice;
 	//} while (choice == 1);
-
 };
 
 //Validate Tutor's Login Credentials
@@ -1666,7 +1743,6 @@ string checkTutor(string userCode, string credentials)
 	//Check Whether Tutor Credentials Are Valid
 	if (found == 0)
 	{
-
 		//branch = current->branch;
 		cout << "Invalid Tutor ID & Credentials !!! Please Double Check Your Credentials !!!";
 		cout << endl << endl;
@@ -1741,7 +1817,6 @@ void checkLogin()
 	}
 };
 
-
 int main() {
 	/*string credentials;
 	cout << "Please Enter Your Credentials : ";
@@ -1805,9 +1880,6 @@ int main() {
 			break;
 		}
 	} while (!input);
-
-
+	//tutorIDGenerator(::sizeofLinkedListforTutor, "Cheras");
 	return 0;
-
-
 }

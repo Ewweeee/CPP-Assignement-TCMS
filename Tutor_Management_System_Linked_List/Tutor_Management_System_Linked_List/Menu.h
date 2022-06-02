@@ -82,7 +82,6 @@ void displayTutorMenu() {
 
 //Display This Menu When Users Enter Tutor Details For The Tution Centre's Location
 void displayLocationMenu() {
-
 	/*Tuition Center Location selection*/
 	cout << "Please Select ONE Choice From The Available Selection : " << string(20, ' ') << endl << endl;
 	cout << "1. Bukit Jalil" << endl;
@@ -95,7 +94,6 @@ void displayLocationMenu() {
 
 //Display This Menu When Users Enter Tutor Details For The Subject Taught
 void displaySubjectMenu() {
-
 	/*Tuition Center Location selection*/
 	cout << "Please Select ONE Choice From The Available Selection : " << string(20, ' ') << endl << endl;
 	cout << "1. English" << endl;
@@ -207,6 +205,3 @@ void displayExitMenu() {
 	}
 	cout << endl;
 }
-
-
-
