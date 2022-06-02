@@ -384,19 +384,18 @@ void searchByTutorID(string keyword)
 {
 	Tutor* current = head;
 	int count = 1;	//list number
-	int position = 1;
 
 	while (current != NULL)
 	{
 		if ((current->tutorID).find(keyword) != string::npos)	//string::npos---> substring
 		{
-			cout << count << ". " << position << " - " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+			cout << "Record No." << count << " : " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
 				<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
 				<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
 				<< current->rating << endl;
 			count++;
 		}
-		position++;
+
 		current = current->nextAddress;
 	}
 	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
@@ -406,19 +405,18 @@ void searchByTutorID(string keyword, string branch)
 {
 	Tutor* current = head;
 	int count = 1;	//list number
-	int position = 1;
 
 	while (current != NULL)
 	{
 		if ((current->tutorID).find(keyword) != string::npos && current->branch == branch)	//string::npos---> substring
 		{
-			cout << count << ". " << position << " - " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+			cout << "Record No." << count << " : " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
 				<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
 				<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
 				<< current->rating << endl;
 			count++;
 		}
-		position++;
+
 		current = current->nextAddress;
 	}
 	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
@@ -428,19 +426,18 @@ void searchByRating(string keyrating)
 {
 	Tutor* current = head;
 	int count = 1;	//list number
-	int position = 1;
 
 	while (current != NULL)
 	{
 		if (to_string(current->rating).find(keyrating) != string::npos)	//string::npos---> substring
 		{
-			cout << count << ". " << position << " - " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+			cout << "Record No." << count << " : " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
 				<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
 				<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
 				<< current->rating << endl;
 			count++;
 		}
-		position++;
+
 		current = current->nextAddress;
 	}
 	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
@@ -450,19 +447,18 @@ void searchByRating(string keyrating, string branch)
 {
 	Tutor* current = head;
 	int count = 1;	//list number
-	int position = 1;
 
 	while (current != NULL)
 	{
 		if (to_string(current->rating).find(keyrating) != string::npos && current->branch == branch)	//string::npos---> substring
 		{
-			cout << count << ". " << position << " - " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
+			cout << "Record No." << count << " : " << current->tutorID << " - " << current->firstName << " - " << current->lastName << " - " << current->dateJoined << " - "
 				<< current->dateTerminated << " - " << current->hourlyRate << " - " << current->phoneNumber << " - " << current->address << " - "
 				<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
 				<< current->rating << endl;
 			count++;
 		}
-		position++;
+
 		current = current->nextAddress;
 	}
 	cout << endl << "Searching is done here! NOTE: If there are no results appear, this means that searched tutor is not found." << endl;
@@ -827,7 +823,7 @@ void deleteTutor(string TutorID)
 			int diff = getDateDifference(current1->dateTerminated, todayDate());
 			if (diff < 180)
 			{
-				cout << "Cannot delete this tutor as the termination duration from today has not reach at least 6 months!";
+				cout << "Cannot delete this tutor as the termination duration from today has not reach at least 6 months!" << endl;
 			}
 			else
 			{
@@ -874,7 +870,7 @@ void deleteTutor(string TutorID)
 									<< current->credential << " - " << current->branch << " - " << current->subjectCode << " - " << current->subjectName << " - "
 									<< current->rating << endl << endl;
 								previous->nextAddress = current->nextAddress;
-								cout << TutorID << "is deleted from the list!" << endl;
+								cout << TutorID << " is deleted from the list!" << endl;
 								delete current;
 								::sizeofLinkedListforTutor--;
 								return;
@@ -1333,8 +1329,7 @@ void checkAccess(string userCode, string credentials)
 						break;
 					}
 				} while (!opt);
-		
-					
+
 				cout << endl;
 				cout << "Search by? 1- TutorID, 2- Ratings: " << endl;
 				cin >> choice;
@@ -1777,6 +1772,14 @@ void checkLogin()
 	displayUserType();
 
 	cin >> choice;
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << endl << "Please provide a valid choice! " << endl;
+		cout << "Please Enter Your Option : ";
+		cin >> choice;
+	}
 
 	switch (choice)
 	{
@@ -1788,7 +1791,6 @@ void checkLogin()
 		cout << endl;
 		cout << "Please Enter Your Credentials : ";
 		credentials = takePasswdFromUser();
-
 		checkAccess(userCode, credentials);
 		break;
 	case 2:

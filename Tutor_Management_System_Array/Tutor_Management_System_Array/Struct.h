@@ -16,7 +16,6 @@ struct TuitionCenter {
 	string getBranch() {
 		return branch;
 	}
-
 	void setBranch(string branch) {
 		branch = branch;
 	}
@@ -78,15 +77,7 @@ struct Access {
 	void setCredentials(string credentials) {
 		credentials = credentials;
 	}
-
-	void PrintBookDetials() {
-		cout << "Book Name = " << userCode << endl;
-		cout << "Book Author = " << userType << endl;
-		cout << "Book Subject = " << branch << endl;
-		cout << "Book Page = " << credentials << endl;
-	}
 };
-
 //Array sturcture to store admin and HR credentials
 struct Access allAccess[4];
 

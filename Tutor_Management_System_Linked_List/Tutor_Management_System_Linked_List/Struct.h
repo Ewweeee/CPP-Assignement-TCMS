@@ -84,13 +84,6 @@ struct Access {
 
 //Tutor Structure - to store tutor's information (Linked List)
 struct Tutor {
-	//Example
-	// Tutor ID : Branch Char + Auto Generated
-	// B001 Abu Bukit Jalil
-	// C001 Aba CH
-	// C002 Bud CH
-	// K003 CAT KL
-	// P004 ACA PU
 	string tutorID;
 	string firstName;
 	string lastName;
@@ -111,7 +104,6 @@ struct Tutor {
 	//Tutor's Default Constructor
 	Tutor()
 	{
-		cout << "Tutor" << endl;
 	}
 
 	//Tutor's User-defined Constructor
@@ -239,12 +231,6 @@ struct Tutor {
 	void setRating(int rating) {
 		this->rating = rating;
 	}
-
-	void addTutor() {
-		cout << "New tutor is added successfully." << endl;
-		cout << "Tutor ID :  " << tutorID << endl;
-		cout << "Tutor Name : " << tutorID << endl;
-	}
 }*head, * tail;
 
 void displayAllRecords(int lastIndex, string branch) {
@@ -275,7 +261,5 @@ void displayAllRecords(int lastIndex, string branch) {
 	cout << "	"; cin.get();
 	if (cin.get() == '\n') {
 		cout << "......Loading Menu ......" << endl;
-	//	///*		Sleep(2000);
-	//	//		system("CLS"*/);
 	}
 }

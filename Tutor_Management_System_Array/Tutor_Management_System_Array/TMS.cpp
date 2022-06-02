@@ -699,57 +699,6 @@ void bubbleSortOverallPerformance(Tutor allTutor[], int style)
 	}
 }
 
-void bubbleSortOverallPerformance(Tutor allTutor[], int style)
-{
-	int loop_j;
-	Tutor key;
-
-	//Style defines the way of sorting: 1 for ascending; 2 for descending
-	if (style == 1)
-	{
-		//Ascending
-		for (int index = 1; index < arraySize; index++)
-		{
-			key = allTutor[index];
-			loop_j = index;
-
-			while (loop_j > 0 && allTutor[loop_j - 1].getRating() > key.getRating()) {
-				allTutor[loop_j] = allTutor[loop_j - 1];
-				loop_j--;
-			}
-			allTutor[loop_j] = key;
-		}
-	}
-	else
-	{
-		//Descending
-		for (int index = 1; index < arraySize; index++)
-		{
-			key = allTutor[index];
-			loop_j = index;
-
-			while (loop_j > 0 && allTutor[loop_j - 1].getRating() < key.getRating()) {
-				allTutor[loop_j] = allTutor[loop_j - 1];
-				loop_j--;
-			}
-			allTutor[loop_j] = key;
-		}
-	}
-
-	cout << "After bubble sort, the array result as here: " << endl;
-	int i = 0;
-	while (i <= arraySize) {
-		//Validatation 1 : Check whether array is empty or not
-		if (!allTutors[i].tutorID.empty()) {
-			cout << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " << allTutors[i].lastName << " - " <<
-				allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " << allTutors[i].hourlyRate << " - " <<
-				allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " << allTutors[i].center.centerName << " - " <<
-				allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " << allTutors[i].rating;
-			cout << endl << endl;
-		}
-		i++;
-	}
-}
 
 //Search Records By Tutor ID / Rating
 //Used for Modify & Delete Record
@@ -808,7 +757,7 @@ void searchByRatingLinear(string rating)
 	{
 		while ((to_string(allTutors[i].rating)).find(rating) != string::npos)
 		{
-			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
+			cout << "Record No." << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
 				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
 				allTutors[i].hourlyRate << " - " << allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " <<
 				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
@@ -831,7 +780,7 @@ void searchByRatingLinear(string rating, string branch)
 	for (int i = 0; i <= arraySize; i++) {
 		if ((to_string(allTutors[i].rating)).find(rating) != string::npos && allTutors[i].center.branch == branch)
 		{
-			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
+			cout << "Record No." << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
 				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
 				allTutors[i].hourlyRate << " - " << allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " <<
 				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
@@ -848,7 +797,7 @@ void searchByTutorIDLinear(string ID)
 	for (int i = 0; i <= arraySize; i++) {
 		if (allTutors[i].tutorID.find(ID) != string::npos)
 		{
-			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
+			cout << "Record No." << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
 				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
 				allTutors[i].hourlyRate << " - " << allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " <<
 				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
@@ -861,11 +810,10 @@ void searchByTutorIDLinear(string ID)
 
 void searchByTutorIDLinear(string ID, string branch)
 {
-
 	for (int i = 0; i <= arraySize; i++) {
 		if (allTutors[i].tutorID.find(ID) != string::npos && allTutors[i].center.branch == branch)
 		{
-			cout << "Record No." << i << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
+			cout << "Record No." << i + 1 << " : " << allTutors[i].tutorID << " - " << allTutors[i].firstName << " " <<
 				allTutors[i].lastName << " - " << allTutors[i].dateJoined << " - " << allTutors[i].dateTerminated << " - " <<
 				allTutors[i].hourlyRate << " - " << allTutors[i].phoneNumber << " - " << allTutors[i].address << " - " <<
 				allTutors[i].center.centerName << " - " << allTutors[i].subjectCode << " - " << allTutors[i].subjectName << " - " <<
@@ -1823,69 +1771,61 @@ void checkLogin()
 	int choice;
 	bool input = true;
 	string userCode, userType, credentials, branch;
-	do {
-		displayUserType();
 
+	displayUserType();
 
+	cin >> choice;
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << endl << "Please provide a valid choice! " << endl;
+		cout << "Please Enter Your Option : ";
 		cin >> choice;
-		while (cin.fail())
-		{
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << endl << "Please provide a valid choice! " << endl;
-			cout << "Please Enter Your Option : ";
+	}
+	switch (choice)
+	{
+	case 1:
+		userType = "Admin";
+		cout << endl;
+		cout << "Please Enter Your User Code : ";
+		cin >> userCode;
+		cout << endl;
+		cout << "Please Enter Your Credentials : ";
+		credentials = takePasswdFromUser();
+		cout << endl;
+		checkAccess(userCode, credentials);
+		break;
 
-			cin >> choice;
-		}
-		switch (choice)
-		{
-		case 1:
+	case 2:
+		userType = "HR";
+		cout << endl;
+		cout << "Please Enter Your User Code : ";
+		cin >> userCode;
+		cout << endl;
+		cout << "Please Enter Your Credentials : ";
+		credentials = takePasswdFromUser();
+		cout << endl;
+		checkAccess(userCode, credentials);
+		break;
 
-			userType = "Admin";
-			cout << endl;
-			cout << "Please Enter Your User Code : ";
-			cin >> userCode;
-			cout << endl;
-			cout << "Please Enter Your Credentials : ";
-			credentials = takePasswdFromUser();
-			cout << endl;
-			checkAccess(userCode, credentials);
+	case 3:
+		userType = "Tutor";
+		cout << endl;
+		cout << "Please Enter Your Tutor ID : ";
+		cin >> userCode;
+		cout << endl;
+		cout << "Please Enter Your Credentials : ";
+		credentials = takePasswdFromUser();
+		cout << endl;
+		checkBranch(checkTutor(userCode, credentials), userCode);
+		break;
 
-			break;
-
-		case 2:
-
-			userType = "HR";
-			cout << endl;
-			cout << "Please Enter Your User Code : ";
-			cin >> userCode;
-			cout << endl;
-			cout << "Please Enter Your Credentials : ";
-			credentials = takePasswdFromUser();
-			cout << endl;
-			checkAccess(userCode, credentials);
-
-			break;
-		case 3:
-
-			userType = "Tutor";
-			cout << endl;
-			cout << "Please Enter Your Tutor ID : ";
-			cin >> userCode;
-			cout << endl;
-			cout << "Please Enter Your Credentials : ";
-			credentials = takePasswdFromUser();
-			cout << endl;
-			checkBranch(checkTutor(userCode, credentials), userCode);
-			break;
-
-		default:
-			cout << "Invalid selection, Please Try Again";
-			input = false;
-			system("CLS");
-			cout << endl;
-		}
-	} while (!input);
+	default:
+		cout << "User Account Invalid ! Please Double Check Your Credentials !!!";
+		system("CLS");
+		cout << endl;
+	}
 };
 
 //Rerun Program
