@@ -1069,6 +1069,9 @@ void checkBranch(string branch, string userCode)
 			cout << "3. View Other Tutor Profile" << endl;
 			do
 			{
+				sortByTutorID(&head);
+				displayAllRecords(sizeofLinkedListforTutor, branch);
+
 				cout << "Who you would like to search? ";
 				cin >> searchTutor;
 
@@ -1264,7 +1267,7 @@ void checkAccess(string userCode, string credentials)
 						cin >> credential;
 					}
 
-					cout << "Branch Name: " << branchSlot;
+					cout << "Branch Name: " << branchSlot << endl;
 
 					cout << "Subject Code: ";
 					cin >> subjectCode;
@@ -1307,19 +1310,19 @@ void checkAccess(string userCode, string credentials)
 					switch (choice)
 					{
 					case 1:
-						cout << "Tutor Details sorted by Houtly Rate";
+						cout << "Tutor Details sorted by Hourly Rate: " << endl;
 						sortByHourlyRate(&head);
 						displayList();
 						cout << endl;
 						break;
 					case 2:
-						cout << "Tutor Details sorted by Overall Performance";
+						cout << "Tutor Details sorted by Overall Performance: " << endl;
 						sortByOverallPerformance(&head);
 						displayList();
 						cout << endl;
 						break;
 					case 3:
-						cout << "Tutor Details sorted by Tutor ID";
+						cout << "Tutor Details sorted by Tutor ID: " << endl;
 						sortByTutorID(&head);
 						displayList();
 						cout << endl;
@@ -1333,7 +1336,7 @@ void checkAccess(string userCode, string credentials)
 		
 					
 				cout << endl;
-				cout << " Search by? 1- TutorID, 2- Ratings" << endl;
+				cout << "Search by? 1- TutorID, 2- Ratings: " << endl;
 				cin >> choice;
 				if (choice == 1)
 				{
@@ -1405,7 +1408,7 @@ void checkAccess(string userCode, string credentials)
 						cout << "Do you want to edit again? 1 = YES, 0 = NO: ";
 						cin >> choice;
 					} while (choice == 1);
-					cout << " Do you want to edit another tutor? 1 = YES, 0 = NO: ";
+					cout << "Do you want to edit another tutor? 1 = YES, 0 = NO: ";
 					cin >> choice;
 				} while (choice == 1);
 
@@ -1559,7 +1562,7 @@ void checkAccess(string userCode, string credentials)
 						cin >> credential;
 					}
 
-					cout << "Branch Name: " << branchSlot;
+					cout << "Branch Name: " << branchSlot << endl;
 
 					cout << "Subject Code: ";
 					cin >> subjectCode;
@@ -1583,8 +1586,7 @@ void checkAccess(string userCode, string credentials)
 					Tutor* newnode = CreateNewNode(tutorID, firstName, lastName, dateJoined, "-", hourlyRate, phoneNumber, address, credential, branchSlot, subjectCode, subjectName, 0);
 					addTutor(newnode);
 
-					cout << endl << "Do you still want to add a new tutor?"
-						<< " 1- YES, Others- NO: ";
+					cout << endl << "Do you still want to add a new tutor? 1- YES, Others- NO: ";
 					cin >> choice;
 					cout << endl;
 				} while (choice == 1);
@@ -1592,9 +1594,10 @@ void checkAccess(string userCode, string credentials)
 				break;
 
 			case 2:
+				sortByTutorID(&head);
 				displayAllRecords(sizeofLinkedListforTutor, branch);
 				cout << endl;
-				cout << " Search by? 1- TutorID, 2- Ratings ";
+				cout << "Search by? 1- TutorID, 2- Ratings: ";
 				cin >> choice;
 				if (choice == 1)
 				{
@@ -1658,11 +1661,11 @@ void checkAccess(string userCode, string credentials)
 				break;
 
 			default:
-				cout << "Invalid selection, Please Try Again" << endl;
+				cout << "Invalid selection, Please Try Again." << endl;
 				break;
 			}
 
-			cout << "View menu again? ";
+			cout << "View menu again? 1 = YES, Others = NO:";
 			cin >> choice;
 		} while (choice == 1);
 		return;

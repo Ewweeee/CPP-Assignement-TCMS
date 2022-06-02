@@ -274,11 +274,11 @@ void displayAllRecords(int lastIndex, string branch) {
 	/*return;*/
 
 //Returning Back To Main Menu (PRESS ENTER)
-	cout << setw(10) << "......PRESS ENTER TO RETURN MENU ......" << endl;
+	cout << setw(10) << "......PRESS ENTER......" << endl;
 	cout << "	"; cin.get();
 	if (cin.get() == '\n') {
-		cout << "......Going Back To Menu ......" << endl;
-		///*		Sleep(2000);
-		//		system("CLS"*/);
+		cout << "......Loading Menu ......" << endl;
+	//	///*		Sleep(2000);
+	//	//		system("CLS"*/);
 	}
 }
