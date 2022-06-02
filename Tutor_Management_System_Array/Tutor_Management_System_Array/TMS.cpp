@@ -183,19 +183,22 @@ int checkVacantSlot(string branchname)
 	int countBJ = 0, countCH = 0, countPJ = 0, totalslot = 10;
 
 	// to count how many branches are there in the system
-	while (!allTutors[0].tutorID.empty())
+	for (int i = 0; i < arraySize; i++)
 	{
-		if (allTutors[0].branch == "Bukit Jalil")
+		if (!allTutors[i].tutorID.empty())
 		{
-			countBJ++;
-		}
-		else if (allTutors[0].branch == "Cheras")
-		{
-			countCH++;
-		}
-		else
-		{
-			countPJ++;
+			if (allTutors[i].center.branch == "Bukit Jalil")
+			{
+				countBJ++;
+			}
+			else if (allTutors[i].center.branch == "Cheras")
+			{
+				countCH++;
+			}
+			else
+			{
+				countPJ++;
+			}
 		}
 	}
 
@@ -228,7 +231,6 @@ void enterDetails(int i, string ID) {
 	cout << string(82, '=') << endl;
 	cout << "	Generated Tutor ID                  : " << ID << endl; // print generated tutor ID
 
-
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	// First Name
@@ -241,7 +243,7 @@ void enterDetails(int i, string ID) {
 	getline(cin, allTutors[i].lastName);
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	// Date Joined 
+	// Date Joined
 	cout << "	Please enter Tutor Date Joined [Format (DD/MM/YYYY)] : ";
 	cin >> allTutors[i].dateJoined;
 	while (cin.fail() || allTutors[i].dateJoined.size() != 10)
@@ -258,7 +260,6 @@ void enterDetails(int i, string ID) {
 	cout << "	Please enter Hourly Pay Rate (40-80): ";
 	cin >> allTutors[i].hourlyRate;
 	while (cin.fail() || allTutors[i].hourlyRate < 40 || allTutors[i].hourlyRate > 80) {
-
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << endl << "	Please give a valid hourly rate! " << endl;
@@ -370,9 +371,7 @@ void enterDetails(int i, string ID) {
 		break;
 	}
 
-
 	while (cin.fail() || choice < 1 || choice > 5) {
-
 		cout << endl << "	Please enter a valid selection! " << endl << endl;
 		cout << "	Please select Subject Taught        : " << endl;
 		cout << "	1. Chinese " << endl;
@@ -418,7 +417,6 @@ void enterDetails(int i, string ID) {
 	cout << "	Please Enter Phone Number           : ";
 	cin >> allTutors[i].phoneNumber;
 	while (cin.fail() || allTutors[i].phoneNumber.size() >= 13) {
-
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << endl << "Please give a valid phone number! " << endl;
@@ -434,8 +432,7 @@ void enterDetails(int i, string ID) {
 	getline(cin, allTutors[i].address);
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-
-	cout << "Working on it!!" << endl;
+	cout << "	Working on it!!" << endl;
 	Sleep(2000);
 
 	arraySize++;
@@ -445,7 +442,12 @@ void enterDetails(int i, string ID) {
 //Add New Tutor Record (HR)
 void addTutor(string branch) {
 	string ID = "";
-
+	int slots = 0;
+	slots = checkVacantSlot(branch);
+	cout << endl << endl;
+	if (slots <= 0)
+		cout << "Cannot add new tutor anymore! The slots for " << branch << "  are full now!";
+	cout << "Current slots in " << branch << ": " << slots << endl;
 	ID = tutorIDGenerator(allTutors, arraySize, branch);
 
 	/*check whether the first element in array is empty*/
@@ -475,6 +477,7 @@ void addTutor() {
 	string ID = "";
 	int choice = 0;
 	string branch = "";
+	int slots = 0;
 	cout << endl;
 	cout << "Please Choose The Branch That You Would Like To Add" << endl;
 	cout << "1. Bukit Jalil \t 2. Petaling Jaya \t 3. Cheras" << endl;
@@ -495,6 +498,11 @@ void addTutor() {
 		cout << "Invalid Choice !!! Please Try Again!";
 		break;
 	}
+	slots = checkVacantSlot(branch);
+	cout << endl << endl;
+	if (slots <= 0)
+		cout << "Cannot add new tutor anymore! The slots for " << branch << "  are full now!";
+	cout << "Current slots in " << branch << ": " << slots << endl;
 
 	ID = tutorIDGenerator(allTutors, arraySize, branch);
 
@@ -759,11 +767,10 @@ void searchByTutorIDLinear(string ID)
 	}
 };
 
-
 //Modify Tutor Record
 void modifyTutor(int i, string ID, int choice)
 {
-	//	int i = 0; 
+	//	int i = 0;
 	//	int choice = 0;
 	int totalSize = arraySize;
 	//	string TID;
@@ -780,12 +787,10 @@ void modifyTutor(int i, string ID, int choice)
 	int rating;
 	char decision;
 
-
 	if (allTutors[i].tutorID == ID)
 	{
 		switch (choice)
 		{
-
 		case 1:
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Please Enter New Name: " << endl;
@@ -793,11 +798,9 @@ void modifyTutor(int i, string ID, int choice)
 			getline(cin, firstName);
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-
 			cout << "Last Name: ";
 			getline(cin, lastName);
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
 
 			allTutors[i].setFirstName(firstName);
 
@@ -937,50 +940,130 @@ void modifyTutor(int i, string ID, int choice)
 	}
 }
 
-//Delete Tutor Record
-void deleteTutor()
+//Function to finsh today date
+string todayDate()
+{
+	time_t t = time(NULL);
+	struct tm now;
+	localtime_s(&now, &t);
+	string today = (to_string(0)).append(to_string(now.tm_mday)).append("/").append(to_string(0)).append((to_string(now.tm_mon + 1))).append("/").append(to_string((now.tm_year) + 1900));
+	//cout << " Current Date: " << today;
+
+	return today;
+}
+
+// get date difference of 2 dates in DD/MM/YYYY format in days
+int getDateDifference(string date1, string date2)
+{
+	// get date1 in DD/MM/YYYY format
+	string day1 = date1.substr(0, 2);
+	string month1 = date1.substr(3, 2);
+	string year1 = date1.substr(6, 4);
+	int day1Int = stoi(day1);
+	int month1Int = stoi(month1);
+	int year1Int = stoi(year1);
+
+	// get date2 in DD/MM/YYYY format
+	string day2 = date2.substr(0, 2);
+	string month2 = date2.substr(3, 2);
+	string year2 = date2.substr(6, 4);
+	int day2Int = stoi(day2);
+	int month2Int = stoi(month2);
+	int year2Int = stoi(year2);
+
+	// get date1 in seconds
+	time_t t1 = time(0);
+	struct tm now1;
+	localtime_s(&now1, &t1);
+	now1.tm_mday = day1Int;
+	now1.tm_mon = month1Int - 1;
+	now1.tm_year = year1Int - 1900;
+	time_t t1Seconds = mktime(&now1);
+
+	// get date2 in seconds
+	time_t t2 = time(0);
+	struct tm now2;
+	localtime_s(&now2, &t2);
+	now2.tm_mday = day2Int;
+	now2.tm_mon = month2Int - 1;
+	now2.tm_year = year2Int - 1900;
+	time_t t2Seconds = mktime(&now2);
+
+	// get difference in seconds
+	int difference = t2Seconds - t1Seconds;
+
+	// get difference in days
+	int differenceDays = difference / 86400;
+
+	return differenceDays;
+}
+
+//Delete Tutor Record (6 months from current date)
+void deleteTutor(string TutorID)
 {
 	int i = 0;
-	int totalSize = arraySize;
-	string TID;
-	string decision;
-	cout << "Please Enter Tutor ID That Wanted To Be Deleted : ";
-	cin >> TID;
+	while (!allTutors[i].tutorID.empty())
 
-	int result = searchByTutorID(totalSize, TID);
-
-	if (result == -1)
 	{
-		cout << "Invalid Tutor ID. Record cannot be not found!";
-	}
-	else
-	{
-		cout << "Are You Sure You Want To Delete This Record ?";
-		cin >> decision;
+		if (allTutors[i].getTutorID() == TutorID) {
+			int diff = getDateDifference(allTutors[i].getDateTerminated(), todayDate());
+			if (diff < 180)
+			{
+				cout << "Cannot delete this tutor as the termination duration from today has not reach at least 6 months!";
+				cout << endl;
+			}
+			else
+			{
+				int choice = 0;
+				cout << "Are you sure to delete this tutor? 1- YES, Others- NO" << endl;
+				cin >> choice;
+				if (choice == 1)
+				{
+					//list is empty
+					if (allTutors[i].tutorID.empty())
+					{
+						cout << "Empty list!" << endl;
+						return;
+					}
+					else if (allTutors[i].getTutorID() == TutorID)
+					{
+						cout << "Records to be deleted:-";
+						cout << allTutors[i].getTutorID() << " - " << allTutors[i].getFirstName() << " - " << allTutors[i].getLastName() << " - " << allTutors[i].getDateJoined() << " - "
+							<< allTutors[i].getDateTerminated() << " - " << allTutors[i].getHourlyRate() << " - " << allTutors[i].getphoneNumber() << " - " << allTutors[i].getAddress() << " - "
+							<< allTutors[i].getCredential() << " - " << allTutors[i].getBranch() << " - " << allTutors[i].getSubjectCode() << " - " << allTutors[i].getSubjectName() << " - "
+							<< allTutors[i].getRating() << endl << endl;
+						cout << TutorID << " is deleted from the list!" << endl;
 
-		if (decision == "Y" || decision == "Yes") {
-			cout << string(15, '-') << "Performing Deletion" << string(15, '-') << endl;
-			for (int i = 0; i < totalSize; i++)
-				if (allTutors[i].tutorID == TID) {
-					//deleting the last element
-					allTutors[i].tutorID = "";
-					allTutors[i].firstName = "";
-					allTutors[i].lastName = "";
-					allTutors[i].dateJoined = "";
-					allTutors[i].dateTerminated = "";
-					allTutors[i].hourlyRate = NULL;
-					allTutors[i].center.centerCode = NULL;
-					allTutors[i].center.centerName = "";
-					allTutors[i].center.branch = "";
-					allTutors[i].subjectCode = "";
-					allTutors[i].subjectName = "";
-					allTutors[i].phoneNumber = "";
-					allTutors[i].address = "";
-					allTutors[i].rating = NULL;
+						if (allTutors[i].tutorID == TutorID) {
+							allTutors[i].tutorID = "";
+							allTutors[i].firstName = "";
+							allTutors[i].lastName = "";
+							allTutors[i].dateJoined = "";
+							allTutors[i].dateTerminated = "";
+							allTutors[i].hourlyRate = NULL;
+							allTutors[i].center.centerCode = NULL;
+							allTutors[i].center.centerName = "";
+							allTutors[i].center.branch = "";
+							allTutors[i].subjectCode = "";
+							allTutors[i].subjectName = "";
+							allTutors[i].phoneNumber = "";
+							allTutors[i].address = "";
+							allTutors[i].rating = NULL;
+
+							arraySize--;
+							return;
+						}
+					}
+					else
+					{
+						cout << "Tutor ID " << TutorID << " is not found in the list!" << endl;
+					}
 				}
+			}
 		}
+		i++;
 	}
-};
+}
 
 //View Tutor Record
 void viewTutor()
@@ -1208,7 +1291,35 @@ void checkAccess(string userCode, string credentials)
 				} while (choice == 1);
 				break;
 			case 4:
-				deleteTutor();
+				do
+				{
+					string keyword;
+
+					cout << "Which tutor do you want to delete? Please provide his/ her Tutor ID: ";
+					cin >> keyword;
+					cout << endl;
+					int result = searchByTutorID(arraySize, keyword);
+					cin.clear();	//remove input operation
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');	//remove content
+					while (result == -1)
+					{
+						cout << "Tutor ID " << keyword << " is not found in the list!" << endl;
+
+						cout << "Which tutor do you want to delete? Please provide his/ her Tutor ID: ";
+						cin >> keyword;
+						cout << endl;
+						result = searchByTutorID(arraySize, keyword);
+					}
+
+					deleteTutor(keyword);
+
+					//after delete, display list again
+					displayAllRecords(arraySize);
+					cout << endl << "The current amount of the size is " << arraySize << endl;
+
+					cout << "Delete another tutor? 1 = YES, 0 = NO: ";
+					cin >> choice;
+				} while (choice == 1);
 				break;
 			case 5:
 				generateReport();
@@ -1228,7 +1339,7 @@ void checkAccess(string userCode, string credentials)
 	}
 	else if (found == 1 && userType == "Admin")
 	{
-		int choice =0;
+		int choice = 0;
 
 		system("CLS");
 		cout << endl << "Login Successful !!" << endl;
@@ -1451,7 +1562,7 @@ void checkBranch(string branch, string userCode)
 			break;
 		case 4:
 
-			if (displayExitMenu() == 0)
+			if (displayExitMenu() == -1)
 			{
 				return;
 			}
@@ -1487,8 +1598,17 @@ void checkLogin()
 	do {
 		displayUserType();
 
-		cin >> choice;
 
+		cin >> choice;
+		while (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << endl << "Please provide a valid choice! " << endl;
+			cout << "Please Enter Your Option : ";
+
+			cin >> choice;
+		}
 		switch (choice)
 		{
 		case 1:
@@ -1556,7 +1676,7 @@ void runprg() {
 			break;
 		case 2:
 			exit = displayExitMenu();
-			if (exit = 0)
+			if (exit == 0)
 			{
 				runprg();
 			}
@@ -1596,7 +1716,7 @@ int main() {
 		case 2:
 
 			exit1 = displayExitMenu();
-			if (exit1 == 2)
+			if (exit1 == 0)
 			{
 				runprg();
 			}
@@ -1616,56 +1736,5 @@ int main() {
 			break;
 		}
 	} while (!input);
-	//string s = "a";
-	//bool match = regex_match(s, r);
-	//if (match)
-	//	cin >> allTutors[i].lastName;
-	//else
-	//	std::cout << "Error!" << std::endl;
-	//checkLogin();
-	//int choice;
-	//cout << "Welcome to sorting" << endl;
-	//cout << "How would you like to sort your records ?" << endl;
-	//cout << "Press 1 for acsending and 2 for descending" << endl;
-	//cin >> choice;
-	//bubbleSortHourlyRate(allTutors, choice);
-	//bubbleSortTutorID(allTutors);
-	//cout << "ID: " << tutorIDGenerator(allTutors, arraySize, "Cheras");
-	////displayAdminMenu();
-	////displayHRMenu();
-	////displayTutorMenu();
-	////displayLocationMenu();
-	////initialize_records();
-	////int choice; int i = 0; int arraySize = 0;
-	////while (!allTutors[i].tutorID.empty()) {
-	////	arraySize++;
-	////	i++;
-	//
-	//
-	////}
-	////displayAllRecords(arraySize - 1);
-	////cout << "Done" << endl;
-	//cin >> choice;
-	//if (choice == 1)
-	//{
-	//	modifyTutor();
-	//}
-	//int i = 0; int arraySize = 0;
-	//while (!allTutors[i].tutorID.empty()) {
-	//	arraySize++;
-	//	i++;
-	//}
-	//checkLogin();
-	//checkAccess("HR001", "12345");
-	//cout << "Done" << endl;
-	//displayExitMenu();
-	//modifyTutor();
-	//modifyTutor();
-	//displayAllRecords(arraySize - 1);
-	//int index;
-	//if ((index = searchByRatingBinary(allTutors, 0, arraySize, 1)) >= 0)
-	//	cout << "Item found at location: " << index << endl;
-	//else
-	//	cout << "Item is not found in the list." << endl;
 	return 0;
 }

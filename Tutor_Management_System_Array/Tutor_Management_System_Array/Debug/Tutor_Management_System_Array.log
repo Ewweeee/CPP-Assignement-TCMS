@@ -1,4 +1,1 @@
-﻿  TMS.cpp
-C:\Users\eweli\Documents\CPP-Assignement-TCMS\Tutor_Management_System_Array\Tutor_Management_System_Array\TMS.cpp(639,7): warning C4101: 'decision': unreferenced local variable
-C:\Users\eweli\Documents\CPP-Assignement-TCMS\Tutor_Management_System_Array\Tutor_Management_System_Array\TMS.cpp(218): warning C4715: 'checkVacantSlot': not all control paths return a value
-  Tutor_Management_System_Array.vcxproj -> C:\Users\eweli\Documents\CPP-Assignement-TCMS\Tutor_Management_System_Array\Debug\Tutor_Management_System_Array.exe
+﻿  Tutor_Management_System_Array.vcxproj -> C:\Users\eweli\Documents\CPP-Assignement-TCMS\Tutor_Management_System_Array\Debug\Tutor_Management_System_Array.exe

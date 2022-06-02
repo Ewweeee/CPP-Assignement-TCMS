@@ -242,6 +242,7 @@ void initializeRecords() {
 	allTutors[0].firstName = "Chan";
 	allTutors[0].lastName = "Hong Xian";
 	allTutors[0].dateJoined = "23/06/2013";
+	allTutors[0].dateTerminated = "10/06/2019";
 	allTutors[0].hourlyRate = 40;
 	allTutors[0].center.centerCode = 1002;
 	allTutors[0].center.centerName = "eXcel Tuition Centre Bukit Jalil";
@@ -257,6 +258,7 @@ void initializeRecords() {
 	allTutors[1].firstName = "Yew";
 	allTutors[1].lastName = "Ming Yao";
 	allTutors[1].dateJoined = "20/11/2015";
+	allTutors[1].dateTerminated = "20/05/2019";
 	allTutors[1].hourlyRate = 20;
 	allTutors[1].center.centerCode = 1003;
 	allTutors[1].center.centerName = "eXcel Tuition Centre Petaling Jaya";
@@ -272,6 +274,7 @@ void initializeRecords() {
 	allTutors[2].firstName = "Tan";
 	allTutors[2].lastName = "Xin Qian";
 	allTutors[2].dateJoined = "20/05/2012";
+	allTutors[2].dateTerminated = "NA";
 	allTutors[2].hourlyRate = 40;
 	allTutors[2].center.centerCode = 1001;
 	allTutors[2].center.centerName = "eXcel Tuition Centre Cheras";
@@ -305,6 +308,7 @@ void initializeRecords() {
 	allAccess[3].credentials = "45678";
 }
 
+//Display All Records
 void displayAllRecords(int lastIndex) {
 	int i = 0;
 
@@ -329,6 +333,7 @@ void displayAllRecords(int lastIndex) {
 	}
 }
 
+//Display All Records By Each Branch
 void displayAllRecords(int lastIndex, string branch) {
 	//Display Records With Branch
 	int i = 0;
