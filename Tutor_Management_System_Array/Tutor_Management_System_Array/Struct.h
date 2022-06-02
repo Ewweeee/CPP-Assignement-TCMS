@@ -238,7 +238,7 @@ struct Tutor {
 struct Tutor allTutors[31];
 
 void initializeRecords() {
-	allTutors[0].tutorID = "B001";
+	allTutors[0].tutorID = "B0001";
 	allTutors[0].firstName = "Chan";
 	allTutors[0].lastName = "Hong Xian";
 	allTutors[0].dateJoined = "23 / 06 / 2013";
@@ -253,35 +253,35 @@ void initializeRecords() {
 	allTutors[0].credential = "ILOVEAPU";
 	allTutors[0].rating = 4;
 
-	allTutors[1].tutorID = "C001";
-	allTutors[1].firstName = "Tan";
-	allTutors[1].lastName = "Xin Qian";
-	allTutors[1].dateJoined = "20 / 05 / 2012";
-	allTutors[1].hourlyRate = 40;
-	allTutors[1].center.centerCode = 1001;
-	allTutors[1].center.centerName = "eXcel Tuition Centre Cheras";
-	allTutors[1].center.branch = "Cheras";
-	allTutors[1].subjectCode = "ENG";
-	allTutors[1].subjectName = "English";
-	allTutors[1].phoneNumber = "601782635467";
-	allTutors[1].address = "Connaught Avenue, Taman Connaught, Cheras";
+	allTutors[1].tutorID = "P0001";
+	allTutors[1].firstName = "Yew";
+	allTutors[1].lastName = "Ming Yao";
+	allTutors[1].dateJoined = "20 / 11 / 2015";
+	allTutors[1].hourlyRate = 20;
+	allTutors[1].center.centerCode = 1003;
+	allTutors[1].center.centerName = "eXcel Tuition Centre Petaling Jaya";
+	allTutors[1].center.branch = "Petaling Jaya";
+	allTutors[1].subjectCode = "MLY";
+	allTutors[1].subjectName = "Malay";
+	allTutors[1].phoneNumber = "601822654371";
+	allTutors[1].address = "BK5 Desiran Bandar Kinrara, Puchong";
 	allTutors[1].credential = "ILOVEAPU";
-	allTutors[1].rating = 5;
+	allTutors[1].rating = 3;
 
-	allTutors[2].tutorID = "P001";
-	allTutors[2].firstName = "Yew";
-	allTutors[2].lastName = "Ming Yao";
-	allTutors[2].dateJoined = "20 / 11 / 2015";
-	allTutors[2].hourlyRate = 45;
-	allTutors[2].center.centerCode = 1003;
-	allTutors[2].center.centerName = "eXcel Tuition Centre Petaling Jaya";
-	allTutors[2].center.branch = "Petaling Jaya";
-	allTutors[2].subjectCode = "MLY";
-	allTutors[2].subjectName = "Malay";
-	allTutors[2].phoneNumber = "601822654371";
-	allTutors[2].address = "BK5 Desiran Bandar Kinrara, Puchong";
+	allTutors[2].tutorID = "C0001";
+	allTutors[2].firstName = "Tan";
+	allTutors[2].lastName = "Xin Qian";
+	allTutors[2].dateJoined = "20 / 05 / 2012";
+	allTutors[2].hourlyRate = 40;
+	allTutors[2].center.centerCode = 1001;
+	allTutors[2].center.centerName = "eXcel Tuition Centre Cheras";
+	allTutors[2].center.branch = "Cheras";
+	allTutors[2].subjectCode = "ENG";
+	allTutors[2].subjectName = "English";
+	allTutors[2].phoneNumber = "601782635467";
+	allTutors[2].address = "Connaught Avenue, Taman Connaught, Cheras";
 	allTutors[2].credential = "ILOVEAPU";
-	allTutors[2].rating = 3;
+	allTutors[2].rating = 5;
 
 	//Initialize admin and HR records
 	allAccess[0].userCode = "HR001";
@@ -349,8 +349,7 @@ void displayAllRecords(int lastIndex, string branch) {
 		//Validatation: Check whether array is empty or not
 		if (!allTutors[i].tutorID.empty()) {
 			cout << allTutors[i].tutorID << setw(3) << allTutors[i].firstName << setw(3) << allTutors[i].lastName;
-			cout << allTutors[i].dateJoined << setw(3) << allTutors[i].dateTerminated << setw(3);
-			cout << allTutors[i].hourlyRate << setw(3) << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
+			cout << allTutors[i].center.centerCode << setw(3) << allTutors[i].center.branch;
 			cout << setw(3) << allTutors[i].center.centerName;
 			cout << setw(3) << allTutors[i].subjectCode << setw(3) << allTutors[i].subjectName;
 			cout << setw(3) << allTutors[i].phoneNumber << setw(3) << allTutors[i].address;
