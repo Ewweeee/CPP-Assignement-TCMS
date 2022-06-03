@@ -192,7 +192,6 @@ static void sortedInsertTutorID(Tutor** head_ref, Tutor* newNode)
 		newNode->nextAddress->previousAddress = newNode;
 		*head_ref = newNode;
 	}
-
 	else
 	{
 		current = *head_ref;
@@ -633,8 +632,8 @@ int getDateDifference(string date1, string date2)
 
 	// get difference in days
 	int differenceDays = difference / 86400;
-
 	return differenceDays;
+
 }
 
 //Modify Tutor Record (edit record based on tutorID and the part to be modified)
@@ -818,7 +817,7 @@ void deleteTutor(string TutorID)
 	Tutor* current1 = head;
 	while (current1 != NULL)
 	{
-		if (current1->tutorID == TutorID)
+		if (current1->tutorID == TutorID && current1->dateTerminated != "-")
 		{
 			int diff = getDateDifference(current1->dateTerminated, todayDate());
 			if (diff < 180)
@@ -830,6 +829,7 @@ void deleteTutor(string TutorID)
 				int choice = 0;
 				cout << "Are you sure to delete this tutor? 1- YES, Others- NO" << endl;
 				searchByTutorID(TutorID);
+				cout << "Enter your choice: ";
 				cin >> choice;
 				if (choice == 1)
 				{

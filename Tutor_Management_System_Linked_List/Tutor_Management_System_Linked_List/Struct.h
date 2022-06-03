@@ -128,7 +128,7 @@ struct Tutor {
 	//Tutor's Destructor
 	~Tutor()
 	{
-		cout << "Tutor " << tutorID << "is removed successfully." << endl;
+		cout << "Tutor " << tutorID << " is removed successfully." << endl;
 	}
 
 	//Tutor's Methods
