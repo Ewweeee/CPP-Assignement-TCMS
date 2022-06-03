@@ -7,10 +7,8 @@
 #include <regex>
 
 #undef max
-
 using namespace std;
 int arraySize = 0;
-//Function Prototype
 
 //Calculate The Array Size
 int calculateArraySize() {
@@ -177,7 +175,7 @@ string checkTutor(string userCode, string credentials)
 	}
 };
 
-//Check Whether There Is Slots Available
+//Check Whether There Is slots Available
 int checkVacantSlot(string branchname)
 {
 	int countBJ = 0, countCH = 0, countPJ = 0, totalslot = 10;
@@ -222,7 +220,6 @@ int checkVacantSlot(string branchname)
 
 //enter new details
 void enterDetails(int i, string ID) {
-	regex r("[a-zA-Z]+");
 	int choice = 0;
 	bool input = true;
 	cout << endl;
@@ -827,10 +824,7 @@ void searchByTutorIDLinear(string ID, string branch)
 //Modify Tutor Record
 void modifyTutor(int i, string ID, int choice)
 {
-	//	int i = 0;
-	//	int choice = 0;
 	int totalSize = arraySize;
-	//	string TID;
 	string address;
 	string phoneNumber;
 	string lastName;
@@ -869,7 +863,6 @@ void modifyTutor(int i, string ID, int choice)
 		case 2:
 			cout << "Please enter Hourly Pay Rate (40-80): ";
 			cin >> hourlyRate;
-			//stod(hourlyRate);
 			/*check whether given hourly pay rate input is valid 40 to 80*/
 			while (hourlyRate < 40 || hourlyRate > 80) {
 				cout << "Please Try Again With Valid Input: ";
@@ -878,7 +871,6 @@ void modifyTutor(int i, string ID, int choice)
 			//Check how to change string to double
 			allTutors[i].setHourlyRate(hourlyRate);
 			cout << "Hourly Pay Rate Had Successfully Changed" << endl;
-			//				return;
 
 			break;
 
@@ -887,7 +879,6 @@ void modifyTutor(int i, string ID, int choice)
 			cin >> phoneNumber;
 			allTutors[i].phoneNumber = phoneNumber;
 			cout << "Phone Number Had Successfully Changed" << endl;
-			//				return;
 			break;
 
 		case 4:
@@ -895,7 +886,6 @@ void modifyTutor(int i, string ID, int choice)
 			getline(cin, address);
 			allTutors[i].address = address;
 			cout << "Address Had Successfully Changed" << endl;
-			//				return;
 			break;
 
 		case 5:
@@ -903,7 +893,6 @@ void modifyTutor(int i, string ID, int choice)
 			cin >> credential;
 			allTutors[i].credential = credential;
 			cout << "Credential Had Successfully Changed" << endl;
-			//				return;
 
 			break;
 
@@ -1004,8 +993,6 @@ string todayDate()
 	struct tm now;
 	localtime_s(&now, &t);
 	string today = (to_string(0)).append(to_string(now.tm_mday)).append("/").append(to_string(0)).append((to_string(now.tm_mon + 1))).append("/").append(to_string((now.tm_year) + 1900));
-	//cout << " Current Date: " << today;
-
 	return today;
 }
 

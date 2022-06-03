@@ -17,10 +17,6 @@ struct TuitionCenter {
 
 //User access structure - implemented for user login
 struct Access {
-	//Access can be store as static variables, store in heap (+ pointer)
-	//Choice 1 / 2 : Come here
-	//Else go to tutor struct check ID and credentials
-	//Change this
 	string userCode;
 	string userType;
 	string branch;
@@ -31,7 +27,6 @@ struct Access {
 	//Tutor's Default Constructor
 	Access()
 	{
-		//cout << "Tutor" << endl;
 	}
 
 	//Tutor's User-defined Constructor
@@ -72,13 +67,6 @@ struct Access {
 
 	void setCredentials(string credentials) {
 		credentials = credentials;
-	}
-
-	void PrintBookDetials() {
-		cout << "Book Name = " << userCode << endl;
-		cout << "Book Author = " << userType << endl;
-		cout << "Book Subject = " << branch << endl;
-		cout << "Book Page = " << credentials << endl;
 	}
 }*head1, * tail1;
 
@@ -253,10 +241,7 @@ void displayAllRecords(int lastIndex, string branch) {
 			current = current->nextAddress;
 		}
 	}
-
-	/*return;*/
-
-//Returning Back To Main Menu (PRESS ENTER)
+	//Returning Back To Main Menu (PRESS ENTER)
 	cout << setw(10) << "......PRESS ENTER......" << endl;
 	cout << "	"; cin.get();
 	if (cin.get() == '\n') {

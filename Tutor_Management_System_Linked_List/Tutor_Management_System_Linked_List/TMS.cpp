@@ -9,8 +9,6 @@
 
 using namespace std;
 
-//Function Prototype
-
 //variables to be input
 string tutorID;
 string firstName;
@@ -83,8 +81,7 @@ string takePasswdFromUser(char sp = '*')
 		else if (ch_ipt == IN_BACK && passwd.length() != 0) {
 			passwd.pop_back();
 
-			// Cout statement is very
-			// important as it will erase
+			//It will erase
 			// previously printed character
 			cout << "\b \b";
 
@@ -103,6 +100,7 @@ string takePasswdFromUser(char sp = '*')
 	}
 }
 
+//Auto generated Tutor ID based on the branch
 string tutorIDGenerator(int listSize, string branch)
 {
 	string tutorID = "";
@@ -115,6 +113,8 @@ string tutorIDGenerator(int listSize, string branch)
 	{
 		maxTID = maxTID->nextAddress;
 		int number = 0;
+
+		//Find the max tutor ID
 		for (int i = 0; i < ::sizeofLinkedListforTutor; i++)
 		{
 			if (current->branch == branch && maxTID->branch == branch) {
@@ -185,7 +185,6 @@ static void sortedInsertTutorID(Tutor** head_ref, Tutor* newNode)
 
 	// if the node is to be inserted at the beginning
 	// of the doubly linked list
-
 	else if (stoi((*head_ref)->tutorID.substr(1)) >= stoi(newNode->tutorID.substr(1)))
 	{
 		newNode->nextAddress = *head_ref;
@@ -201,7 +200,6 @@ static void sortedInsertTutorID(Tutor** head_ref, Tutor* newNode)
 			current = current->nextAddress;		//keep going forward
 
 		//Make the appropriate links /
-
 		newNode->nextAddress = current->nextAddress;	//while loop was finding the right current address to replace the new node
 
 		// if the new node is not inserted
@@ -215,9 +213,7 @@ static void sortedInsertTutorID(Tutor** head_ref, Tutor* newNode)
 }
 
 void sortByTutorID(Tutor** head_ref)
-{	// to change:
-	//different inseertion sort (2 * 3 times)
-	//
+{
 	// Initialize 'sorted' - a sorted doubly linked list
 	Tutor* sorted = NULL;
 
@@ -233,7 +229,6 @@ void sortByTutorID(Tutor** head_ref)
 		current->previousAddress = current->nextAddress = NULL;
 
 		// insert current in 'sorted' doubly linked list
-
 		sortedInsertTutorID(&sorted, current);
 
 		// Update current
@@ -267,7 +262,6 @@ static void sortedInsertHourlyRate(Tutor** head_ref, Tutor* newNode)
 			current = current->nextAddress;		//keep going forward
 
 		//Make the appropriate links
-
 		newNode->nextAddress = current->nextAddress;	//while loop was finding the right current address to replace the new node
 
 		// if the new node is not inserted
@@ -282,10 +276,6 @@ static void sortedInsertHourlyRate(Tutor** head_ref, Tutor* newNode)
 
 void sortByHourlyRate(Tutor** head_ref)
 {
-	// to change:
-	//different insertion sort (2 * 3 times)
-	//
-	// Initialize 'sorted' - a sorted doubly linked list
 	Tutor* sorted = NULL;
 
 	// Traverse the given doubly linked list and
@@ -320,7 +310,6 @@ static void sortedInsertOverallPerformance(Tutor** head_ref, Tutor* newNode)
 
 	// if the node is to be inserted at the beginning
 	// of the doubly linked list
-
 	else if ((*head_ref)->rating >= newNode->rating)
 	{
 		newNode->nextAddress = *head_ref;
@@ -350,10 +339,6 @@ static void sortedInsertOverallPerformance(Tutor** head_ref, Tutor* newNode)
 
 void sortByOverallPerformance(Tutor** head_ref)
 {
-	// to change:
-	//different insertion sort (2 * 3 times)
-	//
-	// Initialize 'sorted' - a sorted doubly linked list
 	Tutor* sorted = NULL;
 
 	// Traverse the given doubly linked list and
@@ -633,7 +618,6 @@ int getDateDifference(string date1, string date2)
 	// get difference in days
 	int differenceDays = difference / 86400;
 	return differenceDays;
-
 }
 
 //Modify Tutor Record (edit record based on tutorID and the part to be modified)
@@ -950,8 +934,7 @@ void checkBranch(string branch, string userCode)
 		switch (choice)
 		{
 		case 1:
-			cout << "1. View Personal Profile" << endl;
-
+			//View Personal Profile
 			while (current != NULL)
 			{
 				if (current->tutorID == userCode)
@@ -982,8 +965,7 @@ void checkBranch(string branch, string userCode)
 
 			break;
 		case 2:
-			cout << "2. Modify Personal Profile" << endl;
-
+			//Modify Personal Profile
 			displayModifyPersonalInfoMenu();
 			int option;
 			cin >> option;
@@ -1062,7 +1044,7 @@ void checkBranch(string branch, string userCode)
 
 			break;
 		case 3:
-			cout << "3. View Other Tutor Profile" << endl;
+			//View Other Tutor Profile
 			do
 			{
 				sortByTutorID(&head);
@@ -1094,6 +1076,7 @@ void checkBranch(string branch, string userCode)
 			} while (choice == 1);
 			break;
 		case 4:
+			//Exit the system
 			displayExitMenu();
 			break;
 
@@ -1144,8 +1127,7 @@ void checkAccess(string userCode, string credentials)
 	{
 		cout << "Login Successful !!";
 		cout << "Welcome " + userCode;
-		/*Sleep(1000);
-		system("CLS");*/
+
 		do {
 			cout << endl;
 			displayHRMenu();
@@ -1153,8 +1135,6 @@ void checkAccess(string userCode, string credentials)
 			switch (choice)
 			{
 			case 1:
-				//while (choice == 1)
-				//{
 				cout << "Please Choose The Branch That You Would Like To Add" << endl;
 				cout << "1. Bukit Jalil \t 2. Petaling Jaya \t 3. Cheras" << endl;
 				cout << "Branch: ";
@@ -1295,11 +1275,10 @@ void checkAccess(string userCode, string credentials)
 					cin >> choice;
 					cout << endl;
 				} while (choice == 1);
-				/*}*/
 				break;
 
 			case 2:
-				//SORT HERE
+				//Types of sorting before displaying the tutor lists
 				do {
 					displaySortMenu();
 					cin >> choice;
@@ -1331,6 +1310,7 @@ void checkAccess(string userCode, string credentials)
 				} while (!opt);
 
 				cout << endl;
+				//Search tutor
 				cout << "Search by? 1- TutorID, 2- Ratings: " << endl;
 				cin >> choice;
 				if (choice == 1)
@@ -1467,7 +1447,7 @@ void checkAccess(string userCode, string credentials)
 			switch (choice)
 			{
 			case 1:
-
+				//Add new tutor
 				slots = checkVacantSlot(branchSlot);
 				cout << endl << endl;
 
@@ -1589,6 +1569,7 @@ void checkAccess(string userCode, string credentials)
 				break;
 
 			case 2:
+				//View Tutor
 				sortByTutorID(&head);
 				displayAllRecords(sizeofLinkedListforTutor, branch);
 				cout << endl;
@@ -1652,6 +1633,7 @@ void checkAccess(string userCode, string credentials)
 				break;
 
 			case 3:
+				//Exit the system
 				displayExitMenu();
 				break;
 
@@ -1741,7 +1723,6 @@ string checkTutor(string userCode, string credentials)
 	//Check Whether Tutor Credentials Are Valid
 	if (found == 0)
 	{
-		//branch = current->branch;
 		cout << "Invalid Tutor ID & Credentials !!! Please Double Check Your Credentials !!!";
 		cout << endl << endl;
 
@@ -1823,10 +1804,6 @@ void checkLogin()
 };
 
 int main() {
-	/*string credentials;
-	cout << "Please Enter Your Credentials : ";
-	credentials = takePasswdFromUser();*/
-
 	head = NULL;
 
 	int choice = 1;
@@ -1885,6 +1862,5 @@ int main() {
 			break;
 		}
 	} while (!input);
-	//tutorIDGenerator(::sizeofLinkedListforTutor, "Cheras");
 	return 0;
 }

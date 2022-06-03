@@ -320,7 +320,6 @@ void displayAllRecords(int lastIndex) {
 	if (cin.get() == '\n') {
 		cout << "......Going Back To Menu ......" << endl;
 		Sleep(2000);
-		//system("CLS");
 	}
 }
 
