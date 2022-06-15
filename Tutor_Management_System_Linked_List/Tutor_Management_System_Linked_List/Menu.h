@@ -18,6 +18,8 @@ void displayStartMenu() {
 	cout << endl;
 }
 
+
+
 //Display This Menu When Users Want To Log In The System
 void displayUserType() {
 	cout << string(82, '=') << endl;
@@ -182,26 +184,48 @@ void displayModifyPersonalInfoMenu() {
 	cout << endl;
 }
 
+int loginInput() {
+	int choice = 1;
+	bool input = true;
+
+	do {
+		displayStartMenu();
+		cin >> choice;
+
+
+		return choice;
+
+	} while (!input);
+}
+
 //Display This Menu When Users Wanted To Exit The System
-void displayExitMenu() {
+int displayExitMenu() {
 	string choice;
+	int rlyExit = -1;
 	cout << "Are You Sure To Exit The Program ? (Y/N)" << endl;
 	cin >> choice;
 	if (choice == "Y" || choice == "Yes")
 	{
 		cout << "Thank You !!";
+		cout << endl;
+		//displayStartMenu();
+		rlyExit = loginInput();
+
 	}
 	else if (choice == "N" || choice == "No")
 	{
 		cout << "Remain";
 		cout << endl;
 		displayExitMenu();
+		rlyExit = loginInput();
 	}
 	else
 	{
 		cout << "Invalid Selection !!! Please Try Again !!";
 		cout << endl;
 		displayExitMenu();
+		rlyExit = loginInput();
 	}
 	cout << endl;
+	return rlyExit;
 }

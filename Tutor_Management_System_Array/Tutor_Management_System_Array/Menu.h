@@ -176,18 +176,48 @@ void displayModifyPersonalInfoMenu() {
 	cout << endl;
 }
 
+int loginInput() {
+	int choice = 1;
+	bool input = true;
+
+	do {
+		displayStartMenu();
+		cin >> choice;
+
+
+		return choice;
+
+	} while (!input);
+}
+
 //Display This Menu When Users Wanted To Exit The System
 int displayExitMenu() {
-	int exit;
-	cout << "Are You Sure To Exit The Program ? " << endl;
-	cout << "Press 1 to exit Others to remain" << endl;
-	cin >> exit;
-	if (exit == 1)
+	string choice;
+	int rlyExit = -1;
+	cout << "Are You Sure To Exit The Program ? (Y/N)" << endl;
+	cin >> choice;
+	if (choice == "Y" || choice == "Yes")
 	{
-		return -1;
+		cout << "Thank You !!";
+		cout << endl;
+		//displayStartMenu();
+		rlyExit = loginInput();
+
+	}
+	else if (choice == "N" || choice == "No")
+	{
+		cout << "Remain";
+		cout << endl;
+		displayExitMenu();
+		rlyExit = loginInput();
 	}
 	else
 	{
-		return 0;
+		cout << "Invalid Selection !!! Please Try Again !!";
+		cout << endl;
+		displayExitMenu();
+		rlyExit = loginInput();
 	}
+	cout << endl;
+	return rlyExit;
 }

@@ -250,7 +250,7 @@ void initializeRecords() {
 	allTutors[1].lastName = "Ming Yao";
 	allTutors[1].dateJoined = "20/11/2015";
 	allTutors[1].dateTerminated = "20/05/2019";
-	allTutors[1].hourlyRate = 20;
+	allTutors[1].hourlyRate = 40;
 	allTutors[1].center.centerCode = 1003;
 	allTutors[1].center.centerName = "eXcel Tuition Centre Petaling Jaya";
 	allTutors[1].center.branch = "Petaling Jaya";
